@@ -2,35 +2,145 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>柏林歷史週末 (10月)</title>
+  <title>柏林歷史週末 (10月) - 詳細行程</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700&family=Noto+Sans+TC:wght@400;700&family=Inter:wght@700;900&display=swap');
-    body { font-family: 'Noto Sans TC', sans-serif; background: linear-gradient(135deg, #422006, #f59e0b); color: #fff; text-align: center; margin: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; }
-    .card { background: rgba(0,0,0,0.4); backdrop-filter: blur(10px); padding: 40px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); max-width: 600px; }
-    h1 { font-family: 'Noto Serif TC', serif; font-size: 36px; margin-bottom: 10px; }
-    .pill { display: inline-block; background: rgba(255,255,255,0.1); padding: 5px 15px; border-radius: 20px; font-size: 14px; margin: 5px; }
-    .budget { font-family: 'Inter'; font-size: 40px; font-weight: 900; color: #facc15; margin: 20px 0; }
-    .table-container { background: rgba(255,255,255,0.05); border-radius: 10px; padding: 20px; margin-top: 20px; text-align: left; }
-    p { line-height: 1.6; font-size: 14px; color: rgba(255,255,255,0.9); }
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700&family=Noto+Sans+TC:wght@400;600;700&family=Inter:wght@600;700&display=swap');
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--p:#F57F17;--s:#37474F;--bg:#ECEFF1;--t:#263238;--tm:#546E7A;--w:#ffffff}
+    body{font-family:'Noto Sans TC','Inter',sans-serif;background:var(--bg);color:var(--t);overflow:hidden;height:100vh}
+    .slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:40px;opacity:0;transform:translateY(30px);transition:all .5s;pointer-events:none}
+    .slide.active{opacity:1;transform:translateY(0);pointer-events:all}
+    .nav-dots{position:fixed;right:20px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:100}
+    .dot{width:10px;height:10px;border-radius:50%;background:#CFD8DC;cursor:pointer;border:none;transition:.3s}
+    .dot.active{background:var(--p);transform:scale(1.5)}
+    .nav-arrows{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:15px;z-index:100;align-items:center}
+    .btn-arr{width:40px;height:40px;border-radius:50%;border:2px solid var(--p);background:var(--w);color:var(--p);cursor:pointer;font-size:16px;transition:.2s}
+    .btn-arr:hover{background:var(--p);color:var(--w)}
+    .counter{font-size:12px;font-weight:600;color:var(--tm)}
+    .hdr{text-align:center;margin-bottom:30px}
+    .eye{font-size:12px;font-weight:700;letter-spacing:2px;color:var(--s);text-transform:uppercase}
+    .h2{font-family:'Noto Serif TC';font-size:32px;color:var(--t);margin-top:5px}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;width:100%;max-width:960px}
+    .card{background:var(--w);padding:20px;border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,.05);border:1px solid #CFD8DC}
+    .c-hdr{display:flex;align-items:center;gap:10px;margin-bottom:12px;border-bottom:1px solid #CFD8DC;padding-bottom:10px}
+    .c-icon{font-size:24px}
+    .c-tit{font-size:16px;font-weight:700;color:var(--s)}
+    .c-txt{font-size:13px;color:var(--tm);line-height:1.6}
+    .c-txt strong{color:var(--t)}
+    table{width:100%;max-width:800px;background:var(--w);border-radius:15px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,.05);border-collapse:collapse}
+    th{background:var(--s);color:var(--w);padding:14px;font-size:14px;text-align:left}
+    td{padding:14px;border-bottom:1px solid #CFD8DC;font-size:14px}
+    tr:last-child td{font-weight:700;color:var(--p);font-size:18px;border-bottom:none;background:#FFFDE7}
+    .cover{background:linear-gradient(135deg,#37474F,#000000);color:var(--w);text-align:center}
+    .cover h1{font-family:'Noto Serif TC';font-size:52px;margin:10px 0;color:var(--p)}
+    .cover p{font-size:18px;opacity:.9}
+    .route-flow{display:flex;align-items:center;gap:15px;background:var(--w);padding:20px;border-radius:20px;box-shadow:0 4px 15px rgba(0,0,0,.05)}
+    .node{text-align:center;padding:10px}
+    .node .icon{font-size:24px;margin-bottom:5px}
+    .node .name{font-weight:700;font-size:14px;color:var(--t)}
+    .arrow{color:var(--p);font-weight:700;font-size:20px}
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>🇩🇪 柏林歷史週末 (3天)</h1>
-    <p>西歐最便宜首都！不需搭飛機的德國國內文化朝聖之旅。</p>
-    
-    <div style="margin: 20px 0;">
-      <span class="pill">Regensburg Hbf</span> 🚆 <span class="pill">Berlin Hbf</span> ➔ <span class="pill">布蘭登堡門 / 東邊畫廊</span>
-    </div>
-
-    <div class="budget">€ 160 <span style="font-size:16px;">(約 5,500 NTD)</span></div>
-    
-    <div class="table-container">
-      <p><strong>🚆 交通 (€40)：</strong>DB Super Sparpreis 超級早鳥票或 FlixTrain 綠色列車。</p>
-      <p><strong>🛏️ 住宿 (€60)：</strong>2 晚青旅床位，柏林青旅選擇極多且平價。</p>
-      <p><strong>🌭 飲食雜支 (€60)：</strong>柏林街頭的 Döner Kebab 與咖哩香腸 (Currywurst) 是窮遊神物，一餐不到 €6！</p>
-    </div>
+  <div class="nav-dots" id="navDots"></div>
+  <div class="nav-arrows">
+    <button class="btn-arr" id="prevBtn">◀</button>
+    <span class="counter" id="slideCounter">1 / 5</span>
+    <button class="btn-arr" id="nextBtn">▶</button>
   </div>
+
+  <section class="slide cover active">
+    <div class="eye">Oct 2026 · 3 Days in Germany</div>
+    <h1>柏林歷史與紅葉週末</h1>
+    <p>西歐最便宜首都！無須搭機，用火車解鎖最硬派的德國首都。</p>
+  </section>
+
+  <section class="slide">
+    <div class="hdr"><div class="eye">Transport & Stay</div><div class="h2">交通與極簡青旅</div></div>
+    <div class="route-flow" style="justify-content:center; margin-bottom:20px;">
+      <div class="node"><div class="icon">🚆</div><div class="name">Regensburg Hbf</div></div>
+      <div class="arrow">⟶</div>
+      <div class="node" style="border:2px solid var(--p);border-radius:10px"><div class="icon">🐻</div><div class="name">Berlin Hbf</div></div>
+      <div class="arrow">⟶</div>
+      <div class="node"><div class="icon">🏠</div><div class="name">返回雷根斯堡</div></div>
+    </div>
+    <div class="grid" style="grid-template-columns:1fr 1fr;">
+      <div class="card">
+        <div class="c-hdr"><div class="c-icon">🚄</div><div class="c-tit">火車攻略 (DB / FlixTrain)</div></div>
+        <div class="c-txt">距離柏林約 4.5 小時車程。只要提早買 DB 的 <strong>Super Sparpreis</strong>，單程可壓在 €19。也可以查查看綠色列車 FlixTrain 有無更低折扣。</div>
+      </div>
+      <div class="card">
+        <div class="c-hdr"><div class="c-icon">🛏️</div><div class="c-tit">住宿推薦：Generator Berlin Mitte</div></div>
+        <div class="c-txt"><strong>預估：€30 / 晚</strong><br>柏林青旅超級便宜！Generator 位於心臟地帶，走到博物館島只需幾分鐘，樓下就是充滿塗鴉與地下文化的酒吧街。</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="hdr"><div class="eye">Day 1 - Day 2</div><div class="h2">歷史傷痕與藝術狂歡</div></div>
+    <div class="grid" style="grid-template-columns:1fr 1fr;">
+      <div class="card">
+        <div class="c-hdr"><div class="c-icon">🏛️</div><div class="c-tit">Day 1：普魯士榮耀與國會大廈</div></div>
+        <div class="c-txt">抵達後漫步於菩提樹下大街。經過標誌性的 <strong>布蘭登堡門</strong> 與猶太人紀念碑。傍晚前往 <strong>德國國會大廈</strong> (Reichstag)，<strong style="color:red">必須提前上網預約</strong>，免費進入玻璃圓頂俯瞰柏林夜景。</div>
+      </div>
+      <div class="card">
+        <div class="c-hdr"><div class="c-icon">🧱</div><div class="c-tit">Day 2：柏林圍牆與博物館島</div></div>
+        <div class="c-txt">上午前往 <strong>東邊畫廊 (East Side Gallery)</strong>，尋找著名的「兄弟之吻」塗鴉。下午回到 <strong>博物館島</strong>，就算不買門票進去，在施普雷河畔看著柏林大教堂吃 Currywurst (咖哩香腸) 也極度愜意。</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="hdr"><div class="eye">Day 3 & Survival Hacks</div><div class="h2">跳蚤市場與窮遊神物</div></div>
+    <div class="grid" style="grid-template-columns:1fr 1fr;">
+      <div class="card">
+        <div class="c-hdr"><div class="c-icon">🪩</div><div class="c-tit">Day 3：Mauerpark 假日市集</div></div>
+        <div class="c-txt">如果今天是星期日，一定要去 <strong>Mauerpark (圍牆公園)</strong>！這裡是全柏林最瘋狂的跳蚤市場，有復古底片機、便宜二手衣，還有上千人圍觀的露天卡拉OK大會，感受柏林自由的靈魂。</div>
+      </div>
+      <div class="card">
+        <div class="c-hdr"><div class="c-icon">🥙</div><div class="c-tit">吃土神物：Döner Kebab</div></div>
+        <div class="c-txt">柏林是土耳其沙威瑪 (Döner) 的歐洲發源地！一份只要 <strong>€5 - €7</strong>，肉量爆表、蔬菜滿滿，配上一瓶 €1 的 Club Mate (瑪黛茶汽水)，就是最懂玩的柏林窮遊吃法。</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="hdr"><div class="eye">Budget Summary</div><div class="h2">3 天 2 夜 極限預算表</div></div>
+    <table>
+      <tr><th>預算項目</th><th>說明</th><th>預估費用 (歐元)</th></tr>
+      <tr><td>🚄 德國鐵路</td><td>雷根斯堡 ↔ 柏林 (DB 超級早鳥來回)</td><td>€ 40</td></tr>
+      <tr><td>🎫 市區交通</td><td>柏林 AB 區 24 小時票 x2</td><td>€ 18</td></tr>
+      <tr><td>🛏️ 住宿 2 晚</td><td>柏林市區高評分青旅</td><td>€ 60</td></tr>
+      <tr><td>🥙 飲食與雜支</td><td>沙威瑪、咖哩香腸、超市啤酒</td><td>€ 42</td></tr>
+      <tr><td colspan="2"><strong>🎯 總計花費</strong></td><td><strong>€ 160 (約 5,500 NTD)</strong></td></tr>
+    </table>
+  </section>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const dotsContainer = document.getElementById('navDots');
+    const counterEl = document.getElementById('slideCounter');
+    let current = 0;
+    slides.forEach((_, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'dot' + (i === 0 ? ' active' : '');
+      btn.addEventListener('click', () => goTo(i));
+      dotsContainer.appendChild(btn);
+    });
+    function goTo(index) {
+      if (index < 0 || index >= slides.length) return;
+      slides[current].classList.remove('active');
+      current = index;
+      slides[current].classList.add('active');
+      document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
+      counterEl.textContent = `${current + 1} / ${slides.length}`;
+    }
+    document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
+    document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') goTo(current + 1);
+      if (e.key === 'ArrowLeft') goTo(current - 1);
+    });
+  </script>
 </body>
 </html>
