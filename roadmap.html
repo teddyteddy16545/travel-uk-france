@@ -1,241 +1,147 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>半年無極限 · 歐洲終極大滿貫</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>半年無極限 · 歐洲終極大滿貫 (含預算結算)</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@300;400;500;700;900&family=Inter:wght@400;700;900&display=swap');
-    
-    :root {
-      --bg-dark: #0f172a;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --accent: #38bdf8;
-      --radius: 20px;
-    }
-
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@300;400;700;900&family=Inter:wght@400;700;900&display=swap');
+    :root { --bg-dark: #0f172a; --accent: #38bdf8; --radius: 20px; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { 
-      font-family: 'Noto Sans TC', 'Inter', sans-serif; 
-      background: var(--bg-dark); 
-      color: var(--text-main); 
-      overflow: hidden; 
-      height: 100vh; 
-    }
-
-    /* SLIDES */
+    body { font-family: 'Noto Sans TC', 'Inter', sans-serif; background: var(--bg-dark); color: #fff; overflow: hidden; height: 100vh; }
     .deck { width: 100vw; height: 100vh; position: relative; perspective: 1000px; }
-    .slide { 
-      position: absolute; inset: 0; 
-      display: flex; flex-direction: column; justify-content: center; align-items: center; 
-      padding: 40px 60px; 
-      opacity: 0; transform: scale(0.95) translateY(20px); 
-      pointer-events: none; 
-      transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1); 
-    }
+    .slide { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px 60px; opacity: 0; transform: scale(0.95) translateY(20px); pointer-events: none; transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
     .slide.active { opacity: 1; transform: scale(1) translateY(0); pointer-events: all; }
-    
-    /* THEMES */
     .theme-cover { background: linear-gradient(135deg, #0f172a, #1e293b); }
-    .theme-sep { background: linear-gradient(135deg, #2c1b18, #633222); } /* Italy Warm */
-    .theme-oct { background: linear-gradient(135deg, #332115, #8a5a19); } /* Autumn Berlin */
-    .theme-nov { background: linear-gradient(135deg, #1a1c29, #313652); } /* UK France */
-    .theme-dec { background: linear-gradient(135deg, #112822, #1b5e3f); } /* Xmas Tree */
-    .theme-feb { background: linear-gradient(135deg, #091e2b, #114a52); } /* Aurora */
-    .theme-tools { background: linear-gradient(135deg, #1e1b4b, #312e81); }
-
-    /* TIMELINE NAV */
-    .timeline {
-      position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%);
-      display: flex; align-items: center; gap: 8px; z-index: 100;
-      background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px);
-      padding: 8px 16px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.1);
-    }
-    .time-node {
-      padding: 6px 14px; border-radius: 100px; font-size: 11px; font-weight: 700;
-      color: var(--text-muted); cursor: pointer; border: none; background: transparent;
-      transition: all 0.3s ease; letter-spacing: 0.05em;
-    }
-    .time-node:hover { color: #fff; background: rgba(255,255,255,0.1); }
+    .theme-sep { background: linear-gradient(135deg, #2c1b18, #633222); }
+    .theme-oct { background: linear-gradient(135deg, #332115, #8a5a19); }
+    .theme-nov { background: linear-gradient(135deg, #1a1c29, #313652); }
+    .theme-dec { background: linear-gradient(135deg, #112822, #1b5e3f); }
+    .theme-feb { background: linear-gradient(135deg, #091e2b, #114a52); }
+    .theme-total { background: linear-gradient(135deg, #4c0519, #831843); }
+    .timeline { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 6px; z-index: 100; background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(12px); padding: 8px 16px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.1); }
+    .time-node { padding: 6px 12px; border-radius: 100px; font-size: 11px; font-weight: 700; color: #94a3b8; cursor: pointer; border: none; background: transparent; transition: all 0.3s ease; }
     .time-node.active { color: #fff; background: var(--accent); box-shadow: 0 0 12px rgba(56, 189, 248, 0.4); }
-    
-    /* ARROWS */
-    .arrow-btn {
-      position: fixed; top: 50%; transform: translateY(-50%);
-      width: 50px; height: 50px; border-radius: 50%; border: none;
-      background: rgba(255,255,255,0.05); color: #fff; font-size: 20px;
-      cursor: pointer; z-index: 100; backdrop-filter: blur(4px); transition: 0.2s;
-    }
-    .arrow-btn:hover { background: rgba(255,255,255,0.15); transform: translateY(-50%) scale(1.1); }
-    #prevBtn { left: 20px; }
-    #nextBtn { right: 20px; }
-
-    /* CONTENT STYLES */
+    .arrow-btn { position: fixed; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; border-radius: 50%; border: none; background: rgba(255,255,255,0.05); color: #fff; font-size: 20px; cursor: pointer; z-index: 100; backdrop-filter: blur(4px); transition: 0.2s; }
+    #prevBtn { left: 20px; } #nextBtn { right: 20px; }
     .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; margin-bottom: 12px; text-align: center;}
     .title { font-family: 'Noto Serif TC', serif; font-size: clamp(32px, 5vw, 48px); font-weight: 700; line-height: 1.2; text-align: center; margin-bottom: 24px; text-shadow: 0 4px 12px rgba(0,0,0,0.3); }
-    
     .card-container { display: flex; gap: 20px; width: 100%; max-width: 960px; justify-content: center; }
-    .glass-card {
-      background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(16px); border-radius: var(--radius);
-      padding: 24px; flex: 1; display: flex; flex-direction: column; gap: 12px;
-    }
-    .card-title { font-size: 18px; font-weight: 700; color: #fff; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 4px; display: flex; align-items: center; gap: 8px;}
+    .glass-card { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(16px); border-radius: var(--radius); padding: 24px; flex: 1; display: flex; flex-direction: column; gap: 12px; position: relative; overflow: hidden; }
+    .card-title { font-size: 18px; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
     .card-text { font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.6; }
-    .card-text strong { color: var(--accent); }
-    
-    /* SPECIFIC ELEMENTS */
-    .route-pill { display: inline-block; padding: 4px 10px; background: rgba(255,255,255,0.1); border-radius: 8px; font-size: 11px; margin: 4px 4px 4px 0; font-family: 'Inter'; }
+    .route-pill { display: inline-block; padding: 4px 10px; background: rgba(255,255,255,0.1); border-radius: 8px; font-size: 11px; margin: 4px 4px 4px 0; }
     .btn-link { display: inline-flex; align-items: center; justify-content: center; padding: 10px 20px; border-radius: 100px; background: var(--accent); color: #000; font-weight: 700; font-size: 13px; text-decoration: none; margin-top: auto; transition: 0.2s; }
-    .btn-link:hover { transform: translateY(-2px); box-shadow: 0 8px 16px rgba(56, 189, 248, 0.3); }
-
-    /* COVER SPECIFIC */
-    .cover-date { font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 300; letter-spacing: 0.1em; color: rgba(255,255,255,0.6); margin-bottom: 40px; }
-    .base-station { display: inline-flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.1); padding: 12px 24px; border-radius: 100px; font-size: 14px; font-weight: 500; border: 1px solid rgba(255,255,255,0.2); }
-    .badge { background: #eab308; color: #000; font-size: 10px; font-weight: 900; padding: 2px 6px; border-radius: 4px; margin-left: 6px; vertical-align: middle; }
+    .budget-badge { position: absolute; top: 0; right: 0; background: #eab308; color: #000; font-weight: 900; font-size: 12px; padding: 6px 16px; border-bottom-left-radius: var(--radius); font-family: 'Inter'; box-shadow: -2px 2px 10px rgba(0,0,0,0.2); }
+    .total-number { font-family: 'Inter'; font-size: 80px; font-weight: 900; color: #fde047; text-shadow: 0 10px 30px rgba(0,0,0,0.5); line-height: 1; margin: 20px 0; }
+    .total-subtitle { font-size: 24px; font-weight: 700; color: rgba(255,255,255,0.9); }
   </style>
 </head>
 <body>
-
-  <!-- NAVIGATION -->
   <button class="arrow-btn" id="prevBtn">◀</button>
   <button class="arrow-btn" id="nextBtn">▶</button>
   <div class="timeline" id="timelineNav">
     <button class="time-node active" data-index="0">序章</button>
-    <button class="time-node" data-index="1">9月</button>
-    <button class="time-node" data-index="2">10月</button>
-    <button class="time-node" data-index="3">11月</button>
-    <button class="time-node" data-index="4">12月</button>
-    <button class="time-node" data-index="5">2月</button>
-    <button class="time-node" data-index="6">神器</button>
+    <button class="time-node" data-index="1">9月(義)</button>
+    <button class="time-node" data-index="2">10月(德)</button>
+    <button class="time-node" data-index="3">11月(英法)</button>
+    <button class="time-node" data-index="4">12月(東歐)</button>
+    <button class="time-node" data-index="5">2月(北歐)</button>
+    <button class="time-node" data-index="6">總結算</button>
   </div>
 
-  <!-- SLIDE 0: COVER -->
   <section class="slide theme-cover active">
     <div class="eyebrow">The Ultimate Master Plan</div>
     <h1 class="title">歐洲半年無極限<br>窮遊大滿貫計畫</h1>
-    <div class="cover-date">SEP 2026 — FEB 2027</div>
-    <div class="base-station">
-      📍 戰略根據地：德國 雷根斯堡 (Regensburg)
-    </div>
-    <p style="margin-top: 24px; font-size: 13px; color: var(--text-muted); max-width: 500px; text-align: center; line-height: 1.6;">
-      完美利用巴伐利亞地理優勢與 49 歐月票，將半年時光切割成 5 趟精華旅程。<br>用最少的錢，拿下西歐、中東歐、南歐與北歐。
-    </p>
+    <div style="font-size: 16px; color: #94a3b8; margin-bottom: 20px;">含各階段極限預算精算</div>
+    <div style="background: rgba(255,255,255,0.1); padding: 12px 24px; border-radius: 100px; font-size: 14px;">📍 根據地：德國 雷根斯堡 (Regensburg)</div>
   </section>
 
-  <!-- SLIDE 1: SEPTEMBER -->
   <section class="slide theme-sep">
     <div class="eyebrow">September 2026</div>
-    <h2 class="title">🇮🇹 義大利夏末狂歡</h2>
+    <h2 class="title">🇮🇹 義大利夏末狂歡 (4天)</h2>
     <div class="card-container">
       <div class="glass-card">
+        <div class="budget-badge">預估: €330 (約 1.15萬 NTD)</div>
         <div class="card-title">🍕 尋找最道地義大利麵</div>
-        <p class="card-text">趁歐洲尚未入冬，南下義大利享受陽光。避開暑假人潮，這時候的羅馬與威尼斯最舒服。</p>
-        <div>
-          <span class="route-line" style="font-size:12px; color:#fff;">出發路線：</span><br>
-          <span class="route-pill">MUC / NUE 機場</span> ✈️ <span class="route-pill">羅馬 / 米蘭</span>
+        <div style="margin: 8px 0;">
+          <span class="route-pill">羅馬</span> ➔ <span class="route-pill">佛羅倫斯</span> ➔ <span class="route-pill">威尼斯</span>
         </div>
-        <p class="card-text"><strong>省錢解法：</strong>搭 Ryanair 廉航單程常低於 €25，或從慕尼黑搭乘 ÖBB 夜鋪火車直達威尼斯。</p>
-      </div>
-      <div class="glass-card" style="border-color: rgba(234, 179, 8, 0.4);">
-        <div class="card-title">🍻 隱藏加碼：慕尼黑啤酒節</div>
-        <p class="card-text">九月下旬絕不可錯過的世界最大慶典 <strong>Oktoberfest</strong>！</p>
-        <p class="card-text"><strong>地利之便：</strong>從雷根斯堡搭 RE 火車只要 1.5 小時，使用 49歐 D-Ticket，來回交通費直接 <strong>€0</strong>！當天來回完全不需住宿。</p>
+        <p class="card-text">趁歐洲尚未入冬，南下義大利享受陽光。機票與火車住宿大約只需 €230，加上伙食費極限壓在 €330。</p>
+        <a href="italy.html" target="_blank" class="btn-link">👉 查看義大利專屬行程</a>
       </div>
     </div>
   </section>
 
-  <!-- SLIDE 2: OCTOBER -->
   <section class="slide theme-oct">
     <div class="eyebrow">October 2026</div>
-    <h2 class="title">🇩🇪 柏林歷史與紅葉</h2>
+    <h2 class="title">🇩🇪 柏林歷史與紅葉 (3天)</h2>
     <div class="card-container">
-      <div class="glass-card" style="max-width: 600px; margin: 0 auto;">
+      <div class="glass-card">
+        <div class="budget-badge">預估: €160 (約 5.5千 NTD)</div>
         <div class="card-title">🐻 探索全西歐最便宜的首都</div>
-        <p class="card-text">10月剛開學或剛安頓好，安排一個週末週末前往德國首都，感受秋季的菩提樹下大街與柏林圍牆。</p>
-        <div style="margin: 10px 0;">
-          <span class="route-pill">Regensburg Hbf</span> 🚆 <span class="route-pill">Berlin Hbf</span>
-        </div>
-        <p class="card-text"><strong>交通神解：</strong>提早在 DB 買 <strong>Super Sparpreis (超級早鳥票)</strong>，單程可壓在 €17~29 之間。或者選擇 <strong>FlixTrain (綠色廉價火車)</strong>，票價更低。</p>
-        <p class="card-text"><strong>窮遊吃法：</strong>柏林的 Döner Kebab (沙威瑪) 是全歐洲最猛，只要 €5~7 就能吃撐一頓！</p>
+        <div style="margin: 8px 0;"><span class="route-pill">Regensburg</span> 🚆 <span class="route-pill">Berlin Hbf</span></div>
+        <p class="card-text">利用 DB 破盤早鳥票或 FlixTrain，交通費極低。住青旅、吃 Döner Kebab 窮遊神物。</p>
+        <a href="berlin.html" target="_blank" class="btn-link">👉 查看柏林專屬行程</a>
       </div>
     </div>
   </section>
 
-  <!-- SLIDE 3: NOVEMBER -->
   <section class="slide theme-nov">
     <div class="eyebrow">November 2026</div>
-    <h2 class="title">🇬🇧🇫🇷 英法雙城淡季抄底</h2>
+    <h2 class="title">🇬🇧🇫🇷 英法雙城淡季抄底 (7天)</h2>
     <div class="card-container">
       <div class="glass-card">
-        <div class="card-title">🥐 最划算的黃金出發月</div>
-        <p class="card-text">利用 11 月全年機票住宿<strong>最低價</strong>的時期，攻克消費最高的倫敦與巴黎。室內博物館與展覽完全不受深秋天氣影響。</p>
-        <div style="margin: 8px 0;">
-          <span class="route-pill">MUC</span> ✈️ <span class="route-pill">倫敦 (LHR/STN)</span> 🚆 <span class="route-pill">巴黎 (CDG)</span> ✈️ <span class="route-pill">MUC</span>
-        </div>
-        <p class="card-text"><strong>必要任務：</strong>台灣護照去英國雖免簽，但記得提前線上花 £10 申請 <strong>UK ETA</strong> (電子旅行憑證)！</p>
-        <a href="https://teddyteddy16545.github.io/travel-uk-france/" target="_blank" class="btn-link">👉 查看英法雙城專屬簡報</a>
+        <div class="budget-badge">預估: €1,100 (約 3.85萬 NTD)</div>
+        <div class="card-title">🥐 全年最低價的黃金出發月</div>
+        <div style="margin: 8px 0;"><span class="route-pill">倫敦</span> 🚆 <span class="route-pill">巴黎</span></div>
+        <p class="card-text">含歐洲之星與大都會區的高昂青旅費用。11月避開人潮，享受最高品質的博物館之旅。</p>
+        <a href="index.html" target="_blank" class="btn-link">👉 查看英法雙城專屬簡報</a>
       </div>
     </div>
   </section>
 
-  <!-- SLIDE 4: DECEMBER -->
   <section class="slide theme-dec">
     <div class="eyebrow">December 2026</div>
-    <h2 class="title">🎄 中東歐「聖誕市集」環線</h2>
-    <div class="card-container">
-      <div class="glass-card" style="max-width: 800px; margin: 0 auto;">
-        <div class="card-title">✨ 不用搭飛機的浪漫金三角</div>
-        <p class="card-text">12月是歐洲最魔幻的季節。從雷根斯堡出發，純靠廉價大巴與火車，不走回頭路串起東歐最美聖誕環線！</p>
-        <div style="margin: 16px 0; display: flex; flex-wrap: wrap; gap: 8px;">
-          <span class="route-pill" style="background:#b91c1c;">🇨🇿 布拉格 (老城聖誕)</span> ➔
-          <span class="route-pill" style="background:#047857;">🇭🇺 布達佩斯 (溫泉與夜景)</span> ➔
-          <span class="route-pill" style="background:#be123c;">🇦🇹 維也納 (皇宮市集)</span> ➔
-          <span class="route-pill" style="background:#1d4ed8;">🇦🇹 哈修塔特 (雪白仙境)</span>
-        </div>
-        <p class="card-text"><strong>交通破盤價：</strong>布拉格到布達佩斯搭乘 <strong>RegioJet (捷克黃色大巴)</strong> 極度便宜。從哈修塔特回程經過薩爾斯堡後，只要越過邊境進入德國巴伐利亞，就能再度接軌你的 <strong>49歐 D-Ticket</strong> 免費搭回雷根斯堡！</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- SLIDE 5: FEBRUARY -->
-  <section class="slide theme-feb">
-    <div class="eyebrow">February 2027</div>
-    <h2 class="title">🌌 北歐四國 極光壓軸大滿貫</h2>
+    <h2 class="title">🎄 中東歐聖誕環線 (7天)</h2>
     <div class="card-container">
       <div class="glass-card">
-        <div class="card-title">❄️ 離開德國前的最後一舞</div>
-        <p class="card-text">2/22 回國前，將最震撼的冰島極光與挪威峽灣當作畢業旅行。2 月是看極光機率最高的月份，且機票跌至谷底。</p>
+        <div class="budget-badge">預估: €455 (約 1.6萬 NTD)</div>
+        <div class="card-title">✨ 不搭飛機的浪漫金三角</div>
         <div style="margin: 8px 0;">
-          <span class="route-pill">🇮🇸 冰島自駕</span> ➔ <span class="route-pill">🇳🇴 挪威峽灣</span> ➔ <span class="route-pill">🇩🇰 丹麥童話</span> ➔ <span class="route-pill">🇸🇪 瑞典 IKEA</span>
+          <span class="route-pill">布拉格</span> ➔ <span class="route-pill">布達佩斯</span> ➔ <span class="route-pill">維也納</span> ➔ <span class="route-pill">哈修塔特</span>
         </div>
-        <p class="card-text"><strong>注意事項：</strong>冰島 20 歲租車必備<strong>台灣駕照正本</strong>＋國際駕照。住宿趕快預約哥本哈根超神青旅 Next House！</p>
-        <a href="https://teddyteddy16545.github.io/travel-uk-france/nordic.html" target="_blank" class="btn-link" style="background: #34d399;">👉 查看北歐四國專屬簡報</a>
+        <p class="card-text">純陸路靠 Flixbus/RegioJet 串聯，回程用 49歐月票免車費。東歐物價極低，享受最高 CP 值的聖誕市集！</p>
+        <a href="centraleurope.html" target="_blank" class="btn-link">👉 查看東歐聖誕專屬行程</a>
       </div>
     </div>
   </section>
 
-  <!-- SLIDE 6: SURVIVAL TOOLS -->
-  <section class="slide theme-tools">
-    <div class="eyebrow">Survival Toolkit</div>
-    <h2 class="title">🎒 窮遊四大神器</h2>
-    <div class="card-container" style="flex-wrap: wrap;">
-      <div class="glass-card" style="min-width: 40%;">
-        <div class="card-title">🎫 D-Ticket (49歐月票)</div>
-        <p class="card-text">你的神級護身符！去慕尼黑機場 (ÜFEX)、去紐倫堡機場，甚至搭到邊境薩爾斯堡，全靠這張卡把德國境內交通費歸零。</p>
+  <section class="slide theme-feb">
+    <div class="eyebrow">February 2027</div>
+    <h2 class="title">🌌 北歐四國極光壓軸 (10天)</h2>
+    <div class="card-container">
+      <div class="glass-card">
+        <div class="budget-badge">預估: €1,280 (約 4.5萬 NTD)</div>
+        <div class="card-title">❄️ 離開德國前的最後一舞</div>
+        <div style="margin: 8px 0;">
+          <span class="route-pill">冰島</span> ➔ <span class="route-pill">挪威</span> ➔ <span class="route-pill">丹麥</span> ➔ <span class="route-pill">瑞典</span>
+        </div>
+        <p class="card-text">冰島20歲自駕＋挪威峽灣＋丹麥童話＋瑞典IKEA。機票跌至谷底的極光神級安排。</p>
+        <a href="nordic.html" target="_blank" class="btn-link">👉 查看北歐四國專屬簡報</a>
       </div>
-      <div class="glass-card" style="min-width: 40%;">
-        <div class="card-title">📱 Omio / Trainline</div>
-        <p class="card-text">手機必裝 APP。比價東歐大巴 (Flixbus) 與各國鐵路 (RegioJet / ÖBB / Eurostar) 最直觀的神器。</p>
-      </div>
-      <div class="glass-card" style="min-width: 40%;">
-        <div class="card-title">✈️ 兩大廉航與雙機場</div>
-        <p class="card-text">鎖定 <strong>Ryanair</strong> 與 <strong>EasyJet</strong>。利用雷根斯堡地利之便，同時比價「慕尼黑 MUC」與「紐倫堡 NUE」出發的機票。</p>
-      </div>
-      <div class="glass-card" style="min-width: 40%;">
-        <div class="card-title">🛒 歐洲超市救星</div>
-        <p class="card-text">東歐找 <strong>Billa/Albert</strong>，北歐找 <strong>Rema 1000/小豬</strong>，德國找 <strong>Aldi/Lidl</strong>。微波食品與義大利麵是預算守護神。</p>
+    </div>
+  </section>
+
+  <section class="slide theme-total">
+    <div class="eyebrow">Grand Total</div>
+    <h2 class="title">半年 12 國總結算</h2>
+    <div class="total-number">€ 3,325</div>
+    <div class="total-subtitle">大約 11.6 萬 台幣</div>
+    <div class="card-container" style="margin-top: 30px;">
+      <div class="glass-card" style="text-align: center; border-color: #fde047;">
+        <p class="card-text"><strong>你完成了什麼？</strong></p>
+        <p class="card-text">花了不到 12 萬台幣，走過 12 個國家（德、義、英、法、捷、匈、奧、冰、挪、丹、瑞典、梵蒂岡）。包含了超過 30 天的高密度精華旅行，每一筆錢都花在刀口上，這是屬於 20 歲的極致浪漫與執行力！</p>
       </div>
     </div>
   </section>
@@ -244,7 +150,6 @@
     const slides = document.querySelectorAll('.slide');
     const nodes = document.querySelectorAll('.time-node');
     let current = 0;
-    
     function goTo(index) {
       if (index < 0 || index >= slides.length) return;
       slides[current].classList.remove('active');
@@ -253,29 +158,12 @@
       slides[current].classList.add('active');
       nodes[current].classList.add('active');
     }
-
-    nodes.forEach(node => {
-      node.addEventListener('click', (e) => {
-        goTo(parseInt(e.target.dataset.index));
-      });
-    });
-
+    nodes.forEach(node => node.addEventListener('click', (e) => goTo(parseInt(e.target.dataset.index))));
     document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
     document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
-
     document.addEventListener('keydown', e => {
       if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goTo(current + 1);
       if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   goTo(current - 1);
-    });
-
-    // Touch swipe support
-    let touchX = null;
-    document.addEventListener('touchstart', e => touchX = e.touches[0].clientX);
-    document.addEventListener('touchend', e => {
-      if (!touchX) return;
-      let diff = touchX - e.changedTouches[0].clientX;
-      if (Math.abs(diff) > 50) goTo(diff > 0 ? current + 1 : current - 1);
-      touchX = null;
     });
   </script>
 </body>
