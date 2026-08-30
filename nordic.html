@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>冰與峽灣 · 5萬北歐挑戰</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;700&family=Noto+Sans+TC:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&display=swap');
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      /* Nordic Theme Colors */
+      --snow: #F4F7F9;
+      --ice-light: #E1EBF2;
+      --ice-blue: #90B4CE;
+      --fjord: #1F4259;
+      --fjord-dark: #112A3C;
+      --aurora: #38A3A5;
+      --aurora-light: #57CC99;
+      --midnight: #0B192C;
+      --text-main: #2D3748;
+      --text-muted: #718096;
+      --radius: 16px;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,.06);
+      --shadow-md: 0 8px 32px rgba(0,0,0,.10);
+    }
+    body { font-family:'Noto Sans TC','Inter',sans-serif; background:var(--snow); color:var(--text-main); overflow:hidden; height:100vh; }
+
+    /* DECK */
+    .deck { width:100vw; height:100vh; position:relative; }
+    .slide { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:44px 60px; opacity:0; transform:translateY(40px); pointer-events:none; transition:opacity .5s cubic-bezier(.4,0,.2,1), transform .5s cubic-bezier(.4,0,.2,1); }
+    .slide.active { opacity:1; transform:translateY(0); pointer-events:all; }
+    .slide.exit-up { opacity:0; transform:translateY(-40px); }
+
+    /* NAV */
+    .nav-dots { position:fixed; right:26px; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; gap:10px; z-index:100; }
+    .dot { width:8px; height:8px; border-radius:50%; background:var(--ice-blue); cursor:pointer; transition:all .3s; border:none; }
+    .dot.active { background:var(--aurora); transform:scale(1.5); }
+    .nav-arrows { position:fixed; bottom:28px; left:50%; transform:translateX(-50%); display:flex; gap:14px; z-index:100; }
+    .arrow-btn { width:46px; height:46px; border-radius:50%; border:2px solid var(--ice-blue); background:rgba(244,247,249,.88); backdrop-filter:blur(8px); cursor:pointer; font-size:17px; display:flex; align-items:center; justify-content:center; transition:all .22s; color:var(--fjord); }
+    .arrow-btn:hover { background:var(--aurora); color:#fff; border-color:var(--aurora); transform:scale(1.1); }
+    .slide-counter { font-size:11px; color:var(--text-muted); letter-spacing:.08em; font-weight:500; padding:0 8px; line-height:46px; }
+    .progress-bar { position:fixed; top:0; left:0; height:3px; background:linear-gradient(90deg,var(--fjord),var(--aurora)); transition:width .4s ease; z-index:200; }
+
+    /* COMMON */
+    .slide-header { text-align:center; margin-bottom:28px; }
+    .slide-eyebrow { font-size:11.5px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--aurora); margin-bottom:8px; }
+    .slide-h2 { font-family:'Noto Serif TC',serif; font-size:clamp(20px,2.6vw,34px); font-weight:700; color:var(--fjord-dark); line-height:1.3; }
+    .btn { display:inline-flex; align-items:center; gap:5px; padding:7px 13px; border-radius:100px; font-size:11px; font-weight:600; cursor:pointer; border:none; text-decoration:none; transition:all .2s ease; }
+    .btn-flights { background:#38A3A5; color:#fff; }
+    .btn-flights:hover { background:#2a7a7c; transform:scale(1.04); box-shadow:0 4px 12px rgba(56,163,165,.3); }
+    .btn-maps { background:#57CC99; color:#fff; }
+    .btn-maps:hover { background:#45b583; transform:scale(1.04); }
+    .free-badge { display:inline-block; font-size:9.5px; font-weight:700; padding:1px 5px; border-radius:4px; background:rgba(87,204,153,.15); color:var(--fjord); margin-left:3px; }
+    .address-text { font-size: 10px; color: #718096; margin-top: 4px; display: block; font-family: 'Inter', sans-serif; }
+
+    /* SLIDE 1 COVER */
+    .slide-cover { background:linear-gradient(145deg,var(--midnight),var(--fjord) 50%,var(--midnight)); text-align:center; position:relative; overflow:hidden; }
+    .slide-cover::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 60% 50% at 20% 80%,rgba(87,204,153,.25),transparent 70%),radial-gradient(ellipse 50% 40% at 80% 20%,rgba(144,180,206,.2),transparent 70%); }
+    .cover-eyebrow { font-size:12px; font-weight:500; letter-spacing:.25em; color:rgba(255,255,255,.6); text-transform:uppercase; margin-bottom:18px; position:relative; }
+    .cover-title { font-family:'Noto Serif TC',serif; font-size:clamp(32px,5vw,64px); font-weight:700; color:#fff; line-height:1.2; position:relative; margin-bottom:10px; }
+    .cover-title span { color:var(--aurora-light); }
+    .cover-subtitle { font-size:17px; color:rgba(255,255,255,.75); margin-bottom:32px; position:relative; font-weight:300; }
+    .cover-tags { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; position:relative; margin-bottom:36px; }
+    .tag-outline { padding:7px 18px; border-radius:100px; font-size:12.5px; font-weight:500; border:1.5px solid rgba(255,255,255,.3); color:rgba(255,255,255,.9); background:rgba(255,255,255,.08); backdrop-filter:blur(4px); }
+    .cover-cities { display:flex; gap:28px; justify-content:center; position:relative; }
+    .city-badge { display:flex; flex-direction:column; align-items:center; gap:7px; }
+    .city-icon { width:68px; height:68px; border-radius:18px; display:flex; align-items:center; justify-content:center; font-size:30px; background:rgba(255,255,255,.1); border:1.5px solid rgba(255,255,255,.2); backdrop-filter:blur(8px); }
+    .city-name { font-size:12px; color:rgba(255,255,255,.7); font-weight:500; letter-spacing:.06em; }
+
+    /* SLIDE 2 OVERVIEW */
+    .slide-overview { background:var(--snow); }
+    .route-flow { display:flex; align-items:center; width:100%; max-width:900px; }
+    .route-node { flex:1; text-align:center; padding:16px 8px; background:#fff; border-radius:var(--radius); box-shadow:var(--shadow-sm); border:1px solid var(--ice-light); }
+    .route-node .icon { font-size:24px; margin-bottom:4px; }
+    .route-node .label { font-size:9.5px; color:var(--text-muted); letter-spacing:.05em; text-transform:uppercase; margin-bottom:3px; }
+    .route-node .name { font-size:13px; font-weight:600; color:var(--fjord-dark); }
+    .route-arrow { flex:0 0 40px; text-align:center; color:var(--aurora); font-size:16px; position:relative; }
+    .route-arrow-label { font-size:8.5px; color:var(--text-muted); white-space:nowrap; position:absolute; top:-16px; left:50%; transform:translateX(-50%); background:var(--ice-light); padding:2px 5px; border-radius:4px; font-weight:500; }
+    .stats-row { display:flex; gap:14px; margin-top:24px; width:100%; max-width:900px; }
+    .stat-card { flex:1; background:#fff; border-radius:var(--radius); padding:16px 12px; text-align:center; box-shadow:var(--shadow-sm); border:1px solid var(--ice-light); }
+    .stat-num { font-family:'Inter',sans-serif; font-size:25px; font-weight:700; color:var(--fjord); line-height:1; margin-bottom:4px; }
+    .stat-label { font-size:11px; color:var(--text-muted); font-weight:500; }
+
+    /* SLIDE 3 TRANSPORT */
+    .slide-transport { background:var(--ice-light); }
+    .transport-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:13px; width:100%; max-width:860px; }
+    .transport-card { background:#fff; border-radius:var(--radius); padding:18px 20px; box-shadow:var(--shadow-sm); border:1px solid var(--ice-blue); display:flex; flex-direction:column; gap:7px; transition:transform .2s,box-shadow .2s; }
+    .transport-card:hover { transform:translateY(-3px); box-shadow:var(--shadow-md); }
+    .transport-card.featured { background:linear-gradient(135deg,var(--fjord-dark),var(--fjord)); border-color:transparent; }
+    .transport-seg { font-size:9.5px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--text-muted); }
+    .transport-card.featured .transport-seg { color:rgba(255,255,255,.5); }
+    .transport-route { font-size:14.5px; font-weight:600; color:var(--charcoal); }
+    .transport-card.featured .transport-route { color:#fff; }
+    .transport-detail { font-size:12px; color:var(--text-muted); line-height:1.5; }
+    .transport-card.featured .transport-detail { color:rgba(255,255,255,.7); }
+    .transport-footer { display:flex; align-items:center; gap:8px; justify-content:space-between; margin-top:4px; }
+    .transport-price { font-family:'Inter',sans-serif; font-size:18px; font-weight:700; color:var(--fjord); }
+    .transport-card.featured .transport-price { color:var(--aurora-light); }
+
+    /* SLIDE 4 STAY */
+    .slide-stay { background:var(--snow); }
+    .stay-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; width:100%; max-width:900px; }
+    .stay-country { border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow-md); }
+    .stay-country-header { padding:16px 20px 13px; display:flex; align-items:center; gap:11px; }
+    .stay-country-header.iceland { background:linear-gradient(135deg,#1A365D,#2B5B84); }
+    .stay-country-header.norway { background:linear-gradient(135deg,#8B2230,#BA2B3D); }
+    .stay-flag { font-size:24px; }
+    .stay-country-name { font-family:'Noto Serif TC',serif; font-size:16px; font-weight:700; color:#fff; }
+    .stay-country-sub { font-size:10.5px; color:rgba(255,255,255,.65); margin-top:2px; }
+    .stay-options { background:#fff; }
+    .stay-option { padding:13px 20px; border-bottom:1px solid var(--ice-light); }
+    .stay-option:last-child { border-bottom:none; }
+    .stay-option-top { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:4px; }
+    .stay-option-name { font-size:12.5px; font-weight:600; color:var(--charcoal); flex:1; }
+    .stay-option-price { font-family:'Inter',sans-serif; font-size:13.5px; font-weight:700; color:var(--fjord); }
+    .stay-option-desc { font-size:11.5px; color:var(--text-muted); line-height:1.5; }
+    .stay-option-footer { display:flex; align-items:flex-end; justify-content:space-between; margin-top:7px; }
+    .stay-stars { color:#F6AD55; font-size:11px; }
+
+    /* SLIDES 5 & 6 */
+    .slide-iceland { background:#E8F0F2; }
+    .slide-norway  { background:#F9EDEE; }
+    .day-cards { display:flex; gap:13px; width:100%; max-width:900px; }
+    .day-card { flex:1; background:#fff; border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow-sm); }
+    .day-card-header { padding:13px 17px; }
+    .day-card-header.iceland { background:linear-gradient(135deg,#1A365D,#2B5B84); }
+    .day-card-header.norway  { background:linear-gradient(135deg,#8B2230,#BA2B3D); }
+    .day-num { font-size:9.5px; font-weight:600; letter-spacing:.15em; text-transform:uppercase; color:rgba(255,255,255,.6); margin-bottom:3px; }
+    .day-theme { font-size:13.5px; font-weight:700; color:#fff; line-height:1.3; }
+    .day-body { padding:13px 17px; }
+    .day-item { display:flex; gap:7px; margin-bottom:12px; align-items:flex-start; }
+    .day-item:last-child { margin-bottom:0; }
+    .day-item-icon { font-size:14px; flex-shrink:0; margin-top:1px; }
+    .day-item-text { font-size:12px; color:var(--slate); line-height:1.5; width:100%; }
+    .day-item-title { font-weight:600; color:var(--charcoal); display:block; margin-bottom:1px; }
+
+    /* SLIDE 7 TIPS */
+    .slide-tips { background:#EAF4F4; }
+    .tips-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:13px; width:100%; max-width:900px; }
+    .tip-card { background:#fff; border-radius:var(--radius); padding:18px 16px; box-shadow:var(--shadow-sm); border:1px solid #CCE3E3; }
+    .tip-icon { font-size:26px; margin-bottom:9px; }
+    .tip-title { font-size:12.5px; font-weight:700; color:var(--fjord-dark); margin-bottom:5px; }
+    .tip-body { font-size:11.5px; color:var(--text-muted); line-height:1.6; }
+    .tip-highlight { display:inline-block; margin-top:8px; font-size:10.5px; font-weight:600; color:var(--aurora); background:rgba(56,163,165,.1); padding:3px 9px; border-radius:100px; }
+
+    /* SLIDE 8 BUDGET */
+    .slide-budget { background:var(--snow); }
+    .budget-table { width:100%; max-width:740px; border-collapse:separate; border-spacing:0; background:#fff; border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow-md); }
+    .budget-table thead tr { background:linear-gradient(135deg,var(--fjord-dark),var(--fjord)); }
+    .budget-table th { padding:11px 16px; text-align:left; font-size:10.5px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.75); }
+    .budget-table th:last-child { text-align:right; }
+    .budget-table td { padding:11px 16px; font-size:12.5px; color:var(--charcoal); border-bottom:1px solid var(--ice-light); }
+    .budget-table td:last-child { text-align:right; font-family:'Inter',sans-serif; font-weight:600; color:var(--aurora); }
+    .budget-table tr:last-child td { background:linear-gradient(135deg,rgba(56,163,165,.1),rgba(56,163,165,.05)); font-weight:700; font-size:13.5px; color:var(--fjord-dark); border-bottom:none; }
+    .budget-table tr:nth-child(even):not(:last-child) td { background:var(--snow); }
+    .budget-cat { font-size:10.5px; color:var(--text-muted); margin-top:2px; }
+    .action-box { margin-top:18px; width:100%; max-width:740px; background:linear-gradient(135deg,var(--fjord-dark),var(--fjord)); border-radius:var(--radius); padding:16px 22px; display:flex; gap:24px; }
+    .action-box-title { font-size:12.5px; font-weight:700; color:#fff; margin-bottom:5px; }
+    .action-item { font-size:11.5px; color:rgba(255,255,255,.75); margin-bottom:3px; display:flex; gap:5px; }
+  </style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+<nav class="nav-dots" id="navDots"></nav>
+<div class="nav-arrows">
+  <button class="arrow-btn" id="prevBtn">◀</button>
+  <span class="slide-counter" id="slideCounter">1 / 8</span>
+  <button class="arrow-btn" id="nextBtn">▶</button>
+</div>
+
+<!-- SLIDE 1: COVER -->
+<section class="slide slide-cover active" data-index="0">
+  <div class="cover-eyebrow">2026 · Aurora Hunters · Smart Travel</div>
+  <h1 class="cover-title">冰與峽灣<br><span>極限五萬</span>挑戰旅程</h1>
+  <p class="cover-subtitle">冰島追光 × 挪威峽灣 · 7 天 6 夜</p>
+  <div class="cover-tags">
+    <span class="tag-outline">🗓️ 冰雪季出發</span>
+    <span class="tag-outline">💰 NT$ 50,000 封頂</span>
+    <span class="tag-outline">✨ 極光機率極高</span>
+  </div>
+  <div class="cover-cities">
+    <div class="city-badge"><div class="city-icon">🇹🇼</div><div class="city-name">TAIWAN</div></div>
+    <div style="color:rgba(255,255,255,.3);font-size:20px;position:relative;top:18px;">→</div>
+    <div class="city-badge"><div class="city-icon">🇮🇸</div><div class="city-name">ICELAND</div></div>
+    <div style="color:rgba(255,255,255,.3);font-size:20px;position:relative;top:18px;">→</div>
+    <div class="city-badge"><div class="city-icon">🇳🇴</div><div class="city-name">NORWAY</div></div>
+    <div style="color:rgba(255,255,255,.3);font-size:20px;position:relative;top:18px;">→</div>
+    <div class="city-badge"><div class="city-icon">🏠</div><div class="city-name">RETURN</div></div>
+  </div>
+  <div style="margin-top:20px;font-size:10px;color:rgba(255,255,255,.4);">*若從雷根斯堡/慕尼黑出發，預算可降至 NT$30,000 內</div>
+</section>
+
+<!-- SLIDE 2: OVERVIEW -->
+<section class="slide slide-overview" data-index="1">
+  <div class="slide-header">
+    <div class="slide-eyebrow">Trip Overview</div>
+    <h2 class="slide-h2">行程路線總覽</h2>
+  </div>
+  <div class="route-flow">
+    <div class="route-node"><div class="icon">🛫</div><div class="label">出發地</div><div class="name">台北 (或 MUC)</div></div>
+    <div class="route-arrow"><span class="route-arrow-label">轉機航段</span>⟶</div>
+    <div class="route-node" style="border-color:#1A365D;background:#E8F0F2;"><div class="icon">🇮🇸</div><div class="label">Day 1–3</div><div class="name">冰島</div></div>
+    <div class="route-arrow"><span class="route-arrow-label">SAS 2.5h</span>⟶</div>
+    <div class="route-node" style="border-color:#8B2230;background:#F9EDEE;"><div class="icon">🇳🇴</div><div class="label">Day 4–6</div><div class="name">挪威</div></div>
+    <div class="route-arrow"><span class="route-arrow-label">轉機航段</span>⟶</div>
+    <div class="route-node"><div class="icon">🏠</div><div class="label">返家</div><div class="name">台北 (或 MUC)</div></div>
+  </div>
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-num">7</div><div class="stat-label">天數</div></div>
+    <div class="stat-card"><div class="stat-num">6</div><div class="stat-label">住宿夜數</div></div>
+    <div class="stat-card"><div class="stat-num">2</div><div class="stat-label">國家</div></div>
+    <div class="stat-card"><div class="stat-num">∞</div><div class="stat-label">極光機率</div></div>
+    <div class="stat-card" style="border-color:var(--aurora);"><div class="stat-num">50K</div><div class="stat-label">台幣預算</div></div>
+  </div>
+</section>
+
+<!-- SLIDE 3: TRANSPORT -->
+<section class="slide slide-transport" data-index="2">
+  <div class="slide-header">
+    <div class="slide-eyebrow">Transportation</div>
+    <h2 class="slide-h2">大交通五萬極限配置</h2>
+  </div>
+  <div class="transport-grid">
+    <div class="transport-card featured">
+      <div class="transport-seg">段落 1 · 亞洲飛歐洲 ⭐ 關鍵省錢點</div>
+      <div class="transport-route">台北 (TPE) ↔ 歐洲樞紐 (AMS/FRA/CDG)</div>
+      <div class="transport-detail">善用中國南方/東方航空或酷航，提早半年鎖定淡季促銷。<br><em>*若你在德國，這段預算可直接省下！</em></div>
+      <div class="transport-footer">
+        <div class="transport-price">NT$ 24k ~ 28k</div>
+        <a class="btn btn-flights" href="https://www.google.com/travel/flights?q=Flights+from+TPE+to+Europe" target="_blank">✈️ Google Flights</a>
+      </div>
+    </div>
+    <div class="transport-card">
+      <div class="transport-seg">段落 2 · 深入冰島</div>
+      <div class="transport-route">歐洲樞紐 → 雷克雅維克 (KEF)</div>
+      <div class="transport-detail">Play Airlines 或 Icelandair，僅帶隨身登機箱（背包客模式）。</div>
+      <div class="transport-footer">
+        <div class="transport-price">NT$ 2k ~ 4k</div>
+        <a class="btn btn-flights" href="https://www.google.com/travel/flights?q=Flights+from+Europe+to+KEF" target="_blank">✈️ 查廉航</a>
+      </div>
+    </div>
+    <div class="transport-card">
+      <div class="transport-seg">段落 3 · 跨國北歐</div>
+      <div class="transport-route">雷克雅維克 (KEF) → 奧斯陸 (OSL)</div>
+      <div class="transport-detail">SAS北歐航空或 Norwegian Air。飛行約 2.5 小時，極簡行李。</div>
+      <div class="transport-footer">
+        <div class="transport-price">NT$ 1.5k ~ 3k</div>
+        <a class="btn btn-flights" href="https://www.google.com/travel/flights?q=Flights+from+KEF+to+OSL" target="_blank">✈️ 查內陸段</a>
+      </div>
+    </div>
+    <div class="transport-card">
+      <div class="transport-seg">段落 4 · 回程接駁</div>
+      <div class="transport-route">奧斯陸 (OSL) → 歐洲樞紐</div>
+      <div class="transport-detail">Ryanair 或 Norwegian 飛回原本抵達歐洲的樞紐機場，接上回台班機。</div>
+      <div class="transport-footer">
+        <div class="transport-price">NT$ 1.5k ~ 3k</div>
+        <a class="btn btn-flights" href="https://www.google.com/travel/flights?q=Flights+from+OSL+to+Europe" target="_blank">✈️ 查廉航</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 4: STAY -->
+<section class="slide slide-stay" data-index="3">
+  <div class="slide-header">
+    <div class="slide-eyebrow">Accommodation</div>
+    <h2 class="slide-h2">高評價神級青年旅館</h2>
+  </div>
+  <div class="stay-grid">
+    <div class="stay-country">
+      <div class="stay-country-header iceland">
+        <div class="stay-flag">🇮🇸</div>
+        <div><div class="stay-country-name">冰島 Reykjavik</div><div class="stay-country-sub">建議住宿 3 晚</div></div>
+      </div>
+      <div class="stay-options">
+        <div class="stay-option">
+          <div class="stay-option-top"><div class="stay-option-name">⭐ KEX Hostel</div><div class="stay-option-price">NT$ 1,200/晚</div></div>
+          <div class="stay-option-desc">舊餅乾廠改建的工業風神級青旅，靠海灣，附共用大廚房。</div>
+          <div class="stay-option-footer">
+            <div>
+              <div class="stay-stars">★★★★★ 8.8+</div>
+              <span class="address-text">📍 Skúlagata 28, 101 Reykjavík</span>
+            </div>
+            <a class="btn btn-maps" href="https://www.google.com/maps/place/Kex+Hostel" target="_blank">🗺️ 地圖</a>
+          </div>
+        </div>
+        <div class="stay-option">
+          <div class="stay-option-top"><div class="stay-option-name">Galaxy Pod Hostel</div><div class="stay-option-price">NT$ 1,500/晚</div></div>
+          <div class="stay-option-desc">超酷太空艙設計，隱私性極高，同樣具備自煮設施。</div>
+          <div class="stay-option-footer">
+            <div>
+              <div class="stay-stars">★★★★☆ 8.5+</div>
+              <span class="address-text">📍 Laugavegur 172, 105 Reykjavík</span>
+            </div>
+            <a class="btn btn-maps" href="https://www.google.com/maps/place/Galaxy+Pod+Hostel" target="_blank">🗺️ 地圖</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="stay-country">
+      <div class="stay-country-header norway">
+        <div class="stay-flag">🇳🇴</div>
+        <div><div class="stay-country-name">挪威 Oslo</div><div class="stay-country-sub">建議住宿 3 晚</div></div>
+      </div>
+      <div class="stay-options">
+        <div class="stay-option">
+          <div class="stay-option-top"><div class="stay-option-name">⭐ Citybox Oslo</div><div class="stay-option-price">NT$ 1,800/晚</div></div>
+          <div class="stay-option-desc">無人自助櫃檯經濟旅館，單人房極具性價比，距車站 250 公尺。</div>
+          <div class="stay-option-footer">
+            <div>
+              <div class="stay-stars">★★★★★ 8.6+</div>
+              <span class="address-text">📍 Prinsens gate 6, 0152 Oslo</span>
+            </div>
+            <a class="btn btn-maps" href="https://www.google.com/maps/place/Citybox+Oslo" target="_blank">🗺️ 地圖</a>
+          </div>
+        </div>
+        <div class="stay-option">
+          <div class="stay-option-top"><div class="stay-option-name">Anker Hostel</div><div class="stay-option-price">NT$ 1,100/晚</div></div>
+          <div class="stay-option-desc">背包客窮遊首選，含簡單廚房，步行至市區各大景點。</div>
+          <div class="stay-option-footer">
+            <div>
+              <div class="stay-stars">★★★★☆ 8.0+</div>
+              <span class="address-text">📍 Storgata 55, 0182 Oslo</span>
+            </div>
+            <a class="btn btn-maps" href="https://www.google.com/maps/place/Anker+Hostel" target="_blank">🗺️ 地圖</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 5: ICELAND -->
+<section class="slide slide-iceland" data-index="4">
+  <div class="slide-header">
+    <div class="slide-eyebrow">Iceland · Day 1–3</div>
+    <h2 class="slide-h2">🇮🇸 冰島三日自然奇觀</h2>
+  </div>
+  <div class="day-cards">
+    <div class="day-card">
+      <div class="day-card-header iceland"><div class="day-num">Day 1</div><div class="day-theme">市區巡禮與極光初現</div></div>
+      <div class="day-body">
+        <div class="day-item"><div class="day-item-icon">⛪</div><div class="day-item-text"><span class="day-item-title">哈爾格林姆教堂 <span class="free-badge">FREE</span></span><span class="address-text" style="margin:2px 0;">📍 Hallgrímstorg 1, 101 Reykjavík</span>正玄武岩造型，冰島地標</div></div>
+        <div class="day-item"><div class="day-item-icon">✨</div><div class="day-item-text"><span class="day-item-title">極光觀測 (Grótta 燈塔)</span><span class="address-text" style="margin:2px 0;">📍 Gróttuviti, 170 Seltjarnarnes</span>市區無光害點，走路/搭車可達</div></div>
+        <div class="day-item"><div class="day-item-icon">🗺️</div><div class="day-item-text"><a class="btn btn-maps" href="https://www.google.com/maps/dir/Hallgrimskirkja/Gr%C3%B3tta+Island+Lighthouse" target="_blank">開啟 Google 導航路線</a></div></div>
+      </div>
+    </div>
+    <div class="day-card">
+      <div class="day-card-header iceland"><div class="day-num">Day 2</div><div class="day-theme">經典黃金圈一日遊</div></div>
+      <div class="day-body">
+        <div class="day-item"><div class="day-item-icon">💦</div><div class="day-item-text"><span class="day-item-title">Geysir 間歇泉</span><span class="address-text" style="margin:2px 0;">📍 Haukadalur, South Iceland</span>每 5-10 分鐘噴發一次的奇景</div></div>
+        <div class="day-item"><div class="day-item-icon">🌊</div><div class="day-item-text"><span class="day-item-title">Gullfoss 黃金瀑布</span><span class="address-text" style="margin:2px 0;">📍 Gullfoss Parking, Iceland</span>氣勢磅礴的冰川瀑布</div></div>
+        <div class="day-item"><div class="day-item-icon">🗺️</div><div class="day-item-text"><a class="btn btn-maps" href="https://www.google.com/maps/dir/Thingvellir/Geysir/Gullfoss" target="_blank">開啟 Google 導航路線</a></div></div>
+      </div>
+    </div>
+    <div class="day-card">
+      <div class="day-card-header iceland"><div class="day-num">Day 3</div><div class="day-theme">南岸瀑布與黑沙灘</div></div>
+      <div class="day-body">
+        <div class="day-item"><div class="day-item-icon">🚶</div><div class="day-item-text"><span class="day-item-title">塞里雅蘭瀑布 (水濂洞)</span><span class="address-text" style="margin:2px 0;">📍 Seljalandsfoss, Route 1</span>可走到瀑布後方的絕美視角</div></div>
+        <div class="day-item"><div class="day-item-icon">🖤</div><div class="day-item-text"><span class="day-item-title">Reynisfjara 黑沙灘</span><span class="address-text" style="margin:2px 0;">📍 Reynisfjara, 815 Vík</span>火山玄武岩柱與大西洋海浪</div></div>
+        <div class="day-item"><div class="day-item-icon">🗺️</div><div class="day-item-text"><a class="btn btn-maps" href="https://www.google.com/maps/dir/Seljalandsfoss/Reynisfjara" target="_blank">開啟 Google 導航路線</a></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 6: NORWAY -->
+<section class="slide slide-norway" data-index="5">
+  <div class="slide-header">
+    <div class="slide-eyebrow">Norway · Day 4–7</div>
+    <h2 class="slide-h2">🇳🇴 挪威四日峽灣與首都</h2>
+  </div>
+  <div class="day-cards">
+    <div class="day-card">
+      <div class="day-card-header norway"><div class="day-num">Day 4</div><div class="day-theme">奧斯陸 設計與藝術</div></div>
+      <div class="day-body">
+        <div class="day-item"><div class="day-item-icon">🎭</div><div class="day-item-text"><span class="day-item-title">奧斯陸歌劇院 <span class="free-badge">FREE</span></span><span class="address-text" style="margin:2px 0;">📍 Kirsten Flagstads Plass 1</span>可走到屋頂的絕美冰山建築</div></div>
+        <div class="day-item"><div class="day-item-icon">🗿</div><div class="day-item-text"><span class="day-item-title">維格蘭雕塑公園 <span class="free-badge">FREE</span></span><span class="address-text" style="margin:2px 0;">📍 Nobels gate 32, 0268 Oslo</span>200多座人生百態雕塑，包含憤怒的小孩</div></div>
+        <div class="day-item"><div class="day-item-icon">🗺️</div><div class="day-item-text"><a class="btn btn-maps" href="https://www.google.com/maps/dir/Oslo+Opera+House/Vigeland+Park" target="_blank">開啟 Google 導航路線</a></div></div>
+      </div>
+    </div>
+    <div class="day-card">
+      <div class="day-card-header norway"><div class="day-num">Day 5</div><div class="day-theme">挪威縮影 (前半)</div></div>
+      <div class="day-body">
+        <div class="day-item"><div class="day-item-icon">🚆</div><div class="day-item-text"><span class="day-item-title">Oslo → Myrdal → Flåm</span><span class="address-text" style="margin:2px 0;">📍 奧斯陸中央車站出發</span>搭乘高山火車，窗外即是冰川瀑布</div></div>
+        <div class="day-item"><div class="day-item-icon">🏡</div><div class="day-item-text"><span class="day-item-title">Flåm 峽灣小鎮</span><span class="address-text" style="margin:2px 0;">📍 Flåm, Aurland Municipality</span>入住一晚，享受無人的寧靜峽灣</div></div>
+        <div class="day-item"><div class="day-item-icon">🗺️</div><div class="day-item-text"><a class="btn btn-maps" href="https://www.google.com/maps/dir/Oslo+Central+Station/Myrdal/Fl%C3%A5m" target="_blank">開啟 Google 導航路線</a></div></div>
+      </div>
+    </div>
+    <div class="day-card">
+      <div class="day-card-header norway"><div class="day-num">Day 6-7</div><div class="day-theme">納柔依峽灣與卑爾根</div></div>
+      <div class="day-body">
+        <div class="day-item"><div class="day-item-icon">🚢</div><div class="day-item-text"><span class="day-item-title">峽灣遊船 → Bergen</span><span class="address-text" style="margin:2px 0;">📍 Flåm port → Gudvangen</span>世界遺產納柔依峽灣，再轉車至卑爾根</div></div>
+        <div class="day-item"><div class="day-item-icon">🏘️</div><div class="day-item-text"><span class="day-item-title">布呂根 Bryggen</span><span class="address-text" style="margin:2px 0;">📍 Bryggen, 5003 Bergen</span>彩色漢薩同盟木屋群，Day 7 由此搭機返程</div></div>
+        <div class="day-item"><div class="day-item-icon">🗺️</div><div class="day-item-text"><a class="btn btn-maps" href="https://www.google.com/maps/dir/Gudvangen/Bryggen,+Bergen" target="_blank">開啟 Google 導航路線</a></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 7: TIPS -->
+<section class="slide slide-tips" data-index="6">
+  <div class="slide-header">
+    <div class="slide-eyebrow">Nordic Survival Hacks</div>
+    <h2 class="slide-h2">北歐窮遊黑科技</h2>
+  </div>
+  <div class="tips-grid">
+    <div class="tip-card"><div class="tip-icon">🐷</div><div class="tip-title">冰島 Bónus 小豬超市</div><div class="tip-body">北歐外食天價！鎖定小豬超市買義大利麵、微波食品、Skyr 優格。</div><div class="tip-highlight">一餐自煮不到 150 台幣</div></div>
+    <div class="tip-card"><div class="tip-title" style="font-size:26px;margin-bottom:9px;">🛒</div><div class="tip-title">挪威 Rema 1000 / Kiwi</div><div class="tip-body">認明這兩家平價超市。另外，北歐自來水（Tap water）是世界頂級，帶保溫瓶裝水喝。</div><div class="tip-highlight">水費 0 元</div></div>
+    <div class="tip-card"><div class="tip-icon">💳</div><div class="tip-title">完全無現金社會</div><div class="tip-body">一張高回饋的信用卡（或 Apple Pay）走天下，連上廁所、買熱狗都刷卡，**不需換匯**。</div><div class="tip-highlight">省下匯差與手續費</div></div>
+    <div class="tip-card"><div class="tip-icon">🍻</div><div class="tip-title">免稅店先買酒</div><div class="tip-body">北歐酒類稅極高。若想喝酒，請在下飛機出關前的 Duty-Free 先買好幾瓶帶走。</div><div class="tip-highlight">價差高達 2-3 倍</div></div>
+    <div class="tip-card"><div class="tip-icon">🚌</div><div class="tip-title">不包車，報 Local Tour</div><div class="tip-body">冰島不自駕怎麼玩？報名 Reykjaivk Excursions 等單日團，專車接送且附專業導遊。</div><div class="tip-highlight">單日團 NT$2500起</div></div>
+    <div class="tip-card"><div class="tip-icon">🎒</div><div class="tip-title">廉航極簡行李法</div><div class="tip-body">僅帶一個符合規定的後背包（Under seat bag），善用洋蔥式穿搭把厚外套穿身上。</div><div class="tip-highlight">省下每趟上千元行李費</div></div>
+  </div>
+</section>
+
+<!-- SLIDE 8: BUDGET -->
+<section class="slide slide-budget" data-index="7">
+  <div class="slide-header">
+    <div class="slide-eyebrow">Budget Summary</div>
+    <h2 class="slide-h2">一人 7 天預算總表 (台幣 NTD)</h2>
+  </div>
+  <table class="budget-table">
+    <thead><tr><th>預算項目</th><th>說明</th><th>預估費用</th></tr></thead>
+    <tbody>
+      <tr><td><div>✈️ 大交通</div><div class="budget-cat">台歐來回 + 北歐內陸線兩段</div></td><td>若提早半年搶票 (德國出發者只需約 NT$8k)</td><td>NT$ 27,000</td></tr>
+      <tr><td><div>🛏️ 住宿 6 晚</div><div class="budget-cat">高評分青旅床位</div></td><td>冰島 3 晚 + 挪威 3 晚 (皆含廚房)</td><td>NT$ 8,000</td></tr>
+      <tr><td><div>🚌 當地 Tour 與交通</div><div class="budget-cat">黃金圈一日遊 + 挪威縮影套票</div></td><td>單日團 NT$2.5k + 峽灣交通火車套票 NT$6k</td><td>NT$ 8,500</td></tr>
+      <tr><td><div>🍽️ 飲食</div><div class="budget-cat">超市自煮為主 + 偶爾外食</div></td><td>7天食材費約 3.5k + 兩次餐廳體驗 3k</td><td>NT$ 6,500</td></tr>
+      <tr><td colspan="2"><strong>🎯 7 天 6 夜 冰島×挪威 · 一人總計</strong></td><td><strong>NT$ 50,000</strong></td></tr>
+    </tbody>
+  </table>
+  <div class="action-box">
+    <div style="flex:1;"><div class="action-box-title">📋 立即行動</div>
+      <div class="action-item">✅ 觀察 Skyscanner 開啟航線降價通知</div>
+      <div class="action-item">✅ 上網預訂挪威縮影 (Norway in a Nutshell) 套票</div>
+    </div>
+    <div style="flex:1;"><div class="action-box-title" style="opacity:0">.</div>
+      <div class="action-item">✅ 預定 KEX Hostel (通常旺季提早滿房)</div>
+      <div class="action-item">✅ 點擊簡報內的 Google Maps 連結儲存路線</div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const dotsContainer = document.getElementById('navDots');
+  const counterEl = document.getElementById('slideCounter');
+  const progressBar = document.getElementById('progressBar');
+  let current = 0;
+  const total = slides.length;
+
+  slides.forEach((_, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'dot' + (i === 0 ? ' active' : '');
+    btn.setAttribute('aria-label', `投影片 ${i + 1}`);
+    btn.addEventListener('click', () => goTo(i));
+    dotsContainer.appendChild(btn);
+  });
+
+  function goTo(index) {
+    if (index < 0 || index >= total || index === current) return;
+    const prev = current;
+    current = index;
+    slides[prev].classList.add('exit-up');
+    slides[prev].classList.remove('active');
+    setTimeout(() => slides[prev].classList.remove('exit-up'), 550);
+    slides[current].classList.add('active');
+    dotsContainer.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
+    counterEl.textContent = `${current + 1} / ${total}`;
+    progressBar.style.width = `${((current + 1) / total) * 100}%`;
+  }
+
+  document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
+  document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goTo(current + 1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   goTo(current - 1);
+  });
+  let touchX = null;
+  document.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; });
+  document.addEventListener('touchend', e => {
+    if (touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 50) goTo(dx < 0 ? current + 1 : current - 1);
+    touchX = null;
+  });
+  progressBar.style.width = `${(1 / total) * 100}%`;
+</script>
+</body>
+</html>
