@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>英法雙城 · 極致性價比旅程</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;700&family=Noto+Sans+TC:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&display=swap');
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream:#FAF7F2; --warm:#F5EFE6; --sand:#E8DDD0;
+      --terracotta:#C17B5C; --rust:#A85D3B; --forest:#3B6B5A;
+      --navy:#2C3E6B; --slate:#4A5568; --charcoal:#2D3748;
+      --gold:#C9A84C; --text-main:#2D3748; --text-muted:#718096;
+      --radius:16px;
+      --shadow-sm:0 2px 8px rgba(0,0,0,.06);
+      --shadow-md:0 8px 32px rgba(0,0,0,.10);
+      --shadow-lg:0 20px 60px rgba(0,0,0,.14);
+    }
+    body { font-family:'Noto Sans TC','Inter',sans-serif; background:var(--cream); color:var(--text-main); overflow:hidden; height:100vh; }
+
+    /* KEY OVERLAY */
+    #keyOverlay { position:fixed; inset:0; background:rgba(15,20,40,.88); backdrop-filter:blur(14px); z-index:9999; display:flex; align-items:center; justify-content:center; }
+    #keyOverlay.hidden { display:none; }
+    .key-modal { background:#fff; border-radius:24px; padding:44px 48px; max-width:520px; width:90%; box-shadow:var(--shadow-lg); }
+    .key-modal-logo { font-size:40px; margin-bottom:14px; }
+    .key-modal h2 { font-family:'Noto Serif TC',serif; font-size:22px; font-weight:700; color:var(--charcoal); margin-bottom:8px; }
+    .key-modal p { font-size:13px; color:var(--text-muted); line-height:1.65; margin-bottom:22px; }
+    .key-modal a { color:var(--terracotta); text-decoration:none; font-weight:600; }
+    .key-input-row { display:flex; gap:10px; margin-bottom:10px; }
+    .key-input { flex:1; padding:12px 16px; border:2px solid var(--sand); border-radius:10px; font-size:13px; font-family:'Inter',monospace; outline:none; transition:border-color .2s; }
+    .key-input:focus { border-color:var(--navy); }
+    .key-btn { padding:12px 20px; background:var(--navy); color:#fff; border:none; border-radius:10px; font-size:13px; font-weight:700; cursor:pointer; white-space:nowrap; transition:background .2s; }
+    .key-btn:hover { background:var(--rust); }
+    .key-skip { font-size:12px; color:var(--text-muted); text-align:center; margin-top:8px; }
+    .key-skip span { text-decoration:underline; cursor:pointer; }
+    .key-note { font-size:11.5px; color:var(--text-muted); background:var(--warm); border-radius:8px; padding:10px 14px; margin-top:14px; line-height:1.55; }
+
+    /* DECK */
+    .deck { width:100vw; height:100vh; position:relative; }
+    .slide { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:44px 60px; opacity:0; transform:translateY(40px); pointer-events:none; transition:opacity .5s cubic-bezier(.4,0,.2,1), transform .5s cubic-bezier(.4,0,.2,1); }
+    .slide.active { opacity:1; transform:translateY(0); pointer-events:all; }
+    .slide.exit-up { opacity:0; transform:translateY(-40px); }
+
+    /* NAV */
+    .nav-dots { position:fixed; right:26px; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; gap:10px; z-index:100; }
+    .dot { width:8px; height:8px; border-radius:50%; background:var(--sand); cursor:pointer; transition:all .3s; border:none; }
+    .dot.active { background:var(--terracotta); transform:scale(1.5); }
+    .nav-arrows { position:fixed; bottom:28px; left:50%; transform:translateX(-50%); display:flex; gap:14px; z-index:100; }
+    .arrow-btn { width:46px; height:46px; border-radius:50%; border:2px solid var(--sand); background:rgba(250,247,242,.88); backdrop-filter:blur(8px); cursor:pointer; font-size:17px; display:flex; align-items:center; justify-content:center; transition:all .22s; color:var(--slate); }
+    .arrow-btn:hover { background:var(--terracotta); color:#fff; border-color:var(--terracotta); transform:scale(1.1); }
+    .slide-counter { font-size:11px; color:var(--text-muted); letter-spacing:.08em; font-weight:500; padding:0 8px; line-height:46px; }
+    .progress-bar { position:fixed; top:0; left:0; height:3px; background:linear-gradient(90deg,var(--terracotta),var(--gold)); transition:width .4s ease; z-index:200; }
+
+    /* STATUS BAR */
+    .api-status-bar { position:fixed; top:10px; left:50%; transform:translateX(-50%); display:flex; gap:8px; z-index:300; }
+    .api-badge { display:flex; align-items:center; gap:5px; padding:4px 12px; border-radius:100px; font-size:10.5px; font-weight:600; background:rgba(255,255,255,.92); backdrop-filter:blur(8px); box-shadow:var(--shadow-sm); color:var(--text-muted); }
+    .api-badge .dotb { width:6px; height:6px; border-radius:50%; background:#ccc; }
+
+    /* COMMON */
+    .slide-header { text-align:center; margin-bottom:28px; }
+    .slide-eyebrow { font-size:11.5px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--terracotta); margin-bottom:8px; }
+    .slide-h2 { font-family:'Noto Serif TC',serif; font-size:clamp(20px,2.6vw,34px); font-weight:700; color:var(--charcoal); line-height:1.3; }
+    .btn { display:inline-flex; align-items:center; gap:5px; padding:7px 13px; border-radius:100px; font-size:11px; font-weight:600; cursor:pointer; border:none; text-decoration:none; transition:all .2s ease; }
+    .btn-flights { background:#1967D2; color:#fff; }
+    .btn-flights:hover { background:#185ABC; transform:scale(1.04); box-shadow:0 4px 12px rgba(25,103,210,.3); }
+    .btn-maps { background:#34A853; color:#fff; }
+    .btn-maps:hover { background:#2E8F48; transform:scale(1.04); }
+    .free-badge { display:inline-block; font-size:9.5px; font-weight:700; padding:1px 5px; border-radius:4px; background:rgba(59,107,90,.12); color:var(--forest); margin-left:3px; }
+
+    /* SLIDE 1 COVER */
+    .slide-cover { background:linear-gradient(145deg,#2C3E6B,#1a2a4a 50%,#2C3E6B); text-align:center; position:relative; overflow:hidden; }
+    .slide-cover::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 60% 50% at 20% 80%,rgba(193,123,92,.25),transparent 70%),radial-gradient(ellipse 50% 40% at 80% 20%,rgba(107,163,190,.2),transparent 70%); }
+    .cover-eyebrow { font-size:12px; font-weight:500; letter-spacing:.25em; color:rgba(255,255,255,.5); text-transform:uppercase; margin-bottom:18px; position:relative; }
+    .cover-title { font-family:'Noto Serif TC',serif; font-size:clamp(32px,5vw,64px); font-weight:700; color:#fff; line-height:1.2; position:relative; margin-bottom:10px; }
+    .cover-title span { color:var(--gold); }
+    .cover-subtitle { font-size:17px; color:rgba(255,255,255,.65); margin-bottom:32px; position:relative; font-weight:300; }
+    .cover-tags { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; position:relative; margin-bottom:36px; }
+    .tag-outline { padding:7px 18px; border-radius:100px; font-size:12.5px; font-weight:500; border:1.5px solid rgba(255,255,255,.3); color:rgba(255,255,255,.85); background:rgba(255,255,255,.06); backdrop-filter:blur(4px); }
+    .cover-cities { display:flex; gap:28px; justify-content:center; position:relative; }
+    .city-badge { display:flex; flex-direction:column; align-items:center; gap:7px; }
+    .city-icon { width:68px; height:68px; border-radius:18px; display:flex; align-items:center; justify-content:center; font-size:30px; background:rgba(255,255,255,.08); border:1.5px solid rgba(255,255,255,.15); backdrop-filter:blur(8px); }
+    .city-name { font-size:12px; color:rgba(255,255,255,.6); font-weight:500; letter-spacing:.06em; }
+
+    /* SLIDE 2 OVERVIEW */
+    .slide-overview { background:var(--cream); }
+    .route-flow { display:flex; align-items:center; width:100%; max-width:900px; }
+    .route-node { flex:1; text-align:center; padding:16px 8px; background:#fff; border-radius:var(--radius); box-shadow:var(--shadow-sm); border:1px solid var(--sand); }
+    .route-node .icon { font-size:24px; margin-bottom:4px; }
+    .route-node .label { font-size:9.5px; color:var(--text-muted); letter-spacing:.05em; text-transform:uppercase; margin-bottom:3px; }
+    .route-node .name { font-size:13px; font-weight:600; color:var(--charcoal); }
+    .route-arrow { flex:0 0 40px; text-align:center; color:var(--terracotta); font-size:16px; position:relative; }
+    .route-arrow-label { font-size:8.5px; color:var(--text-muted); white-space:nowrap; position:absolute; top:-16px; left:50%; transform:translateX(-50%); background:var(--warm); padding:2px 5px; border-radius:4px; font-weight:500; }
+    .stats-row { display:flex; gap:14px; margin-top:24px; width:100%; max-width:900px; }
+    .stat-card { flex:1; background:#fff; border-radius:var(--radius); padding:16px 12px; text-align:center; box-shadow:var(--shadow-sm); border:1px solid var(--sand); }
+    .stat-num { font-family:'Inter',sans-serif; font-size:25px; font-weight:700; color:var(--terracotta); line-height:1; margin-bottom:4px; }
+    .stat-label { font-size:11px; color:var(--text-muted); font-weight:500; }
+
+    /* SLIDE 3 TRANSPORT */
+    .slide-transport { background:var(--warm); }
+    .transport-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:13px; width:100%; max-width:860px; }
+    .transport-card { background:#fff; border-radius:var(--radius); padding:18px 20px; box-shadow:var(--shadow-sm); border:1px solid var(--sand); display:flex; flex-direction:column; gap:7px; transition:transform .2s,box-shadow .2s; }
+    .transport-card:hover { transform:translateY(-3px); box-shadow:var(--shadow-md); }
+    .transport-card.featured { background:linear-gradient(135deg,#2C3E6B,#1a2a4a); border-color:transparent; }
+    .transport-seg { font-size:9.5px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--text-muted); }
+    .transport-card.featured .transport-seg { color:rgba(255,255,255,.5); }
+    .transport-route { font-size:14.5px; font-weight:600; color:var(--charcoal); }
+    .transport-card.featured .transport-route { color:#fff; }
+    .transport-detail { font-size:12px; color:var(--text-muted); line-height:1.5; }
+    .transport-card.featured .transport-detail { color:rgba(255,255,255,.7); }
+    .transport-footer { display:flex; align-items:center; gap:8px; justify-content:space-between; margin-top:4px; }
+    .transport-price { font-family:'Inter',sans-serif; font-size:18px; font-weight:700; color:var(--terracotta); }
+    .transport-card.featured .transport-price { color:var(--gold); }
+
+    /* SLIDE 4 STAY */
+    .slide-stay { background:var(--cream); }
+    .stay-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; width:100%; max-width:900px; }
+    .stay-country { border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow-md); }
+    .stay-country-header { padding:16px 20px 13px; display:flex; align-items:center; gap:11px; }
+    .stay-country-header.uk { background:linear-gradient(135deg,#2C3E6B,#3d5a94); }
+    .stay-country-header.fr { background:linear-gradient(135deg,#8B2230,#C0392B); }
+    .stay-flag { font-size:24px; }
+    .stay-country-name { font-family:'Noto Serif TC',serif; font-size:16px; font-weight:700; color:#fff; }
+    .stay-country-sub { font-size:10.5px; color:rgba(255,255,255,.65); margin-top:2px; }
+    .stay-options { background:#fff; }
+    .stay-option { padding:13px 20px; border-bottom:1px solid var(--warm); }
+    .stay-option:last-child { border-bottom:none; }
+    .stay-option-top { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:4px; }
+    .stay-option-name { font-size:12.5px; font-weight:600; color:var(--charcoal); flex:1; }
+    .stay-option-price { font-family:'Inter',sans-serif; font-size:13.5px; font-weight:700; color:var(--forest); }
+    .stay-option-desc { font-size:11.5px; color:var(--text-muted); line-height:1.5; }
+    .stay-option-footer { display:flex; align-items:center; justify-content:space-between; margin-top:7px; }
+    .stay-stars { color:var(--gold); font-size:11px; }
+
+    /* SLIDES 5 & 6 */
+    .slide-london { background:#EEF2F7; }
+    .slide-paris  { background:#FDF0F0; }
+    .day-cards { display:flex; gap:13px; width:100%; max-width:900px; }
+    .day-card { flex:1; background:#fff; border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow-sm); }
+    .day-card-header { padding:13px 17px; }
+    .day-card-header.london { background:linear-gradient(135deg,#2C3E6B,#3d5a94); }
+    .day-card-header.paris  { background:linear-gradient(135deg,#8B2230,#C0392B); }
+    .day-num { font-size:9.5px; font-weight:600; letter-spacing:.15em; text-transform:uppercase; color:rgba(255,255,255,.6); margin-bottom:3px; }
+    .day-theme { font-size:13.5px; font-weight:700; color:#fff; line-height:1.3; }
+    .day-body { padding:13px 17px; }
+    .day-item { display:flex; gap:7px; margin-bottom:9px; align-items:flex-start; }
+    .day-item:last-child { margin-bottom:0; }
+    .day-item-icon { font-size:14px; flex-shrink:0; margin-top:1px; }
+    .day-item-text { font-size:12px; color:var(--slate); line-height:1.5; }
+    .day-item-title { font-weight:600; color:var(--charcoal); display:block; margin-bottom:1px; }
+
+    /* SLIDE 7 TIPS */
+    .slide-tips { background:#F0F5F3; }
+    .tips-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:13px; width:100%; max-width:900px; }
+    .tip-card { background:#fff; border-radius:var(--radius); padding:18px 16px; box-shadow:var(--shadow-sm); border:1px solid #D4EAE4; }
+    .tip-icon { font-size:26px; margin-bottom:9px; }
+    .tip-title { font-size:12.5px; font-weight:700; color:var(--charcoal); margin-bottom:5px; }
+    .tip-body { font-size:11.5px; color:var(--text-muted); line-height:1.6; }
+    .tip-highlight { display:inline-block; margin-top:8px; font-size:10.5px; font-weight:600; color:var(--forest); background:rgba(59,107,90,.08); padding:3px 9px; border-radius:100px; }
+
+    /* SLIDE 8 BUDGET */
+    .slide-budget { background:var(--cream); }
+    .budget-table { width:100%; max-width:740px; border-collapse:separate; border-spacing:0; background:#fff; border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow-md); }
+    .budget-table thead tr { background:linear-gradient(135deg,#2C3E6B,#1a2a4a); }
+    .budget-table th { padding:11px 16px; text-align:left; font-size:10.5px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.75); }
+    .budget-table th:last-child { text-align:right; }
+    .budget-table td { padding:11px 16px; font-size:12.5px; color:var(--charcoal); border-bottom:1px solid var(--warm); }
+    .budget-table td:last-child { text-align:right; font-family:'Inter',sans-serif; font-weight:600; color:var(--forest); }
+    .budget-table tr:last-child td { background:linear-gradient(135deg,rgba(193,123,92,.08),rgba(193,123,92,.04)); font-weight:700; font-size:13.5px; color:var(--terracotta); border-bottom:none; }
+    .budget-table tr:nth-child(even):not(:last-child) td { background:var(--cream); }
+    .budget-cat { font-size:10.5px; color:var(--text-muted); margin-top:2px; }
+    .action-box { margin-top:18px; width:100%; max-width:740px; background:linear-gradient(135deg,#2C3E6B,#3d5a94); border-radius:var(--radius); padding:16px 22px; display:flex; gap:24px; }
+    .action-box-title { font-size:12.5px; font-weight:700; color:#fff; margin-bottom:5px; }
+    .action-item { font-size:11.5px; color:rgba(255,255,255,.75); margin-bottom:3px; display:flex; gap:5px; }
+
+    /* SLIDE 9 MAP */
+    .slide-map { background:var(--charcoal); padding:0; }
+    .map-overlay-header { position:absolute; top:0; left:0; right:0; background:linear-gradient(180deg,rgba(15,20,40,.9),transparent); padding:22px 36px 48px; z-index:10; pointer-events:none; display:flex; align-items:flex-start; justify-content:space-between; }
+    .map-title-block .slide-eyebrow { color:var(--gold); }
+    .map-legend { display:flex; flex-direction:column; gap:6px; pointer-events:all; }
+    .legend-item { display:flex; align-items:center; gap:8px; }
+    .legend-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+    .legend-label { font-size:11.5px; color:rgba(255,255,255,.85); font-weight:500; }
+    #map { width:100%; height:100%; min-height:100vh; }
+    .map-placeholder { display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; gap:16px; color:rgba(255,255,255,.6); }
+    .map-placeholder .big-icon { font-size:52px; }
+    .map-placeholder p { font-size:15px; text-align:center; max-width:340px; line-height:1.65; }
+    .map-placeholder button { padding:13px 30px; background:var(--navy); color:#fff; border:none; border-radius:100px; font-size:14px; font-weight:600; cursor:pointer; transition:background .2s; }
+    .map-placeholder button:hover { background:var(--terracotta); }
+  </style>
+</head>
+<body>
+
+<!-- KEY OVERLAY -->
+<div id="keyOverlay">
+  <div class="key-modal">
+    <div class="key-modal-logo">🗺️</div>
+    <h2>啟用 Google Maps 互動功能</h2>
+    <p>
+      輸入 <strong>Google Maps API Key</strong>，開啟第 9 頁互動路線地圖（雷根斯堡→慕尼黑→倫敦→巴黎）。<br><br>
+      還沒有 Key？免費申請：<br>
+      👉 <a href="https://mapsplatform.google.com/maps-demo-key?utm_campaign=gmp_git_agentskills_v1" target="_blank">maps-demo-key（不需信用卡）</a>
+    </p>
+    <div class="key-input-row">
+      <input type="text" id="apiKeyInput" class="key-input" placeholder="貼上你的 API Key（AIza...）" autocomplete="off" />
+      <button class="key-btn" onclick="applyKey()">確認啟用</button>
+    </div>
+    <div class="key-skip">或 <span onclick="skipKey()">先略過，查看靜態簡報</span></div>
+    <div class="key-note">
+      🔒 Key 僅存在瀏覽器記憶體，不傳送第三方伺服器。<br>
+      建議在 <a href="https://console.cloud.google.com/google/maps-apis/credentials?utm_campaign=gmp_git_agentskills_v1" target="_blank">Google Cloud Console</a> 設置 HTTP Referrer 限制。
+    </div>
+  </div>
+</div>
+
+<!-- STATUS BAR -->
+<div class="api-status-bar" id="apiStatusBar" style="display:none;">
+  <div class="api-badge" style="background:rgba(52,168,83,.1);color:#2E8F48;"><div class="dotb" style="background:#34A853;"></div>Google Maps ✓</div>
+  <div class="api-badge" style="background:rgba(25,103,210,.1);color:#1967D2;"><div class="dotb" style="background:#1967D2;"></div>Google Flights 連結</div>
+  <div class="api-badge" style="background:rgba(52,168,83,.1);color:#2E8F48;"><div class="dotb" style="background:#34A853;"></div>Google Maps 搜尋</div>
+</div>
+
+<div class="progress-bar" id="progressBar"></div>
+<nav class="nav-dots" id="navDots"></nav>
+<div class="nav-arrows">
+  <button class="arrow-btn" id="prevBtn">◀</button>
+  <span class="slide-counter" id="slideCounter">1 / 9</span>
+  <button class="arrow-btn" id="nextBtn">▶</button>
+</div>
+
+<!-- SLIDE 1: COVER -->
+<section class="slide slide-cover active" data-index="0">
+  <div class="cover-eyebrow">2026 · September · Powered by Google Maps Platform</div>
+  <h1 class="cover-title">英法雙城<br><span>極致性價比</span>旅程</h1>
+  <p class="cover-subtitle">從德國雷根斯堡出發 · 7 天 6 夜 · 一人獨遊</p>
+  <div class="cover-tags">
+    <span class="tag-outline">🗓️ 9 月出發</span>
+    <span class="tag-outline">💰 €537 ~ €724</span>
+    <span class="tag-outline">🗺️ Google Maps 互動</span>
+    <span class="tag-outline">✈️ Google Flights 連結</span>
+  </div>
+  <div class="cover-cities">
+    <div class="city-badge"><div class="city-icon">🇩🇪</div><div class="city-name">REGENSBURG</div></div>
+    <div style="color:rgba(255,255,255,.3);font-size:20px;position:relative;top:18px;">→</div>
+    <div class="city-badge"><div class="city-icon">🇬🇧</div><div class="city-name">LONDON</div></div>
+    <div style="color:rgba(255,255,255,.3);font-size:20px;position:relative;top:18px;">→</div>
+    <div class="city-badge"><div class="city-icon">🇫🇷</div><div class="city-name">PARIS</div></div>
+    <div style="color:rgba(255,255,255,.3);font-size:20px;position:relative;top:18px;">→</div>
+    <div class="city-badge"><div class="city-icon">🏠</div><div class="city-name">RETURN</div></div>
+  </div>
+</section>
+
+<!-- SLIDE 2: OVERVIEW -->
+<section class="slide slide-overview" data-index="1">
+  <div class="slide-header">
+    <div class="slide-eyebrow">Trip Overview</div>
+    <h2 class="slide-h2">行程路線總覽</h2>
+  </div>
+  <div class="route-flow">
+    <div class="route-node"><div class="icon">🚉</div><div class="label">出發地</div><div class="name">雷根斯堡</div></div>
+    <div class="route-arrow"><span class="route-arrow-label">RE22 1h15m</span>⟶</div>
+    <div class="route-node"><div class="icon">✈️</div><div class="label">機場</div><div class="name">慕尼黑 MUC</div></div>
+    <div class="route-arrow"><span class="route-arrow-label">廉航 ~2h</span>⟶</div>
+    <div class="route-node" style="border-color:#2C3E6B;background:#EEF2F7;"><div class="icon">🇬🇧</div><div class="label">Day 1–3</div><div class="name">倫敦</div></div>
+    <div class="route-arrow"><span class="route-arrow-label">Eurostar 2.5h</span>⟶</div>
+    <div class="route-node" style="border-color:#8B2230;background:#FDF0F0;"><div class="icon">🇫🇷</div><div class="label">Day 4–6</div><div class="name">巴黎</div></div>
+    <div class="route-arrow"><span class="route-arrow-label">廉航 ~2h</span>⟶</div>
+    <div class="route-node"><div class="icon">🏠</div><div class="label">返家</div><div class="name">雷根斯堡</div></div>
+  </div>
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-num">7</div><div class="stat-label">天數</div></div>
+    <div class="stat-card"><div class="stat-num">6</div><div class="stat-label">住宿夜數</div></div>
+    <div class="stat-card"><div class="stat-num">2</div><div class="stat-label">國家</div></div>
+    <div class="stat-card"><div class="stat-num">9月</div><div class="stat-label">出發月份</div></div>
+    <div class="stat-card" style="border-color:var(--terracotta);"><div class="stat-num">€630</div><div class="stat-label">預算中位數</div></div>
+  </div>
+</section>
+
+<!-- SLIDE 3: TRANSPORT + Google Flights -->
+<section class="slide slide-transport" data-index="2">
+  <div class="slide-header">
+    <div class="slide-eyebrow">Transportation · Google Flights Deep Links</div>
+    <h2 class="slide-h2">大交通極致省錢配置</h2>
+  </div>
+  <div class="transport-grid">
+    <div class="transport-card">
+      <div class="transport-seg">段落 1 · 出發</div>
+      <div class="transport-route">雷根斯堡 → 慕尼黑機場</div>
+      <div class="transport-detail">德鐵 RE 22（ÜFEX）直達機場，車程 1h17m。持 Deutschlandticket 免費。</div>
+      <div class="transport-footer">
+        <div class="transport-price">€0 ~ 15</div>
+        <a class="btn btn-maps" href="https://www.google.com/maps/dir/Regensburg+Hauptbahnhof/Munich+Airport+MUC" target="_blank">🗺️ 查看路線</a>
+      </div>
+    </div>
+    <div class="transport-card featured">
+      <div class="transport-seg">段落 2 · 去程 ⭐ 最佳選擇</div>
+      <div class="transport-route">慕尼黑 (MUC) → 倫敦 (STN/LGW)</div>
+      <div class="transport-detail">easyJet / Ryanair / BA。只帶後背包（40×20×25cm）免行李費，提前 3-4 週搶票。</div>
+      <div class="transport-footer">
+        <div class="transport-price">€25 ~ 45</div>
+        <a class="btn btn-flights" href="https://www.google.com/travel/flights?q=Flights+from+Munich+to+London+September+2026" target="_blank">✈️ Google Flights</a>
+      </div>
+    </div>
+    <div class="transport-card">
+      <div class="transport-seg">段落 3 · 跨國</div>
+      <div class="transport-route">倫敦 → 巴黎</div>
+      <div class="transport-detail"><strong>優選：Eurostar</strong> 2.5h 市中心直達（€39-48）<br><strong>省極：FlixBus 隔夜巴</strong>省一晚住宿（€22-32）</div>
+      <div class="transport-footer">
+        <div class="transport-price">€22 ~ 48</div>
+        <a class="btn btn-flights" href="https://www.eurostar.com/uk-en/train/united-kingdom/london/france/paris" target="_blank">🚆 Eurostar</a>
+      </div>
+    </div>
+    <div class="transport-card">
+      <div class="transport-seg">段落 4 · 回程</div>
+      <div class="transport-route">巴黎 (CDG/ORY) → 慕尼黑 → 雷根斯堡</div>
+      <div class="transport-detail">Vueling / Transavia / Ryanair，優先選 CDG/ORY。搭 RE 22 直達返家。</div>
+      <div class="transport-footer">
+        <div class="transport-price">€30 ~ 65</div>
+        <a class="btn btn-flights" href="https://www.google.com/travel/flights?q=Flights+from+Paris+to+Munich+September+2026" target="_blank">✈️ Google Flights</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 4: STAY + Google Maps -->
+<section class="slide slide-stay" data-index="3">
+  <div class="slide-header">
+    <div class="slide-eyebrow">Accommodation · Google Maps Search</div>
+    <h2 class="slide-h2">極致性價比住宿嚴選</h2>
+  </div>
+  <div class="stay-grid">
+    <div class="stay-country">
+      <div class="stay-country-header uk">
+        <div class="stay-flag">🇬🇧</div>
+        <div><div class="stay-country-name">倫敦 London</div><div class="stay-country-sub">建議住宿 3 晚</div></div>
+      </div>
+      <div class="stay-options">
+        <div class="stay-option">
+          <div class="stay-option-top"><div class="stay-option-name">⭐ Wombat's City Hostel London</div><div class="stay-option-price">£28~40/晚</div></div>
+          <div class="stay-option-desc">Tower Bridge 旁（Zone 1）· 含廚房 · 床簾隱私 · 置物櫃</div>
+          <div class="stay-option-footer"><div class="stay-stars">★★★★★ 9.0+</div><a class="btn btn-maps" href="https://www.google.com/maps/search/Wombat's+City+Hostel+London" target="_blank">🗺️ 地圖</a></div>
+        </div>
+        <div class="stay-option">
+          <div class="stay-option-top"><div class="stay-option-name">Generator London / Clink261</div><div class="stay-option-price">£25~36/晚</div></div>
+          <div class="stay-option-desc">King's Cross 站旁 · 搭 Eurostar 最方便</div>
+          <div class="stay-option-footer"><div class="stay-stars">★★★★☆ 8.5+</div><a class="btn btn-maps" href="https://www.google.com/maps/search/Generator+Hostel+London+Kings+Cross" target="_blank">🗺️ 地圖</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="stay-country">
+      <div class="stay-country-header fr">
+        <div class="stay-flag">🇫🇷</div>
+        <div><div class="stay-country-name">巴黎 Paris</div><div class="stay-country-sub">建議住宿 3 晚</div></div>
+      </div>
+      <div class="stay-options">
+        <div class="stay-option">
+          <div class="stay-option-top"><div class="stay-option-name">⭐ The People – Paris Nation</div><div class="stay-option-price">€32~45/晚</div></div>
+          <div class="stay-option-desc">Nation 地鐵樞紐 · 屋頂露台俯瞰巴黎 · 超安全</div>
+          <div class="stay-option-footer"><div class="stay-stars">★★★★★ 9.2+</div><a class="btn btn-maps" href="https://www.google.com/maps/search/The+People+Paris+Nation+Hostel" target="_blank">🗺️ 地圖</a></div>
+        </div>
+        <div class="stay-option">
+          <div class="stay-option-top"><div class="stay-option-name">JO&JOE Paris – Nation</div><div class="stay-option-price">€28~38/晚</div></div>
+          <div class="stay-option-desc">年輕潮流風格 · 周邊超市豐富 · 適合自煮</div>
+          <div class="stay-option-footer"><div class="stay-stars">★★★★☆ 8.6+</div><a class="btn btn-maps" href="https://www.google.com/maps/search/JO+JOE+Hostel+Paris+Nation" target="_blank">🗺️ 地圖</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 5: LONDON -->
+<section class="slide slide-london" data-index="4">
+  <div class="slide-header">
+    <div class="slide-eyebrow">London · Day 1–3</div>
+    <h2 class="slide-h2">🇬🇧 倫敦三日精華攻略</h2>
+  </div>
+  <div class="day-cards">
+    <div class="day-card">
+      <div class="day-card-header london"><div class="day-num">Day 1</div><div class="day-theme">泰晤士河畔 經典線</div></div>
+      <div class="day-body">
+        <div class="day-item"><div class="day-item-icon">🏛️</div><div class="day-item-text"><span class="day-item-title">西敏寺 · 大笨鐘</span>河畔拍照最佳角度</div></div>
+        <div class="day-item"><div class="day-item-icon">🎨</div><div class="day-item-text"><span class="day-item-title">泰特現代美術館 <span class="free-badge">FREE</span></span>渡輪視角看聖保羅夜景</div></div>
+        <div class="day-item"><div class="day-item-icon">🗺️</div><div class="day-item-text"><a class="btn btn-maps" href="https://www.google.com/maps/dir/Westminster,+London/Tate+Modern,+London" target="_blank">Day 1 路線地圖</a></div></div>
+      </div>
+    </div>
+    <div class="day-card">
+      <div class="day-card-header london"><div class="day-num">Day 2</div><div class="day-theme">世界級博物館 免費文化日</div></div>
+      <div class="day-body">
+        <div class="day-item"><div class="day-item-icon">🏺</div><div class="day-item-text"><span class="day-item-title">大英博物館 <span class="free-badge">FREE</span></span>羅塞塔石碑，官網預約</div></div>
+        <div class="day-item"><div class="day-item-icon">🌿</div><div class="day-item-text"><span class="day-item-title">Sky Garden <span class="free-badge">FREE</span></span>全城最高觀景台，2 週前搶票</div></div>
+        <div class="day-item"><div class="day-item-icon">🗺️</div><div class="day-item-text"><a class="btn btn-maps" href="https://www.google.com/maps/dir/British+Museum/Borough+Market,+London/Sky+Garden,+London" target="_blank">Day 2 路線地圖</a></div></div>
+      </div>
+    </div>
+    <div class="day-card">
+      <div class="day-card-header london"><div class="day-num">Day 3</div><div class="day-theme">皇家綠意 文藝巡禮</div></div>
+      <div class="day-body">
+        <div class="day-item"><div class="day-item-icon">👑</div><div class="day-item-text"><span class="day-item-title">白金漢宮衛兵交接</span>每日 11:00，免費觀賞</div></div>
+        <div class="day-item"><div class="day-item-icon">🖼️</div><div class="day-item-text"><span class="day-item-title">國家美術館 <span class="free-badge">FREE</span></span>梵谷《向日葵》真跡</div></div>
+        <div class="day-item"><div class="day-item-icon">🗺️</div><div class="day-item-text"><a class="btn btn-maps" href="https://www.google.com/maps/dir/Buckingham+Palace/Covent+Garden,+London/National+Gallery,+London" target="_blank">Day 3 路線地圖</a></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 6: PARIS -->
+<section class="slide slide-paris" data-index="5">
+  <div class="slide-header">
+    <div class="slide-eyebrow">Paris · Day 4–6</div>
+    <h2 class="slide-h2">🇫🇷 巴黎三日精華攻略</h2>
+  </div>
+  <div class="day-cards">
+    <div class="day-card">
+      <div class="day-card-header paris"><div class="day-num">Day 4</div><div class="day-theme">蒙馬特 浪漫高地</div></div>
+      <div class="day-body">
+        <div class="day-item"><div class="day-item-icon">⛪</div><div class="day-item-text"><span class="day-item-title">聖心堂 <span class="free-badge">FREE</span></span>俯瞰巴黎全景最佳制高點</div></div>
+        <div class="day-item"><div class="day-item-icon">🌊</div><div class="day-item-text"><span class="day-item-title">塞納河畔漫步</span>傍晚黃金時段，光線最美</div></div>
+        <div class="day-item"><div class="day-item-icon">🗺️</div><div class="day-item-text"><a class="btn btn-maps" href="https://www.google.com/maps/dir/Sacr%C3%A9-C%C5%93ur+Basilica,+Paris/Seine+River,+Paris" target="_blank">Day 4 路線地圖</a></div></div>
+      </div>
+    </div>
+    <div class="day-card">
+      <div class="day-card-header paris"><div class="day-num">Day 5</div><div class="day-theme">羅浮宮 深度探索日</div></div>
+      <div class="day-body">
+        <div class="day-item"><div class="day-item-icon">🏛️</div><div class="day-item-text"><span class="day-item-title">羅浮宮 Louvre</span>走 Carrousel 商場入口避人龍<br><small style="color:#C17B5C;font-weight:600;">蒙娜麗莎 · 維納斯</small></div></div>
+        <div class="day-item"><div class="day-item-icon">🌳</div><div class="day-item-text"><span class="day-item-title">杜樂麗花園 → 凱旋門</span>香榭麗舍法棍野餐 €5</div></div>
+        <div class="day-item"><div class="day-item-icon">🗺️</div><div class="day-item-text"><a class="btn btn-maps" href="https://www.google.com/maps/dir/Louvre+Museum/Tuileries+Garden,+Paris/Arc+de+Triomphe,+Paris" target="_blank">Day 5 路線地圖</a></div></div>
+      </div>
+    </div>
+    <div class="day-card">
+      <div class="day-card-header paris"><div class="day-num">Day 6</div><div class="day-theme">艾菲爾鐵塔 閃燈夜晚</div></div>
+      <div class="day-body">
+        <div class="day-item"><div class="day-item-icon">🗼</div><div class="day-item-text"><span class="day-item-title">艾菲爾鐵塔</span><strong>樓梯票 €11.8</strong>省半價！<br>最佳免費機位：夏佑宮 Trocadéro</div></div>
+        <div class="day-item"><div class="day-item-icon">✨</div><div class="day-item-text"><span class="day-item-title">每整點閃燈秀 <span class="free-badge">FREE</span></span>戰神廣場草地等待最浪漫</div></div>
+        <div class="day-item"><div class="day-item-icon">🗺️</div><div class="day-item-text"><a class="btn btn-maps" href="https://www.google.com/maps/dir/Trocad%C3%A9ro,+Paris/Eiffel+Tower/Champ+de+Mars,+Paris" target="_blank">Day 6 路線地圖</a></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 7: TIPS -->
+<section class="slide slide-tips" data-index="6">
+  <div class="slide-header">
+    <div class="slide-eyebrow">Money-Saving Hacks</div>
+    <h2 class="slide-h2">省錢黑科技 · 旅行 Lifehacks</h2>
+  </div>
+  <div class="tips-grid">
+    <div class="tip-card"><div class="tip-icon">🥪</div><div class="tip-title">英國超市 Meal Deal</div><div class="tip-body">Tesco / M&S 三明治＋零食＋飲料 <strong>£3.60~4.50</strong> 搞定一餐。</div><div class="tip-highlight">每餐省 £6+</div></div>
+    <div class="tip-card"><div class="tip-icon">🥖</div><div class="tip-title">法棍三明治哲學</div><div class="tip-body">Boulangerie 路邊麵包店，Jambon-Beurre 僅 <strong>€4~6</strong>，超飽足。</div><div class="tip-highlight">比咖啡廳省 70%</div></div>
+    <div class="tip-card"><div class="tip-icon">💳</div><div class="tip-title">倫敦感應刷卡技</div><div class="tip-body">直接刷信用卡 / Apple Pay，自動計算 Zone 1-2 日限額 <strong>£8.50</strong>。</div><div class="tip-highlight">省 £5 工本費</div></div>
+    <div class="tip-card"><div class="tip-icon">📱</div><div class="tip-title">Too Good To Go App</div><div class="tip-body">歐洲剩食 App，<strong>€3~4</strong> 盲盒買到高級餐廳原價 €15+ 餐點。</div><div class="tip-highlight">食物省 75%</div></div>
+    <div class="tip-card"><div class="tip-icon">🗺️</div><div class="tip-title">Google Maps 離線地圖</div><div class="tip-body">出發前在 Wi-Fi 下載倫敦與巴黎離線地圖，旅途中不需流量也能導航。</div><div class="tip-highlight">省流量省錢</div></div>
+    <div class="tip-card"><div class="tip-icon">🌊</div><div class="tip-title">巴黎免費氣泡水</div><div class="tip-body">街頭 <strong>Fontaine Pétillante</strong> 免費氣泡水機，自備水瓶全程免買礦泉水。</div><div class="tip-highlight">旅程省 €12+</div></div>
+  </div>
+</section>
+
+<!-- SLIDE 8: BUDGET -->
+<section class="slide slide-budget" data-index="7">
+  <div class="slide-header">
+    <div class="slide-eyebrow">Budget Summary</div>
+    <h2 class="slide-h2">一人 7 天預算總表</h2>
+  </div>
+  <table class="budget-table">
+    <thead><tr><th>預算項目</th><th>說明</th><th>預估費用</th></tr></thead>
+    <tbody>
+      <tr><td><div>✈️ 大交通</div><div class="budget-cat">廉航 + 歐洲之星 + 德鐵</div></td><td>雷根斯堡↔MUC + 雙廉航 + 英法跨國</td><td>€140 ~ €190</td></tr>
+      <tr><td><div>🚇 市區交通</div><div class="budget-cat">倫敦地鐵 + 巴黎地鐵</div></td><td>倫敦 Contactless 日限額×3天 + 巴黎票券</td><td>€45 ~ €60</td></tr>
+      <tr><td><div>🛏️ 住宿 6 晚</div><div class="budget-cat">高評分青旅床位</div></td><td>倫敦 3 晚 + 巴黎 3 晚（含廚房青旅）</td><td>€200 ~ €260</td></tr>
+      <tr><td><div>🏛️ 景點門票</div><div class="budget-cat">鐵塔 + 羅浮宮</div></td><td>艾菲爾塔樓梯票 €12 + 羅浮宮 €22</td><td>€12 ~ €34</td></tr>
+      <tr><td><div>🍽️ 飲食</div><div class="budget-cat">每日 €15~20</div></td><td>超市 Meal Deal + 街頭美食 + 青旅自煮</td><td>€120 ~ €150</td></tr>
+      <tr><td><div>📡 網卡 + 雜支</div><div class="budget-cat">跨國 SIM</div></td><td>歐洲跨國網卡含英國 + 備用金</td><td>€20 ~ €30</td></tr>
+      <tr><td colspan="2"><strong>🎯 7 天 6 夜 英法雙城 · 一人總計</strong></td><td><strong>€537 ~ €724</strong></td></tr>
+    </tbody>
+  </table>
+  <div class="action-box">
+    <div style="flex:1;"><div class="action-box-title">📋 立即行動</div>
+      <div class="action-item">✅ Skyscanner 鎖定週二～週四最便宜航班</div>
+      <div class="action-item">✅ 預約倫敦 Sky Garden 免費入場票（2~3 週前）</div>
+    </div>
+    <div style="flex:1;"><div class="action-box-title" style="opacity:0">.</div>
+      <div class="action-item">✅ 預訂大英博物館 Free Entry 時段</div>
+      <div class="action-item">✅ 第 9 頁查看完整互動路線地圖 ➡️</div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 9: INTERACTIVE MAP -->
+<section class="slide slide-map" data-index="8">
+  <div class="map-overlay-header">
+    <div class="map-title-block">
+      <div class="slide-eyebrow">Google Maps Platform · 互動路線圖</div>
+      <div class="slide-h2" style="color:#fff;font-size:22px;">完整旅程路線地圖</div>
+    </div>
+    <div class="map-legend" id="mapLegend" style="display:none;">
+      <div class="legend-item"><div class="legend-dot" style="background:#2C3E6B;"></div><div class="legend-label">🇩🇪 雷根斯堡 ↔ 慕尼黑</div></div>
+      <div class="legend-item"><div class="legend-dot" style="background:#4A5568;"></div><div class="legend-label">✈️ 廉航去程 / 回程</div></div>
+      <div class="legend-item"><div class="legend-dot" style="background:#1967D2;"></div><div class="legend-label">🇬🇧 倫敦 Day 1–3</div></div>
+      <div class="legend-item"><div class="legend-dot" style="background:#C0392B;"></div><div class="legend-label">🇫🇷 巴黎 Day 4–6</div></div>
+    </div>
+  </div>
+  <div id="map" style="width:100%;height:100%;min-height:100vh;">
+    <div class="map-placeholder" id="mapPlaceholder">
+      <div class="big-icon">🗺️</div>
+      <p>輸入 <strong>Google Maps API Key</strong> 後，將顯示從雷根斯堡出發的完整互動旅程路線地圖，可點擊每個城市查看資訊。</p>
+      <button onclick="document.getElementById('keyOverlay').classList.remove('hidden');document.getElementById('apiKeyInput').focus();">點此輸入 API Key</button>
+    </div>
+  </div>
+</section>
+
+<script>
+  /* ── State ── */
+  let MAPS_KEY = null;
+  let mapInitialized = false;
+
+  const slides = document.querySelectorAll('.slide');
+  const dotsContainer = document.getElementById('navDots');
+  const counterEl = document.getElementById('slideCounter');
+  const progressBar = document.getElementById('progressBar');
+  let current = 0;
+  const total = slides.length;
+
+  /* ── Dots ── */
+  slides.forEach((_, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'dot' + (i === 0 ? ' active' : '');
+    btn.setAttribute('aria-label', `投影片 ${i + 1}`);
+    btn.addEventListener('click', () => goTo(i));
+    dotsContainer.appendChild(btn);
+  });
+
+  function goTo(index) {
+    if (index < 0 || index >= total || index === current) return;
+    const prev = current;
+    current = index;
+    slides[prev].classList.add('exit-up');
+    slides[prev].classList.remove('active');
+    setTimeout(() => slides[prev].classList.remove('exit-up'), 550);
+    slides[current].classList.add('active');
+    dotsContainer.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
+    counterEl.textContent = `${current + 1} / ${total}`;
+    progressBar.style.width = `${((current + 1) / total) * 100}%`;
+    if (current === 8 && MAPS_KEY && !mapInitialized && typeof google !== 'undefined') initMap();
+  }
+
+  document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
+  document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goTo(current + 1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   goTo(current - 1);
+  });
+  let touchX = null;
+  document.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; });
+  document.addEventListener('touchend', e => {
+    if (touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 50) goTo(dx < 0 ? current + 1 : current - 1);
+    touchX = null;
+  });
+  progressBar.style.width = `${(1 / total) * 100}%`;
+
+  /* ── Key Overlay ── */
+  function applyKey() {
+    const val = document.getElementById('apiKeyInput').value.trim();
+    if (!val.startsWith('AIza')) {
+      const inp = document.getElementById('apiKeyInput');
+      inp.style.borderColor = '#C0392B';
+      setTimeout(() => { inp.style.borderColor = ''; }, 1800);
+      return;
+    }
+    MAPS_KEY = val;
+    document.getElementById('keyOverlay').classList.add('hidden');
+    document.getElementById('apiStatusBar').style.display = 'flex';
+    loadMapsScript();
+  }
+  function skipKey() {
+    document.getElementById('keyOverlay').classList.add('hidden');
+  }
+
+  /* ── Load Maps SDK (modern async pattern) ── */
+  function loadMapsScript() {
+    if (document.getElementById('gmaps-script')) return;
+    const s = document.createElement('script');
+    s.id = 'gmaps-script';
+    s.src = `https://maps.googleapis.com/maps/api/js?key=${MAPS_KEY}&v=weekly&loading=async&callback=onGoogleMapsReady`;
+    s.async = true; s.defer = true;
+    document.head.appendChild(s);
+  }
+
+  /* ── Global callback ── */
+  window.onGoogleMapsReady = function() {
+    document.getElementById('mapPlaceholder').style.display = 'none';
+    document.getElementById('mapLegend').style.display = 'flex';
+    if (current === 8) initMap();
+  };
+
+  /* ── Init Map ──
+     Uses: importLibrary (modern), AdvancedMarkerElement with mapId (CF9),
+     explicit height 100vh (CF2), plain 'click' listener (weekly channel compat.)
+  */
+  async function initMap() {
+    if (mapInitialized) return;
+    if (typeof google === 'undefined' || !google.maps) return;
+    mapInitialized = true;
+
+    const { Map, Polyline, InfoWindow } = await google.maps.importLibrary('maps');
+    const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary('marker');
+
+    /* mapId REQUIRED for AdvancedMarkerElement — CF9 compliance */
+    const map = new Map(document.getElementById('map'), {
+      center: { lat: 50.0, lng: 4.5 },
+      zoom: 5,
+      mapId: 'DEMO_MAP_ID',
+      mapTypeControl: false,
+      streetViewControl: false,
+    });
+
+    const waypoints = [
+      { lat: 49.0134, lng: 12.1016, flag: '🇩🇪', name: '雷根斯堡', sub: '出發 / 返家地', color: '#2C3E6B' },
+      { lat: 48.3537, lng: 11.7860, flag: '✈️',   name: '慕尼黑機場 MUC', sub: 'RE22 直達 1h17m', color: '#4A5568' },
+      { lat: 51.5074, lng: -0.1278, flag: '🇬🇧', name: '倫敦 London', sub: 'Day 1–3 · 3 晚', color: '#1967D2' },
+      { lat: 48.8566, lng:  2.3522, flag: '🇫🇷', name: '巴黎 Paris',  sub: 'Day 4–6 · 3 晚', color: '#C0392B' },
+    ];
+
+    /* Geodesic polyline joining all stops */
+    new Polyline({
+      path: waypoints.map(w => ({ lat: w.lat, lng: w.lng })),
+      geodesic: true,
+      strokeColor: '#C9A84C',
+      strokeOpacity: 0.9,
+      strokeWeight: 3,
+      map,
+    });
+
+    let openInfoWindow = null;
+
+    waypoints.forEach(w => {
+      /* PinElement with custom bg color */
+      const pin = new PinElement({
+        background: w.color,
+        borderColor: 'rgba(255,255,255,.9)',
+        glyphText: w.flag,
+      });
+
+      /* AdvancedMarkerElement — non-deprecated replacement for google.maps.Marker */
+      const marker = new AdvancedMarkerElement({
+        map,
+        position: { lat: w.lat, lng: w.lng },
+        title: w.name,
+        content: pin.element,
+      });
+
+      const content = document.createElement('div');
+      content.style.cssText = 'padding:12px 16px;font-family:Noto Sans TC,sans-serif;min-width:160px;';
+      content.innerHTML = `
+        <div style="font-size:15px;font-weight:700;color:#2D3748;margin-bottom:4px;">${w.flag} ${w.name}</div>
+        <div style="font-size:12px;color:#718096;">${w.sub}</div>
+      `;
+
+      const infoWindow = new InfoWindow({ content });
+
+      /* plain 'click' — compatible with v=weekly (no gmp-click needed) */
+      marker.addListener('click', () => {
+        if (openInfoWindow) openInfoWindow.close();
+        infoWindow.open({ anchor: marker, map });
+        openInfoWindow = infoWindow;
+      });
+    });
+  }
+</script>
+</body>
+</html>
