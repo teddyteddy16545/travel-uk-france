@@ -507,7 +507,6 @@
 
 <script>
   /* ── State ── */
-  let MAPS_KEY = null;
   let mapInitialized = false;
 
   const slides = document.querySelectorAll('.slide');
@@ -537,7 +536,7 @@
     dotsContainer.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
     counterEl.textContent = `${current + 1} / ${total}`;
     progressBar.style.width = `${((current + 1) / total) * 100}%`;
-    if (current === 8 && MAPS_KEY && !mapInitialized && typeof google !== 'undefined') initMap();
+    if (current === 8 && !mapInitialized && typeof google !== 'undefined') initMap();
   }
 
   document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
@@ -556,33 +555,14 @@
   });
   progressBar.style.width = `${(1 / total) * 100}%`;
 
-  /* ── Key Overlay ── */
-  function applyKey() {
-    const val = document.getElementById('apiKeyInput').value.trim();
-    if (!val.startsWith('AIza')) {
-      const inp = document.getElementById('apiKeyInput');
-      inp.style.borderColor = '#C0392B';
-      setTimeout(() => { inp.style.borderColor = ''; }, 1800);
-      return;
-    }
-    MAPS_KEY = val;
-    document.getElementById('keyOverlay').classList.add('hidden');
-    document.getElementById('apiStatusBar').style.display = 'flex';
-    loadMapsScript();
-  }
-  function skipKey() {
-    document.getElementById('keyOverlay').classList.add('hidden');
-  }
-
-  /* ── Load Maps SDK (modern async pattern) ── */
-  function loadMapsScript() {
-    if (document.getElementById('gmaps-script')) return;
+  /* ── Auto-load Google Maps SDK ── */
+  (function() {
     const s = document.createElement('script');
     s.id = 'gmaps-script';
-    s.src = `https://maps.googleapis.com/maps/api/js?key=${MAPS_KEY}&v=weekly&loading=async&callback=onGoogleMapsReady`;
+    s.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBBBnBtBQ5EPXPjaEZO-7fKkOyy0ZzPGOk&v=weekly&loading=async&callback=onGoogleMapsReady';
     s.async = true; s.defer = true;
     document.head.appendChild(s);
-  }
+  })();
 
   /* ── Global callback ── */
   window.onGoogleMapsReady = function() {
