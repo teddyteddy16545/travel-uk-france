@@ -2,35 +2,168 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>義大利夏末狂歡 (9月)</title>
+  <title>義大利夏末狂歡 (9月) - 詳細行程</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700&family=Noto+Sans+TC:wght@400;700&family=Inter:wght@700;900&display=swap');
-    body { font-family: 'Noto Sans TC', sans-serif; background: linear-gradient(135deg, #1b5e20, #b71c1c); color: #fff; text-align: center; margin: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; }
-    .card { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: 40px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2); max-width: 600px; }
-    h1 { font-family: 'Noto Serif TC', serif; font-size: 36px; margin-bottom: 10px; }
-    .pill { display: inline-block; background: rgba(0,0,0,0.3); padding: 5px 15px; border-radius: 20px; font-size: 14px; margin: 5px; }
-    .budget { font-family: 'Inter'; font-size: 40px; font-weight: 900; color: #facc15; margin: 20px 0; }
-    .table-container { background: rgba(0,0,0,0.2); border-radius: 10px; padding: 20px; margin-top: 20px; text-align: left; }
-    p { line-height: 1.6; font-size: 14px; color: rgba(255,255,255,0.9); }
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700&family=Noto+Sans+TC:wght@400;600;700&family=Inter:wght@600;700&display=swap');
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--p:#2E7D32;--s:#D32F2F;--bg:#f4f6f8;--t:#2c3e50;--tm:#7f8c8d;--w:#ffffff}
+    body{font-family:'Noto Sans TC','Inter',sans-serif;background:var(--bg);color:var(--t);overflow:hidden;height:100vh}
+    .slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:40px;opacity:0;transform:translateY(30px);transition:all .5s;pointer-events:none}
+    .slide.active{opacity:1;transform:translateY(0);pointer-events:all}
+    .nav-dots{position:fixed;right:20px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:100}
+    .dot{width:10px;height:10px;border-radius:50%;background:#bdc3c7;cursor:pointer;border:none;transition:.3s}
+    .dot.active{background:var(--p);transform:scale(1.5)}
+    .nav-arrows{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:15px;z-index:100;align-items:center}
+    .btn-arr{width:40px;height:40px;border-radius:50%;border:2px solid var(--p);background:var(--w);color:var(--p);cursor:pointer;font-size:16px;transition:.2s}
+    .btn-arr:hover{background:var(--p);color:var(--w)}
+    .counter{font-size:12px;font-weight:600;color:var(--tm)}
+    .hdr{text-align:center;margin-bottom:30px}
+    .eye{font-size:12px;font-weight:700;letter-spacing:2px;color:var(--s);text-transform:uppercase}
+    .h2{font-family:'Noto Serif TC';font-size:32px;color:var(--t);margin-top:5px}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;width:100%;max-width:960px}
+    .card{background:var(--w);padding:20px;border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,.05);border:1px solid #eaeaea}
+    .c-hdr{display:flex;align-items:center;gap:10px;margin-bottom:12px;border-bottom:1px solid #eaeaea;padding-bottom:10px}
+    .c-icon{font-size:24px}
+    .c-tit{font-size:16px;font-weight:700;color:var(--p)}
+    .c-txt{font-size:13px;color:var(--tm);line-height:1.6}
+    .c-txt strong{color:var(--t)}
+    table{width:100%;max-width:800px;background:var(--w);border-radius:15px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,.05);border-collapse:collapse}
+    th{background:var(--p);color:var(--w);padding:14px;font-size:14px;text-align:left}
+    td{padding:14px;border-bottom:1px solid #eaeaea;font-size:14px}
+    tr:last-child td{font-weight:700;color:var(--s);font-size:18px;border-bottom:none;background:#fdf2f2}
+    .cover{background:linear-gradient(135deg,#1b5e20,#b71c1c);color:var(--w);text-align:center}
+    .cover h1{font-family:'Noto Serif TC';font-size:52px;margin:10px 0}
+    .cover p{font-size:18px;opacity:.9}
+    .route-flow{display:flex;align-items:center;gap:10px;background:var(--w);padding:20px;border-radius:20px;box-shadow:0 4px 15px rgba(0,0,0,.05)}
+    .node{text-align:center;padding:10px}
+    .node .icon{font-size:24px;margin-bottom:5px}
+    .node .name{font-weight:700;font-size:14px;color:var(--t)}
+    .arrow{color:var(--s);font-weight:700}
+    .btn-map{display:inline-block;margin-top:10px;padding:5px 12px;background:var(--bg);border-radius:10px;font-size:11px;color:var(--t);text-decoration:none;border:1px solid #ccc}
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>🇮🇹 義大利夏末狂歡 (4天)</h1>
-    <p>抓緊歐洲入冬前的溫暖陽光，完成吃道地義大利麵的願望。</p>
-    
-    <div style="margin: 20px 0;">
-      <span class="pill">羅馬 (競技場)</span> ➔ <span class="pill">佛羅倫斯 (大牛排)</span> ➔ <span class="pill">威尼斯 (水都)</span>
-    </div>
-
-    <div class="budget">€ 330 <span style="font-size:16px;">(約 11,500 NTD)</span></div>
-    
-    <div class="table-container">
-      <p><strong>✈️ 交通 (€110)：</strong>MUC 或 NUE 機場廉航直飛，境內搭乘 Italo 高鐵提早買極便宜。</p>
-      <p><strong>🛏️ 住宿 (€120)：</strong>3 晚高評分青旅床位 (約 €40/晚)。</p>
-      <p><strong>🍝 飲食雜支 (€100)：</strong>鎖定當地人的 Trattoria 小餐館，遠離觀光客廣場的餐廳。</p>
-    </div>
+  <div class="nav-dots" id="navDots"></div>
+  <div class="nav-arrows">
+    <button class="btn-arr" id="prevBtn">◀</button>
+    <span class="counter" id="slideCounter">1 / 6</span>
+    <button class="btn-arr" id="nextBtn">▶</button>
   </div>
+
+  <section class="slide cover active">
+    <div class="eye">Sep 2026 · 4 Days in Italy</div>
+    <h1>義大利夏末狂歡</h1>
+    <p>羅馬 × 佛羅倫斯 × 威尼斯，用最少天數吃遍道地義大利麵！</p>
+  </section>
+
+  <section class="slide">
+    <div class="hdr"><div class="eye">Route & Transport</div><div class="h2">交通戰略：廉航與高鐵混搭</div></div>
+    <div class="route-flow">
+      <div class="node"><div class="icon">🚆</div><div class="name">雷根斯堡</div></div>
+      <div class="arrow">去程飛機</div>
+      <div class="node" style="border:2px solid var(--p);border-radius:10px"><div class="icon">🏛️</div><div class="name">羅馬 (2晚)</div></div>
+      <div class="arrow">Italo 高鐵</div>
+      <div class="node" style="border:2px solid var(--p);border-radius:10px"><div class="icon">🥩</div><div class="name">佛羅倫斯 (1晚)</div></div>
+      <div class="arrow">Italo 高鐵</div>
+      <div class="node" style="border:2px solid var(--p);border-radius:10px"><div class="icon">🛶</div><div class="name">威尼斯</div></div>
+      <div class="arrow">回程航班</div>
+      <div class="node"><div class="icon">🇩🇪</div><div class="name">雷根斯堡</div></div>
+    </div>
+    <div class="grid" style="margin-top:30px">
+      <div class="card">
+        <div class="c-hdr"><div class="c-icon">✈️</div><div class="c-tit">廉航進出 (MUC/NUE)</div></div>
+        <div class="c-txt">利用 Ryanair 飛羅馬 (CIA/FCO)，回程從威尼斯 (VCE/TSF) 飛回慕尼黑。單程只要 €15-30。</div>
+      </div>
+      <div class="card">
+        <div class="c-hdr"><div class="c-icon">🚄</div><div class="c-tit">Italo 民營高鐵</div></div>
+        <div class="c-txt">羅馬到佛羅倫斯、佛羅倫斯到威尼斯，提早上 <strong>Italo 官網</strong> 買早鳥票，只要 €14.90 起。</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="hdr"><div class="eye">Accommodation</div><div class="h2">高評分青年旅館推薦</div></div>
+    <div class="grid">
+      <div class="card">
+        <div class="c-hdr"><div class="c-icon">🏛️</div><div class="c-tit">羅馬：YellowSquare</div></div>
+        <div class="c-txt"><strong>預估：€40 / 晚</strong><br>羅馬最狂青旅！離特米尼車站近，內建理髮廳、逃脫遊戲與超有氣氛的酒吧。<br><a class="btn-map" href="https://maps.google.com" target="_blank">📍 查看地圖</a></div>
+      </div>
+      <div class="card">
+        <div class="c-hdr"><div class="c-icon">🥩</div><div class="c-tit">佛羅倫斯：Plus Florence</div></div>
+        <div class="c-txt"><strong>預估：€35 / 晚</strong><br>走到聖母百花大教堂只要 10 分鐘，青旅內部甚至有一個溫水游泳池跟三溫暖！<br><a class="btn-map" href="https://maps.google.com" target="_blank">📍 查看地圖</a></div>
+      </div>
+      <div class="card">
+        <div class="c-hdr"><div class="c-icon">🛶</div><div class="c-tit">威尼斯：Anda Venice</div></div>
+        <div class="c-txt"><strong>預估：€35 / 晚</strong><br>位於 Mestre 站旁（島外交通樞紐），工業風極簡設計，搭一站火車即可進威尼斯本島。<br><a class="btn-map" href="https://maps.google.com" target="_blank">📍 查看地圖</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="hdr"><div class="eye">Day 1 - Day 2</div><div class="h2">羅馬帝國與梵蒂岡</div></div>
+    <div class="grid" style="grid-template-columns:1fr 1fr;">
+      <div class="card">
+        <div class="c-hdr"><div class="c-icon">⚔️</div><div class="c-tit">Day 1：古羅馬巡禮</div></div>
+        <div class="c-txt">抵達羅馬後，直奔 <strong>羅馬競技場 (Colosseum)</strong> 與古羅馬廣場。下午前往 <strong>特萊維噴泉 (許願池)</strong> 投硬幣。晚上去 Trastevere 區找間沒英文菜單的道地 Trattoria 吃培根蛋麵 (Carbonara)。</div>
+      </div>
+      <div class="card">
+        <div class="c-hdr"><div class="c-icon">🇻🇦</div><div class="c-tit">Day 2：世界最小國家</div></div>
+        <div class="c-txt">早上跨越國境來到 <strong>梵蒂岡</strong>，參觀聖彼得大教堂 (免費，但需排隊安檢)。下午漫步到萬神殿，並去旁邊的 Tazza d'Oro 金杯咖啡「站著」喝一杯 €1.2 的道地 Espresso。</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="hdr"><div class="eye">Day 3 - Day 4</div><div class="h2">佛羅倫斯文藝復興與威尼斯水都</div></div>
+    <div class="grid" style="grid-template-columns:1fr 1fr;">
+      <div class="card">
+        <div class="c-hdr"><div class="c-icon">🍷</div><div class="c-tit">Day 3：佛羅倫斯大牛排</div></div>
+        <div class="c-txt">搭高鐵抵達佛羅倫斯，參觀 <strong>聖母百花大教堂</strong>。去中央市場吃牛肚包，晚上一定要去 <strong>Trattoria Zà Zà</strong> 點一份超巨大的佛羅倫斯 1KG 丁骨大牛排 (可與旅伴分食)。</div>
+      </div>
+      <div class="card">
+        <div class="c-hdr"><div class="c-icon">🛶</div><div class="c-tit">Day 4：威尼斯迷走</div></div>
+        <div class="c-txt">搭高鐵至威尼斯。不要買昂貴的貢多拉，買張水上巴士單程票遊覽大運河。走到 <strong>聖馬可廣場</strong> 與里亞托橋。傍晚前往馬可波羅機場搭機回慕尼黑，完美結束。</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="hdr"><div class="eye">Budget Summary</div><div class="h2">4 天 3 夜 極限預算表</div></div>
+    <table>
+      <tr><th>預算項目</th><th>說明</th><th>預估費用 (歐元)</th></tr>
+      <tr><td>✈️ 廉價航空</td><td>慕尼黑/紐倫堡 ↔ 義大利 (來回)</td><td>€ 50</td></tr>
+      <tr><td>🚄 義大利高鐵</td><td>羅馬→佛羅倫斯→威尼斯 (Italo 早鳥票)</td><td>€ 40</td></tr>
+      <tr><td>🛏️ 住宿 3 晚</td><td>羅馬2晚 + 佛羅倫斯1晚</td><td>€ 120</td></tr>
+      <tr><td>🍝 飲食與雜支</td><td>避開廣場餐廳、買超市水、吃披薩與道地義大利麵</td><td>€ 120</td></tr>
+      <tr><td colspan="2"><strong>🎯 總計花費</strong></td><td><strong>€ 330 (約 11,500 NTD)</strong></td></tr>
+    </table>
+  </section>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const dotsContainer = document.getElementById('navDots');
+    const counterEl = document.getElementById('slideCounter');
+    let current = 0;
+    slides.forEach((_, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'dot' + (i === 0 ? ' active' : '');
+      btn.addEventListener('click', () => goTo(i));
+      dotsContainer.appendChild(btn);
+    });
+    function goTo(index) {
+      if (index < 0 || index >= slides.length) return;
+      slides[current].classList.remove('active');
+      current = index;
+      slides[current].classList.add('active');
+      document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
+      counterEl.textContent = `${current + 1} / ${slides.length}`;
+    }
+    document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
+    document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') goTo(current + 1);
+      if (e.key === 'ArrowLeft') goTo(current - 1);
+    });
+  </script>
 </body>
 </html>
