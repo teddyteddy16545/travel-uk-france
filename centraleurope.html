@@ -2,35 +2,146 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>東歐聖誕環線 (12月)</title>
+  <title>東歐聖誕環線 (12月) - 詳細行程</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700&family=Noto+Sans+TC:wght@400;700&family=Inter:wght@700;900&display=swap');
-    body { font-family: 'Noto Sans TC', sans-serif; background: linear-gradient(135deg, #0f172a, #115e59); color: #fff; text-align: center; margin: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; }
-    .card { background: rgba(0,0,0,0.5); backdrop-filter: blur(10px); padding: 40px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); max-width: 600px; }
-    h1 { font-family: 'Noto Serif TC', serif; font-size: 36px; margin-bottom: 10px; }
-    .pill { display: inline-block; background: rgba(255,255,255,0.15); padding: 5px 15px; border-radius: 20px; font-size: 14px; margin: 5px; }
-    .budget { font-family: 'Inter'; font-size: 40px; font-weight: 900; color: #facc15; margin: 20px 0; }
-    .table-container { background: rgba(255,255,255,0.05); border-radius: 10px; padding: 20px; margin-top: 20px; text-align: left; }
-    p { line-height: 1.6; font-size: 14px; color: rgba(255,255,255,0.9); }
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700&family=Noto+Sans+TC:wght@400;600;700&family=Inter:wght@600;700&display=swap');
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--p:#0D47A1;--s:#B71C1C;--gold:#D4AF37;--bg:#F4F6F8;--t:#1a252f;--tm:#5a6c7d;--w:#ffffff}
+    body{font-family:'Noto Sans TC','Inter',sans-serif;background:var(--bg);color:var(--t);overflow:hidden;height:100vh}
+    .slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:40px;opacity:0;transform:translateY(30px);transition:all .5s;pointer-events:none}
+    .slide.active{opacity:1;transform:translateY(0);pointer-events:all}
+    .nav-dots{position:fixed;right:20px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:100}
+    .dot{width:10px;height:10px;border-radius:50%;background:#BDC3C7;cursor:pointer;border:none;transition:.3s}
+    .dot.active{background:var(--s);transform:scale(1.5)}
+    .nav-arrows{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:15px;z-index:100;align-items:center}
+    .btn-arr{width:40px;height:40px;border-radius:50%;border:2px solid var(--s);background:var(--w);color:var(--s);cursor:pointer;font-size:16px;transition:.2s}
+    .btn-arr:hover{background:var(--s);color:var(--w)}
+    .counter{font-size:12px;font-weight:600;color:var(--tm)}
+    .hdr{text-align:center;margin-bottom:30px}
+    .eye{font-size:12px;font-weight:700;letter-spacing:2px;color:var(--s);text-transform:uppercase}
+    .h2{font-family:'Noto Serif TC';font-size:32px;color:var(--t);margin-top:5px}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;width:100%;max-width:1000px}
+    .card{background:var(--w);padding:20px;border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,.05);border:1px solid #E0E6ED}
+    .c-hdr{display:flex;align-items:center;gap:10px;margin-bottom:12px;border-bottom:1px solid #E0E6ED;padding-bottom:10px}
+    .c-icon{font-size:24px}
+    .c-tit{font-size:16px;font-weight:700;color:var(--p)}
+    .c-txt{font-size:13px;color:var(--tm);line-height:1.6}
+    .c-txt strong{color:var(--s)}
+    table{width:100%;max-width:800px;background:var(--w);border-radius:15px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,.05);border-collapse:collapse}
+    th{background:var(--p);color:var(--gold);padding:14px;font-size:14px;text-align:left}
+    td{padding:14px;border-bottom:1px solid #E0E6ED;font-size:14px}
+    tr:last-child td{font-weight:700;color:var(--s);font-size:18px;border-bottom:none;background:#F9EBEA}
+    .cover{background:linear-gradient(135deg,#0D47A1,#001F3F);color:var(--w);text-align:center}
+    .cover h1{font-family:'Noto Serif TC';font-size:52px;margin:10px 0;color:var(--gold)}
+    .cover p{font-size:18px;opacity:.9}
+    .route-flow{display:flex;align-items:center;gap:8px;background:var(--w);padding:15px 20px;border-radius:20px;box-shadow:0 4px 15px rgba(0,0,0,.05);margin-bottom:20px;}
+    .node{text-align:center;padding:8px}
+    .node .icon{font-size:20px;margin-bottom:5px}
+    .node .name{font-weight:700;font-size:12px;color:var(--t)}
+    .arrow{color:var(--gold);font-weight:700;font-size:12px}
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>🎄 中東歐聖誕市集 (7天)</h1>
-    <p>不搭飛機的浪漫金三角！享受東歐的極低物價與絕美雪景。</p>
-    
-    <div style="margin: 20px 0;">
-      <span class="pill">🇨🇿 布拉格</span> ➔ <span class="pill">🇭🇺 布達佩斯</span> ➔ <span class="pill">🇦🇹 維也納</span> ➔ <span class="pill">🇦🇹 哈修塔特</span>
-    </div>
-
-    <div class="budget">€ 455 <span style="font-size:16px;">(約 16,000 NTD)</span></div>
-    
-    <div class="table-container">
-      <p><strong>🚌 交通神解 (€75)：</strong>純陸路！搭乘 Flixbus 與 RegioJet，最後從薩爾斯堡回程時，直接使用你的 <strong>49歐 D-Ticket</strong> 免費搭回雷根斯堡。</p>
-      <p><strong>🛏️ 住宿 (€180)：</strong>6 晚青旅。布拉格與布達佩斯住宿超便宜，可稍微平衡哈修塔特高昂的住宿費。</p>
-      <p><strong>🍷 飲食市集 (€200)：</strong>品嚐熱紅酒 (Glühwein)、煙囪捲 (Trdelník) 以及泡布達佩斯塞切尼溫泉！</p>
-    </div>
+  <div class="nav-dots" id="navDots"></div>
+  <div class="nav-arrows">
+    <button class="btn-arr" id="prevBtn">◀</button>
+    <span class="counter" id="slideCounter">1 / 6</span>
+    <button class="btn-arr" id="nextBtn">▶</button>
   </div>
+
+  <section class="slide cover active">
+    <div class="eye">Dec 2026 · 7 Days Central Europe</div>
+    <h1>中東歐聖誕魔幻環線</h1>
+    <p>純陸路不走回頭路，解鎖布拉格、布達佩斯與哈修塔特絕美雪景！</p>
+  </section>
+
+  <section class="slide">
+    <div class="hdr"><div class="eye">Transport Strategy</div><div class="h2">交通神解：全程無飛機環線</div></div>
+    <div class="route-flow">
+      <div class="node"><div class="icon">🇩🇪</div><div class="name">Regensburg</div></div><div class="arrow">巴士</div>
+      <div class="node" style="border:2px solid var(--s);border-radius:10px"><div class="icon">🇨🇿</div><div class="name">布拉格 (2晚)</div></div><div class="arrow">火車</div>
+      <div class="node" style="border:2px solid var(--s);border-radius:10px"><div class="icon">🇭🇺</div><div class="name">布達佩斯 (2晚)</div></div><div class="arrow">巴士</div>
+      <div class="node" style="border:2px solid var(--s);border-radius:10px"><div class="icon">🇦🇹</div><div class="name">維也納 (1晚)</div></div><div class="arrow">火車</div>
+      <div class="node" style="border:2px solid var(--s);border-radius:10px"><div class="icon">🏔️</div><div class="name">哈修塔特 (1晚)</div></div><div class="arrow">D-Ticket</div>
+      <div class="node"><div class="icon">🏠</div><div class="name">Regensburg</div></div>
+    </div>
+    <div class="grid" style="grid-template-columns:1fr 1fr;">
+      <div class="card">
+        <div class="c-hdr"><div class="c-icon">🚌</div><div class="c-tit">黃色神車 RegioJet</div></div>
+        <div class="c-txt">東歐窮遊必備！布拉格到布達佩斯的火車只要 €20 上下，座位舒適且有時會發免費熱茶。跨國移動完全依賴它跟 Flixbus。</div>
+      </div>
+      <div class="card">
+        <div class="c-hdr"><div class="c-icon">🎫</div><div class="c-tit">最後一哩路靠 49 歐月票</div></div>
+        <div class="c-txt">回程從哈修塔特搭車到「薩爾斯堡 (Salzburg)」，一但火車跨越邊境進入德國巴伐利亞邦，你的 <strong>D-Ticket 就生效了</strong>，免費搭回雷根斯堡！</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="hdr"><div class="eye">Day 1 - Day 3</div><div class="h2">捷克與匈牙利的雙城浪漫</div></div>
+    <div class="grid" style="grid-template-columns:1fr 1fr;">
+      <div class="card">
+        <div class="c-hdr"><div class="c-icon">🇨🇿</div><div class="c-tit">Day 1-2：布拉格老城聖誕</div></div>
+        <div class="c-txt">前往舊城廣場，這裡有著全歐洲票選最美的聖誕市集！手裡拿著熱紅酒 (Glühwein) 與現烤煙囪捲 (Trdelník)，漫步於查理大橋與布拉格城堡。東歐物價極低，晚餐去地窖餐廳大口吃烤豬腳。</div>
+      </div>
+      <div class="card">
+        <div class="c-hdr"><div class="c-icon">🇭🇺</div><div class="c-tit">Day 3-4：布達佩斯溫泉夜景</div></div>
+        <div class="c-txt">搭乘火車抵達多瑙河明珠。白天在 <strong>塞切尼溫泉</strong> (Széchenyi) 的戶外雪地裡泡湯。晚上走到多瑙河畔，看著點亮金黃燈光的 <strong>匈牙利國會大廈</strong>，這是全歐洲最震撼的夜景，沒有之一。</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="hdr"><div class="eye">Day 5 - Day 7</div><div class="h2">奧地利帝國與阿爾卑斯仙境</div></div>
+    <div class="grid" style="grid-template-columns:1fr 1fr;">
+      <div class="card">
+        <div class="c-hdr"><div class="c-icon">🎻</div><div class="c-tit">Day 5：維也納皇家氣派</div></div>
+        <div class="c-txt">搭車前往維也納。參觀美泉宮 (Schönbrunn) 或霍夫堡。晚上的重點是 <strong>市政廳前 (Rathausplatz)</strong> 的巨型聖誕市集，極度華麗。別忘了去吃比臉還大的維也納炸豬排 (Schnitzel)！</div>
+      </div>
+      <div class="card">
+        <div class="c-hdr"><div class="c-icon">🏔️</div><div class="c-tit">Day 6-7：哈修塔特雪白仙境</div></div>
+        <div class="c-txt">搭乘 ÖBB 抵達世界最美小鎮哈修塔特 (Hallstatt)。冬天白雪覆蓋的湖畔小屋如詩如畫。<strong>省錢秘訣：</strong>住對岸的 Obertraun 會便宜很多！隔天搭公車至薩爾斯堡，用月票返回雷根斯堡。</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="hdr"><div class="eye">Budget Summary</div><div class="h2">7 天 6 夜 極限預算表</div></div>
+    <table>
+      <tr><th>預算項目</th><th>說明</th><th>預估費用 (歐元)</th></tr>
+      <tr><td>🚌 跨國交通</td><td>Flixbus / RegioJet / 奧地利國鐵</td><td>€ 75</td></tr>
+      <tr><td>🛏️ 住宿 6 晚</td><td>布拉格/布達佩斯極度便宜，平衡奧地利開銷</td><td>€ 180</td></tr>
+      <tr><td>🎫 門票與活動</td><td>塞切尼溫泉門票、市區交通券</td><td>€ 40</td></tr>
+      <tr><td>🍷 飲食與聖誕市集</td><td>熱紅酒、煙囪捲、烤豬腳、超商補給</td><td>€ 160</td></tr>
+      <tr><td colspan="2"><strong>🎯 總計花費</strong></td><td><strong>€ 455 (約 16,000 NTD)</strong></td></tr>
+    </table>
+  </section>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const dotsContainer = document.getElementById('navDots');
+    const counterEl = document.getElementById('slideCounter');
+    let current = 0;
+    slides.forEach((_, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'dot' + (i === 0 ? ' active' : '');
+      btn.addEventListener('click', () => goTo(i));
+      dotsContainer.appendChild(btn);
+    });
+    function goTo(index) {
+      if (index < 0 || index >= slides.length) return;
+      slides[current].classList.remove('active');
+      current = index;
+      slides[current].classList.add('active');
+      document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
+      counterEl.textContent = `${current + 1} / ${slides.length}`;
+    }
+    document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
+    document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') goTo(current + 1);
+      if (e.key === 'ArrowLeft') goTo(current - 1);
+    });
+  </script>
 </body>
 </html>
