@@ -2,230 +2,346 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
-  <title>阿姆斯特丹 4 日窮遊攻略</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Amsterdam 阿姆斯特丹 4日攻略</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700&family=Noto+Sans+TC:wght@400;600;700&family=Inter:wght@600;700;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700;900&family=Inter:wght@400;600;700;900&display=swap');
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    :root{--p:#E65100;--s:#1565C0;--bg:#FFF3E0;--t:#263238;--tm:#5D4037;--w:#ffffff;--accent:#FF6D00;--radius:16px}
-    body{font-family:'Noto Sans TC','Inter',sans-serif;background:var(--bg);color:var(--t);overflow:hidden;height:100vh}
-    .slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:40px;opacity:0;transform:translateY(30px);transition:all .5s;pointer-events:none;overflow-y:auto}
-    .slide.active{opacity:1;transform:translateY(0);pointer-events:all}
-    .nav-dots{position:fixed;right:20px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:100}
-    .dot{width:10px;height:10px;border-radius:50%;background:#BCAAA4;cursor:pointer;border:none;transition:.3s}
-    .dot.active{background:var(--p);transform:scale(1.5)}
-    .nav-arrows{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:15px;z-index:100;align-items:center}
-    .btn-arr{width:44px;height:44px;border-radius:50%;border:2px solid var(--p);background:var(--w);color:var(--p);cursor:pointer;font-size:18px;transition:.2s;font-weight:700}
-    .btn-arr:hover{background:var(--p);color:var(--w)}
-    .counter{font-size:13px;font-weight:700;color:var(--tm);min-width:50px;text-align:center}
-    .hdr{text-align:center;margin-bottom:30px}
-    .eye{font-size:12px;font-weight:700;letter-spacing:3px;color:var(--p);text-transform:uppercase}
-    .h2{font-family:'Noto Serif TC';font-size:34px;color:var(--t);margin-top:6px}
-    .grid{display:grid;gap:20px;width:100%;max-width:1000px}
-    .g2{grid-template-columns:1fr 1fr}
-    .g3{grid-template-columns:1fr 1fr 1fr}
-    .card{background:var(--w);padding:22px;border-radius:var(--radius);box-shadow:0 6px 20px rgba(0,0,0,.06);border:1px solid #FFCCBC;position:relative}
-    .card.highlight{border:2px solid var(--accent);box-shadow:0 6px 25px rgba(230,81,0,.12)}
-    .rec-badge{position:absolute;top:-10px;right:16px;background:var(--accent);color:#fff;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px}
-    .c-hdr{display:flex;align-items:center;gap:10px;margin-bottom:12px;border-bottom:1px solid #FFCCBC;padding-bottom:10px}
-    .c-icon{font-size:26px}
-    .c-tit{font-size:17px;font-weight:700;color:var(--p)}
-    .c-txt{font-size:13px;color:var(--tm);line-height:1.7}
-    .c-txt strong{color:var(--t)}
-    .tag{display:inline-block;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:700;margin:3px 3px 3px 0}
-    .tag-time{background:#E3F2FD;color:var(--s)}
-    .tag-price{background:#FFF3E0;color:var(--p)}
+    :root{--p:#E65100;--s:#1565C0;--bg:#FFF8F0;--card:#ffffff;--t:#1a1a1a;--tm:#6D4C41;--accent:#FF6D00;--border:#FFE0B2;--r:16px;--safe-b:env(safe-area-inset-bottom,20px)}
+    html,body{height:100%;overflow:hidden;font-family:'Noto Sans TC','Inter',sans-serif;background:var(--bg);color:var(--t);-webkit-tap-highlight-color:transparent}
+    
+    /* === SLIDE SYSTEM === */
+    .deck{position:relative;height:100%;width:100%}
+    .slide{position:absolute;inset:0;opacity:0;transform:translateX(60px);transition:opacity .4s,transform .4s;pointer-events:none;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:20px 18px 100px}
+    .slide.active{opacity:1;transform:translateX(0);pointer-events:all}
+    .slide.prev{transform:translateX(-60px)}
+
+    /* === NAV BAR (BOTTOM) === */
+    .nav{position:fixed;bottom:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:12px 20px calc(12px + var(--safe-b));background:rgba(255,248,240,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--border);z-index:200}
+    .nav-btn{width:48px;height:48px;border-radius:50%;border:2px solid var(--p);background:var(--card);color:var(--p);font-size:20px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s;flex-shrink:0}
+    .nav-btn:active{background:var(--p);color:#fff;transform:scale(.9)}
+    .nav-btn:disabled{opacity:.3;pointer-events:none}
+    .nav-dots-row{display:flex;gap:6px;justify-content:center;flex:1}
+    .ndot{width:8px;height:8px;border-radius:50%;background:var(--border);border:none;cursor:pointer;transition:.3s;padding:0}
+    .ndot.on{background:var(--p);transform:scale(1.4)}
+    .page-label{font-size:11px;color:var(--tm);text-align:center;margin-top:4px}
+
+    /* === TYPOGRAPHY === */
+    .sec-eye{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--p);text-transform:uppercase;margin-bottom:4px}
+    .sec-eye-en{font-size:10px;color:var(--tm);letter-spacing:1px;margin-bottom:10px}
+    .sec-h{font-size:26px;font-weight:900;line-height:1.3;margin-bottom:6px}
+    .sec-h-en{font-size:14px;font-weight:600;color:var(--tm);margin-bottom:20px}
+
+    /* === CARDS === */
+    .card{background:var(--card);border-radius:var(--r);padding:18px;margin-bottom:14px;box-shadow:0 2px 12px rgba(0,0,0,.04);border:1px solid var(--border);position:relative}
+    .card.hl{border:2px solid var(--accent);box-shadow:0 4px 20px rgba(230,81,0,.1)}
+    .badge{position:absolute;top:-9px;right:14px;background:var(--accent);color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px}
+    .c-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+    .c-emoji{font-size:28px;flex-shrink:0}
+    .c-title{font-size:16px;font-weight:700;color:var(--p);line-height:1.3}
+    .c-title-en{font-size:11px;font-weight:600;color:var(--tm);margin-top:2px}
+    .c-body{font-size:13px;color:var(--tm);line-height:1.75}
+    .c-body strong{color:var(--t)}
+    .c-body .en{display:block;font-size:11px;color:#999;margin-top:3px;line-height:1.5;font-family:'Inter','Noto Sans TC',sans-serif}
+    .addr{display:block;margin:8px 0 4px;font-size:12px;color:var(--t);font-weight:600}
+    .btn-book{display:inline-flex;align-items:center;gap:5px;margin-top:8px;padding:10px 18px;background:var(--accent);border-radius:12px;font-size:13px;color:#fff;text-decoration:none;font-weight:700;transition:.2s}
+    .btn-book:active{transform:scale(.95);background:var(--p)}
+    .btn-ext{display:inline-flex;align-items:center;gap:5px;margin-top:8px;padding:8px 14px;background:var(--bg);border-radius:10px;font-size:12px;color:var(--t);text-decoration:none;border:1px solid var(--border);font-weight:600}
+
+    /* === DETAIL ROWS === */
+    .d-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px dashed var(--border);font-size:13px}
+    .d-row:last-child{border-bottom:none}
+    .d-label{color:var(--tm)}
+    .d-val{font-weight:700;color:var(--t);text-align:right}
+    .tag{display:inline-block;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:700}
     .tag-win{background:#C8E6C9;color:#2E7D32}
-    .vs-box{display:flex;align-items:center;justify-content:center;gap:30px;margin:20px 0}
+
+    /* === VS BOX === */
+    .vs-bar{display:flex;align-items:center;justify-content:center;gap:12px;margin:16px 0;padding:14px;background:var(--card);border-radius:var(--r);border:1px solid var(--border)}
     .vs-side{text-align:center;flex:1}
-    .vs-side .icon{font-size:50px;margin-bottom:8px}
-    .vs-side .label{font-weight:700;font-size:18px;color:var(--t)}
-    .vs-side .sub{font-size:13px;color:var(--tm)}
-    .vs-divider{font-family:'Inter';font-size:36px;font-weight:900;color:var(--accent)}
-    .detail-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #FFCCBC;font-size:13px}
-    .detail-row:last-child{border-bottom:none}
-    .detail-label{color:var(--tm)}
-    .detail-val{font-weight:700;color:var(--t)}
-    table{width:100%;max-width:800px;background:var(--w);border-radius:var(--radius);overflow:hidden;box-shadow:0 6px 20px rgba(0,0,0,.06);border-collapse:collapse}
-    th{background:var(--p);color:var(--w);padding:14px;font-size:14px;text-align:left}
-    td{padding:14px;border-bottom:1px solid #FFCCBC;font-size:14px}
-    tr:last-child td{font-weight:700;color:var(--p);font-size:18px;border-bottom:none;background:#FFF3E0}
-    .cover{background:linear-gradient(135deg,#E65100,#BF360C);color:var(--w);text-align:center}
-    .cover .eye{color:rgba(255,255,255,.7)}
-    .cover h1{font-family:'Noto Serif TC';font-size:56px;margin:10px 0}
-    .cover p{font-size:18px;opacity:.85;max-width:600px}
-    .addr{display:block;margin:6px 0;font-size:11px;color:var(--t);font-weight:600}
-    .btn-book{display:inline-block;margin-top:8px;padding:6px 14px;background:var(--accent);border-radius:10px;font-size:12px;color:#fff;text-decoration:none;font-weight:700;transition:.2s}
-    .btn-book:hover{background:var(--p)}
-    .btn-ext{display:inline-block;margin-top:6px;padding:5px 12px;background:var(--bg);border-radius:10px;font-size:11px;color:var(--t);text-decoration:none;border:1px solid #FFAB91}
+    .vs-side .v-icon{font-size:36px}
+    .vs-side .v-name{font-weight:700;font-size:14px;margin-top:4px}
+    .vs-side .v-sub{font-size:11px;color:var(--tm)}
+    .vs-x{font-family:'Inter';font-size:28px;font-weight:900;color:var(--accent)}
+
+    /* === COVER === */
+    .cover-bg{background:linear-gradient(160deg,#E65100 0%,#BF360C 50%,#880E4F 100%);color:#fff;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;min-height:100vh;padding:40px 24px 120px}
+    .cover-bg .sec-eye{color:rgba(255,255,255,.6)}
+    .cover-flag{font-size:72px;margin-bottom:10px}
+    .cover-h{font-size:42px;font-weight:900;line-height:1.2}
+    .cover-h-en{font-size:18px;font-weight:600;opacity:.8;margin-top:6px}
+    .cover-sub{font-size:14px;opacity:.75;margin-top:16px;line-height:1.6;max-width:320px}
+    .cover-hint{margin-top:30px;font-size:12px;opacity:.5;animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:.4}50%{opacity:.8}}
+
+    /* === TABLE === */
+    .budget-table{width:100%;border-collapse:collapse;background:var(--card);border-radius:var(--r);overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.04);margin-bottom:14px}
+    .budget-table th{background:var(--p);color:#fff;padding:12px 14px;font-size:12px;text-align:left}
+    .budget-table td{padding:12px 14px;border-bottom:1px solid var(--border);font-size:13px}
+    .budget-table tr:last-child td{font-weight:700;color:var(--p);font-size:15px;border-bottom:none;background:#FFF3E0}
+
+    /* === CONCLUSION BOX === */
+    .conclusion{background:linear-gradient(135deg,var(--p),#BF360C);color:#fff;border-radius:var(--r);padding:18px;text-align:center;margin-top:10px}
+    .conclusion .big{font-family:'Inter';font-size:20px;font-weight:900}
+    .conclusion .sub{font-size:12px;opacity:.85;margin-top:6px}
+
+    /* === SWIPE HINT === */
+    .swipe-hint{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);font-size:11px;color:var(--tm);opacity:0;transition:opacity .5s;z-index:100;pointer-events:none;background:var(--card);padding:6px 14px;border-radius:20px;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+    .swipe-hint.show{opacity:1}
   </style>
 </head>
 <body>
-  <div class="nav-dots" id="navDots"></div>
-  <div class="nav-arrows">
-    <button class="btn-arr" id="prevBtn">◀</button>
-    <span class="counter" id="slideCounter">1 / 7</span>
-    <button class="btn-arr" id="nextBtn">▶</button>
+  <div class="deck" id="deck">
+
+    <!-- ===== SLIDE 0: COVER ===== -->
+    <div class="slide cover-bg active" data-i="0">
+      <div class="sec-eye">Oct 2026 · 4 Days</div>
+      <div class="cover-flag">🇳🇱</div>
+      <div class="cover-h">阿姆斯特丹</div>
+      <div class="cover-h-en">Amsterdam</div>
+      <div class="cover-sub">運河之都 × 梵谷 × 自由之城<br>Canal City × Van Gogh × City of Freedom<br>從雷根斯堡出發的極限窮遊完全攻略</div>
+      <div class="cover-hint">👈 左滑開始 Swipe to start →</div>
+    </div>
+
+    <!-- ===== SLIDE 1: BUS vs FLIGHT ===== -->
+    <div class="slide" data-i="1">
+      <div class="sec-eye">交通大比拼</div>
+      <div class="sec-eye-en">TRANSPORT SHOWDOWN</div>
+      <div class="sec-h">🚌 巴士 vs ✈️ 飛機</div>
+      <div class="sec-h-en">Which one saves more money?</div>
+
+      <div class="vs-bar">
+        <div class="vs-side"><div class="v-icon">🚌</div><div class="v-name">FlixBus</div><div class="v-sub">直達巴士 Direct</div></div>
+        <div class="vs-x">VS</div>
+        <div class="vs-side"><div class="v-icon">✈️</div><div class="v-name">KLM</div><div class="v-sub">需先到 MUC 機場</div></div>
+      </div>
+
+      <div class="card hl">
+        <div class="badge">💰 推薦 Pick</div>
+        <div class="c-top"><div class="c-emoji">🚌</div><div><div class="c-title">FlixBus 長途巴士</div><div class="c-title-en">FlixBus Long-Distance Coach</div></div></div>
+        <div class="d-row"><span class="d-label">💰 票價 Fare</span><span class="d-val">€18 ~ €30 / 單程</span></div>
+        <div class="d-row"><span class="d-label">⏱️ 車程 Duration</span><span class="d-val">9.5 ~ 11.5 hrs</span></div>
+        <div class="d-row"><span class="d-label">🔌 車上設施</span><span class="d-val">WiFi・插座・廁所</span></div>
+        <div class="d-row"><span class="d-label">🌙 夜車省住宿</span><span class="d-val tag tag-win">✅ 省一晚！</span></div>
+        <div class="d-row"><span class="d-label">💵 來回 Round-trip</span><span class="d-val tag tag-win">€36 ~ €60</span></div>
+        <div class="c-body" style="margin-top:12px"><strong>窮遊神招：</strong>選晚上 22:00 夜車，睡一覺直達阿姆斯特丹，省一晚住宿費！<span class="en">Pro tip: Take the 10 PM night bus — sleep on board, save one night of hostel costs!</span></div>
+        <a class="btn-ext" href="https://www.flixbus.com" target="_blank">🔗 FlixBus 官網查票</a>
+      </div>
+
+      <div class="card">
+        <div class="c-top"><div class="c-emoji">✈️</div><div><div class="c-title">慕尼黑 → 阿姆斯特丹</div><div class="c-title-en">MUC → AMS (KLM / Lufthansa)</div></div></div>
+        <div class="d-row"><span class="d-label">💰 機票 Airfare</span><span class="d-val">€180 ~ €300</span></div>
+        <div class="d-row"><span class="d-label">⏱️ 飛行 Flight</span><span class="d-val">1h 30min</span></div>
+        <div class="d-row"><span class="d-label">🚆 接駁 Transfer</span><span class="d-val">+1.5h + €30</span></div>
+        <div class="d-row"><span class="d-label">🏢 安檢報到</span><span class="d-val">+2h check-in</span></div>
+        <div class="d-row"><span class="d-label">💵 總計 Total</span><span class="d-val" style="color:#B71C1C">€210 ~ €330</span></div>
+        <div class="c-body" style="margin-top:12px"><strong>隱藏成本：</strong>雷根斯堡→MUC 火車、提前到機場、行李費、機場→市區，門到門至少 5 小時。<span class="en">Hidden costs: train to MUC, early arrival, baggage fees, airport→city. Door-to-door: 5+ hours.</span></div>
+        <a class="btn-ext" href="https://www.google.com/travel/flights" target="_blank">🔗 Google Flights</a>
+      </div>
+
+      <div class="conclusion">
+        <div class="big">🏆 巴士省下 €150 ~ €270！</div>
+        <div class="sub">Bus saves €150–€270! Night bus also saves 1 night hostel.</div>
+      </div>
+    </div>
+
+    <!-- ===== SLIDE 2: ACCOMMODATION ===== -->
+    <div class="slide" data-i="2">
+      <div class="sec-eye">住宿推薦</div>
+      <div class="sec-eye-en">ACCOMMODATION</div>
+      <div class="sec-h">高 CP 值青旅</div>
+      <div class="sec-h-en">Best Budget Hostels in Amsterdam</div>
+
+      <div class="card hl">
+        <div class="badge">⭐ 首推 Top Pick</div>
+        <div class="c-top"><div class="c-emoji">🏨</div><div><div class="c-title">ClinkNOORD</div><div class="c-title-en">Design Hostel · Free Ferry Access</div></div></div>
+        <div class="c-body"><strong>€30 ~ €40 / 晚 per night</strong><br>中央車站對岸，搭免費渡輪只要 2 分鐘！前身是舊實驗室，改造成超有設計感的大型青旅。<span class="en">Across the river from Centraal — 2-min free ferry! Converted lab building with stunning design.</span></div>
+        <span class="addr">📍 Badhuiskade 3, 1031 KV Amsterdam</span>
+        <a class="btn-book" href="https://www.hostelworld.com/st/hostels/p/260693/clinknord/" target="_blank">🔗 前往訂房 Book Now</a>
+      </div>
+
+      <div class="card">
+        <div class="c-top"><div class="c-emoji">🎭</div><div><div class="c-title">St Christopher's at The Winston</div><div class="c-title-en">Party Hostel · Red Light District</div></div></div>
+        <div class="c-body"><strong>€35 ~ €50 / 晚 per night</strong><br>就在紅燈區旁邊！地點無敵方便，樓下是 Belushi's Bar，每間房都有藝術家手繪壁畫。<span class="en">Right next to the Red Light District! Belushi's Bar downstairs, artist-painted rooms.</span></div>
+        <span class="addr">📍 Warmoesstraat 129, 1012 JA Amsterdam</span>
+        <a class="btn-book" href="https://www.hostelworld.com/st/hostels/p/6498/st-christophers-inn-at-the-winston/" target="_blank">🔗 前往訂房 Book Now</a>
+      </div>
+
+      <div class="card">
+        <div class="c-top"><div class="c-emoji">🎒</div><div><div class="c-title">Hans Brinker Hostel</div><div class="c-title-en">"World's Worst Hotel" · Budget King</div></div></div>
+        <div class="c-body"><strong>€25 ~ €35 / 晚 per night</strong><br>自嘲「世界最爛旅館」的行銷天才！其實乾淨實用，是市中心最便宜的選擇，離博物館區超近。<span class="en">Famous for self-deprecating "worst hotel" marketing — actually clean & functional. Cheapest in city center, near Museum Quarter.</span></div>
+        <span class="addr">📍 Kerkstraat 136, 1017 GR Amsterdam</span>
+        <a class="btn-book" href="https://www.hostelworld.com/st/hostels/p/340/hans-brinker-hostel-amsterdam/" target="_blank">🔗 前往訂房 Book Now</a>
+      </div>
+    </div>
+
+    <!-- ===== SLIDE 3: DAY 1 ===== -->
+    <div class="slide" data-i="3">
+      <div class="sec-eye">Day 1</div>
+      <div class="sec-eye-en">OLD TOWN & CANALS</div>
+      <div class="sec-h">老城運河與約旦區</div>
+      <div class="sec-h-en">Dam Square · Jordaan · Red Light District</div>
+
+      <div class="card">
+        <div class="c-top"><div class="c-emoji">🏛️</div><div><div class="c-title">上午：水壩廣場</div><div class="c-title-en">Morning: Dam Square & Royal Palace</div></div></div>
+        <div class="c-body">從中央車站走 5 分鐘到 <strong>Dam Square</strong>。荷蘭王宮外觀 (免費)、二戰紀念碑，廣場上鴿子成群。<span class="en">5-min walk from Centraal to Dam Square. See the Royal Palace exterior (free), WWII monument.</span></div>
+      </div>
+
+      <div class="card">
+        <div class="c-top"><div class="c-emoji">🌷</div><div><div class="c-title">下午：約旦區漫步</div><div class="c-title-en">Afternoon: Jordaan & Anne Frank House</div></div></div>
+        <div class="c-body">走入阿姆斯特丹最有氣質的文青街區 <strong>Jordaan</strong>，充滿獨立咖啡館、古董店與窄小運河橋。路過 <strong>安妮之家 (Anne Frank Huis)</strong> 外觀感受歷史。<span class="en">Wander through the charming Jordaan — indie cafés, antique shops, narrow bridges. Pass by the Anne Frank House.</span></div>
+      </div>
+
+      <div class="card">
+        <div class="c-top"><div class="c-emoji">🧀</div><div><div class="c-title">吃土攻略</div><div class="c-title-en">Budget Eats</div></div></div>
+        <div class="c-body">🥪 午餐：Albert Heijn 超市三明治 (€3-4)<br>🍡 下午：花市旁的炸肉丸 Bitterballen (€3)<br>🍟 晚上：<strong>FEBO 自動販賣牆</strong> — 投硬幣拉開小窗取出熱騰騰的 Kroket 可樂餅 (€2)！荷蘭最獨特的飲食體驗！<span class="en">Lunch: Albert Heijn supermarket sandwich. Snack: Bitterballen near the flower market. Dinner: FEBO vending wall — insert coins, open the little window, grab a hot Kroket!</span></div>
+      </div>
+
+      <div class="card">
+        <div class="c-top"><div class="c-emoji">🌃</div><div><div class="c-title">晚上：紅燈區散步</div><div class="c-title-en">Evening: De Wallen Red Light District</div></div></div>
+        <div class="c-body">入夜後的 <strong>De Wallen</strong> 紅色霓虹倒映運河水面，感受這座城市的自由與包容。<br>⚠️ <strong>禁止對櫥窗拍照！</strong><span class="en">Neon reflections on canal water at night. Experience the city's famous tolerance. ⚠️ No photos of windows!</span></div>
+      </div>
+    </div>
+
+    <!-- ===== SLIDE 4: DAY 2 ===== -->
+    <div class="slide" data-i="4">
+      <div class="sec-eye">Day 2</div>
+      <div class="sec-eye-en">ART & CULTURE</div>
+      <div class="sec-h">博物館區與梵谷</div>
+      <div class="sec-h-en">Museum Quarter · Van Gogh · Vondelpark</div>
+
+      <div class="card">
+        <div class="c-top"><div class="c-emoji">🎨</div><div><div class="c-title">上午：國立博物館花園</div><div class="c-title-en">Morning: Rijksmuseum Gardens (FREE)</div></div></div>
+        <div class="c-body">前往 <strong>Museumplein 博物館廣場</strong>。不買門票也能逛 <strong>Rijksmuseum 免費花園</strong>，裡面有雕塑、噴泉，氣氛超棒。<span class="en">Head to Museumplein. The Rijksmuseum gardens are free — sculptures, fountains, beautiful atmosphere.</span></div>
+      </div>
+
+      <div class="card">
+        <div class="c-top"><div class="c-emoji">🖼️</div><div><div class="c-title">下午：梵谷 or 馮德爾公園</div><div class="c-title-en">Afternoon: Van Gogh Museum (€22) or Vondelpark (FREE)</div></div></div>
+        <div class="c-body"><strong>選擇 A：</strong>梵谷博物館 €22，館藏超 200 幅名作。<br><strong>選擇 B（免費）：</strong>去旁邊的 <strong>Vondelpark</strong> 躺草地看荷蘭人遛狗騎車，享受歐式悠閒。<span class="en">Option A: Van Gogh Museum €22, 200+ masterpieces. Option B (free): Chill on the grass at Vondelpark.</span></div>
+      </div>
+
+      <div class="card">
+        <div class="c-top"><div class="c-emoji">🍟</div><div><div class="c-title">必吃：荷蘭戰爭薯條</div><div class="c-title-en">Must-Eat: Dutch "War" Fries</div></div></div>
+        <div class="c-body">去 <strong>Manneken Pis 薯條店</strong> 點 Oorlog 戰爭醬 (花生醬 + 美乃滋 + 洋蔥)，只要 €4-5。配一罐超市 Heineken (€1)。<span class="en">Get fries with "Oorlog" (War Sauce) = peanut sauce + mayo + onions at Manneken Pis. Only €4-5!</span></div>
+      </div>
+
+      <div class="card">
+        <div class="c-top"><div class="c-emoji">🚲</div><div><div class="c-title">傍晚：運河黃昏散步</div><div class="c-title-en">Evening: Golden Hour Canal Walk</div></div></div>
+        <div class="c-body">回到 <strong>Prinsengracht 王子運河</strong>。黃昏的金色陽光灑在 17 世紀山形屋上，隨手一拍都是明信片。<span class="en">Walk along Prinsengracht at golden hour. Sunlight on 17th-century gabled houses — every photo is a postcard.</span></div>
+      </div>
+    </div>
+
+    <!-- ===== SLIDE 5: DAY 3-4 ===== -->
+    <div class="slide" data-i="5">
+      <div class="sec-eye">Day 3 - 4</div>
+      <div class="sec-eye-en">NORTH SHORE & MARKETS</div>
+      <div class="sec-h">北岸藝術 & 市場掃貨</div>
+      <div class="sec-h-en">NDSM Wharf · NEMO Rooftop · Albert Cuyp</div>
+
+      <div class="card">
+        <div class="c-top"><div class="c-emoji">🚢</div><div><div class="c-title">Day 3 上午：免費渡輪到北岸</div><div class="c-title-en">Day 3 AM: Free Ferry to NDSM Wharf</div></div></div>
+        <div class="c-body">從中央車站後方搭 <strong>完全免費的 GVB 渡輪</strong> 到 <strong>NDSM Wharf</strong> — 歐洲最大都市藝術區，巨型塗鴉、廢棄倉庫改造工作室。<span class="en">Take the FREE GVB ferry to NDSM Wharf — Europe's largest urban art district. Giant murals, converted warehouses.</span></div>
+      </div>
+
+      <div class="card">
+        <div class="c-top"><div class="c-emoji">🔬</div><div><div class="c-title">Day 3 下午：NEMO 屋頂全景</div><div class="c-title-en">Day 3 PM: NEMO Rooftop Panorama (FREE)</div></div></div>
+        <div class="c-body">綠色船型建築的 <strong>NEMO 科學博物館</strong>。不用買門票，直接走上 <strong>屋頂觀景台 (免費)</strong>，360° 阿姆斯特丹全景！<span class="en">Walk up to the NEMO rooftop (free!) for a 360° panoramic view of Amsterdam. No ticket needed.</span></div>
+      </div>
+
+      <div class="card">
+        <div class="c-top"><div class="c-emoji">🛍️</div><div><div class="c-title">Day 4 上午：Albert Cuyp 市場</div><div class="c-title-en">Day 4 AM: Albert Cuyp Market</div></div></div>
+        <div class="c-body">阿姆斯特丹最大露天市場，超過 250 個攤位！<br>🧇 現做 <strong>Stroopwafel 荷蘭鬆餅</strong> (€2)<br>🐟 新鮮 <strong>Haring 生醃鯡魚</strong> (€4)<span class="en">Largest outdoor market — 250+ stalls! Fresh Stroopwafels (€2) and raw herring Haring (€4).</span></div>
+      </div>
+
+      <div class="card">
+        <div class="c-top"><div class="c-emoji">👋</div><div><div class="c-title">Day 4 下午：Begijnhof & 回程</div><div class="c-title-en">Day 4 PM: Hidden Courtyard & Return</div></div></div>
+        <div class="c-body">最後去市中心的 <strong>Begijnhof 貝居安會院</strong> — 14 世紀秘密中庭，寧靜到不可思議。傍晚搭 FlixBus 回程。<span class="en">Visit the serene 14th-century Begijnhof courtyard. Then catch the evening FlixBus home.</span></div>
+      </div>
+    </div>
+
+    <!-- ===== SLIDE 6: BUDGET ===== -->
+    <div class="slide" data-i="6">
+      <div class="sec-eye">預算總結</div>
+      <div class="sec-eye-en">BUDGET SUMMARY</div>
+      <div class="sec-h">4 天 3 夜 極限預算</div>
+      <div class="sec-h-en">4 Days 3 Nights — Budget Breakdown</div>
+
+      <table class="budget-table">
+        <tr><th>項目 Item</th><th>說明 Detail</th><th>€</th></tr>
+        <tr><td>🚌 FlixBus</td><td>來回 Round-trip</td><td>€40~60</td></tr>
+        <tr><td>🛏️ 住宿 x3</td><td>Hostel 3 nights</td><td>€80~120</td></tr>
+        <tr><td>🍟 飲食 x4</td><td>Supermarket + street food</td><td>€60~80</td></tr>
+        <tr><td>🚲 交通雜支</td><td>Bike rental + misc</td><td>€20~30</td></tr>
+        <tr><td colspan="2"><strong>🎯 Total 總計</strong></td><td><strong>€200~290</strong></td></tr>
+      </table>
+
+      <div class="conclusion">
+        <div class="big">€200 ~ €290</div>
+        <div class="sub">約 7,000 ~ 10,000 NTD</div>
+        <div class="sub" style="margin-top:8px">💡 搭夜車去程可再省一晚，總預算壓到 <strong>€170 起</strong>！<br>Take night bus = save 1 night → as low as €170!</div>
+      </div>
+    </div>
   </div>
 
-  <!-- ============ SLIDE 1: COVER ============ -->
-  <section class="slide cover active">
-    <div class="eye">Oct 2026 · 4 Days in the Netherlands</div>
-    <h1>阿姆斯特丹</h1>
-    <p>運河之都 × 梵谷 × 紅燈區 × 免費渡輪<br>從雷根斯堡出發的極限窮遊完全攻略</p>
-  </section>
-
-  <!-- ============ SLIDE 2: BUS vs FLIGHT ============ -->
-  <section class="slide">
-    <div class="hdr"><div class="eye">Transport Showdown</div><div class="h2">🚌 巴士 vs ✈️ 飛機：哪個更划算？</div></div>
-    <div class="vs-box">
-      <div class="vs-side"><div class="icon">🚌</div><div class="label">FlixBus</div><div class="sub">直達 or 轉一次</div></div>
-      <div class="vs-divider">VS</div>
-      <div class="vs-side"><div class="icon">✈️</div><div class="label">KLM / 慕尼黑出發</div><div class="sub">需先搭火車至 MUC</div></div>
+  <!-- NAV BAR -->
+  <div class="nav">
+    <button class="nav-btn" id="prevBtn">◀</button>
+    <div style="flex:1;text-align:center">
+      <div class="nav-dots-row" id="dotsRow"></div>
+      <div class="page-label" id="pageLabel">1 / 7</div>
     </div>
-    <div class="grid g2">
-      <div class="card highlight">
-        <div class="rec-badge">💰 推薦</div>
-        <div class="c-hdr"><div class="c-icon">🚌</div><div class="c-tit">FlixBus 長途巴士</div></div>
-        <div class="detail-row"><span class="detail-label">💰 票價 (單程)</span><span class="detail-val">€18 ~ €30</span></div>
-        <div class="detail-row"><span class="detail-label">⏱️ 車程</span><span class="detail-val">9.5 ~ 11.5 小時</span></div>
-        <div class="detail-row"><span class="detail-label">🔌 車上設施</span><span class="detail-val">WiFi、插座、廁所</span></div>
-        <div class="detail-row"><span class="detail-label">🌙 夜車省住宿</span><span class="detail-val">✅ 可搭夜班車直接省一晚</span></div>
-        <div class="detail-row"><span class="detail-label">💵 來回總計</span><span class="detail-val tag tag-win">€36 ~ €60</span></div>
-        <div class="c-txt" style="margin-top:10px"><strong>窮遊神招：</strong>選擇晚上 22:00 出發的夜車，睡一覺就到阿姆斯特丹，還省一晚住宿費！提前 2 週以上訂票可以搶到 €18 的最低價。</div>
-        <a class="btn-ext" href="https://www.flixbus.com" target="_blank">🔗 前往 FlixBus 官網查票</a>
-      </div>
-      <div class="card">
-        <div class="c-hdr"><div class="c-icon">✈️</div><div class="c-tit">慕尼黑 MUC → 阿姆斯特丹 AMS</div></div>
-        <div class="detail-row"><span class="detail-label">💰 機票 (來回)</span><span class="detail-val">€180 ~ €300</span></div>
-        <div class="detail-row"><span class="detail-label">⏱️ 飛行時間</span><span class="detail-val">1 小時 30 分</span></div>
-        <div class="detail-row"><span class="detail-label">🚆 雷根斯堡→MUC</span><span class="detail-val">+1.5 小時 + €30 來回</span></div>
-        <div class="detail-row"><span class="detail-label">🏢 到機場提早</span><span class="detail-val">+2 小時安檢報到</span></div>
-        <div class="detail-row"><span class="detail-label">💵 總計 (含接駁)</span><span class="detail-val" style="color:#B71C1C">€210 ~ €330</span></div>
-        <div class="c-txt" style="margin-top:10px"><strong>飛機的隱藏成本：</strong>雷根斯堡到慕尼黑機場的火車、提前到機場的時間、行李費、機場到市區 — 加總後門到門至少 5 小時，而且貴 5 倍以上。</div>
-        <a class="btn-ext" href="https://www.google.com/travel/flights" target="_blank">🔗 Google Flights 查機票</a>
-      </div>
-    </div>
-    <p style="text-align:center;margin-top:15px;font-size:14px;font-weight:700;color:var(--p)">🏆 結論：FlixBus 巴士省下 €150-€270，搭夜車還能再省一晚住宿！</p>
-  </section>
+    <button class="nav-btn" id="nextBtn">▶</button>
+  </div>
 
-  <!-- ============ SLIDE 3: ACCOMMODATION ============ -->
-  <section class="slide">
-    <div class="hdr"><div class="eye">Accommodation</div><div class="h2">阿姆斯特丹高 CP 值青旅推薦</div></div>
-    <div class="grid g3">
-      <div class="card highlight">
-        <div class="rec-badge">⭐ 首推</div>
-        <div class="c-hdr"><div class="c-icon">🏨</div><div class="c-tit">ClinkNOORD</div></div>
-        <div class="c-txt"><strong>預估：€30 ~ €40 / 晚</strong><br>位於中央車站對岸，搭免費渡輪只要 2 分鐘！前身是舊實驗室，改造成超有設計感的大型青旅，公共空間巨大、氛圍超讚。</div>
-        <span class="addr">📍 Badhuiskade 3, 1031 KV Amsterdam</span>
-        <a class="btn-book" href="https://www.hostelworld.com/st/hostels/p/260693/clinknord/" target="_blank">🔗 前往訂房</a>
-      </div>
-      <div class="card">
-        <div class="c-hdr"><div class="c-icon">🎭</div><div class="c-tit">St Christopher's at The Winston</div></div>
-        <div class="c-txt"><strong>預估：€35 ~ €50 / 晚</strong><br>就在紅燈區旁邊！地點無敵方便，樓下就是知名的 Belushi's Bar，每間房都有藝術家手繪壁畫，超有個性。</div>
-        <span class="addr">📍 Warmoesstraat 129, 1012 JA Amsterdam</span>
-        <a class="btn-book" href="https://www.hostelworld.com/st/hostels/p/6498/st-christophers-inn-at-the-winston/" target="_blank">🔗 前往訂房</a>
-      </div>
-      <div class="card">
-        <div class="c-hdr"><div class="c-icon">🎒</div><div class="c-tit">Hans Brinker Hostel</div></div>
-        <div class="c-txt"><strong>預估：€25 ~ €35 / 晚</strong><br>號稱「世界最爛旅館」的自嘲行銷天才！其實乾淨實用，價格是阿姆市中心最便宜的選擇之一。離博物館區超近。</div>
-        <span class="addr">📍 Kerkstraat 136, 1017 GR Amsterdam</span>
-        <a class="btn-book" href="https://www.hostelworld.com/st/hostels/p/340/hans-brinker-hostel-amsterdam/" target="_blank">🔗 前往訂房</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ SLIDE 4: DAY 1 ============ -->
-  <section class="slide">
-    <div class="hdr"><div class="eye">Day 1</div><div class="h2">老城運河與約旦區漫步</div></div>
-    <div class="grid g2">
-      <div class="card">
-        <div class="c-hdr"><div class="c-icon">🏛️</div><div class="c-tit">上午：水壩廣場與皇宮</div></div>
-        <div class="c-txt">早上抵達阿姆斯特丹！從中央車站出發，沿著 Damrak 大道走 5 分鐘就到 <strong>Dam Square 水壩廣場</strong>。在這裡你能看到荷蘭王宮外觀 (免費)、二戰紀念碑，以及被白鴿圍繞的超大廣場。</div>
-      </div>
-      <div class="card">
-        <div class="c-hdr"><div class="c-icon">🌷</div><div class="c-tit">下午：約旦區 & 安妮之家</div></div>
-        <div class="c-txt">漫步進入 <strong>Jordaan 約旦區</strong>，這是阿姆斯特丹最有氣質的文青街區，充滿獨立咖啡館、古董店與窄小的運河橋。經過 <strong>安妮之家 (Anne Frank Huis)</strong> 外觀拍照。<br><strong>省錢 Tip：</strong>安妮之家門票需提前上網搶，€16 但常秒殺，可只在外面感受歷史即可。</div>
-      </div>
-      <div class="card">
-        <div class="c-hdr"><div class="c-icon">🧀</div><div class="c-tit">吃土攻略：Day 1</div></div>
-        <div class="c-txt">中午：去 Albert Heijn 超市買現做三明治 (€3-4)。<br>下午：到 <strong>Bloemenmarkt 花市</strong> 旁的小攤買個炸肉丸 (Bitterballen, €3)。<br>晚上：找一家 FEBO 自動販賣牆速食店，把硬幣投進去拉開小窗取出熱騰騰的 <strong>Kroket 可樂餅</strong> (€2)，這是荷蘭最獨特的飲食體驗！</div>
-      </div>
-      <div class="card">
-        <div class="c-hdr"><div class="c-icon">🌃</div><div class="c-tit">晚上：紅燈區散步</div></div>
-        <div class="c-txt">入夜後的 <strong>De Wallen 紅燈區</strong> 是阿姆斯特丹最著名的景觀之一。走在運河旁看著紅色霓虹倒映在水面上，感受這座城市的自由與包容。<br><strong>⚠️ 注意：</strong>禁止對櫥窗拍照，遵守當地規矩。</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ SLIDE 5: DAY 2 ============ -->
-  <section class="slide">
-    <div class="hdr"><div class="eye">Day 2</div><div class="h2">博物館區與梵谷的世界</div></div>
-    <div class="grid g2">
-      <div class="card">
-        <div class="c-hdr"><div class="c-icon">🎨</div><div class="c-tit">上午：國立博物館花園 (免費)</div></div>
-        <div class="c-txt">前往 <strong>Museumplein 博物館廣場</strong>。就算不買票進博物館，廣場上的 <strong>I Amsterdam 字樣</strong> (有時會出現) 和 <strong>國立博物館 (Rijksmuseum) 的免費花園</strong> 都值得一看。花園裡有雕塑、噴泉，氣氛超棒。</div>
-      </div>
-      <div class="card">
-        <div class="c-hdr"><div class="c-icon">🖼️</div><div class="c-tit">下午：梵谷博物館 (選配)</div></div>
-        <div class="c-txt">如果你是梵谷迷，<strong>Van Gogh Museum</strong> 門票 €22，館藏超過 200 幅畫作。<br><strong>省錢替代方案：</strong>不想花錢的話，走進旁邊的 <strong>Vondelpark 馮德爾公園</strong>，這是阿姆斯特丹的「中央公園」，躺在草地上看荷蘭人遛狗、騎腳踏車，感受歐式悠閒。</div>
-      </div>
-      <div class="card">
-        <div class="c-hdr"><div class="c-icon">🍟</div><div class="c-tit">吃土攻略：Day 2</div></div>
-        <div class="c-txt">必吃！前往 <strong>Manneken Pis 薯條店</strong>，點一份大份薯條配「Oorlog 戰爭醬」(花生醬+美乃滋+洋蔥) 只要 €4-5。這是荷蘭國民美食排行第一名。再喝一杯超市買的 Heineken 罐裝 (€1)，完美。</div>
-      </div>
-      <div class="card">
-        <div class="c-hdr"><div class="c-icon">🚲</div><div class="c-tit">傍晚：運河黃昏騎行</div></div>
-        <div class="c-txt">租一台自行車 (€10-12 / 天) 或步行回到 <strong>Prinsengracht 王子運河</strong>。黃昏的運河是阿姆斯特丹最美的時刻，金色陽光灑在 17 世紀的山形屋上，隨手一拍都是明信片。</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ SLIDE 6: DAY 3-4 ============ -->
-  <section class="slide">
-    <div class="hdr"><div class="eye">Day 3 - Day 4</div><div class="h2">北岸藝術基地 & Albert Cuyp 市場</div></div>
-    <div class="grid g2">
-      <div class="card">
-        <div class="c-hdr"><div class="c-icon">🚢</div><div class="c-tit">Day 3 上午：免費渡輪到北岸</div></div>
-        <div class="c-txt">從中央車站後方搭乘 <strong>完全免費的 GVB 渡輪</strong> 到對岸的 <strong>NDSM Wharf</strong>。這裡是歐洲最大的都市藝術區之一，巨型塗鴉、廢棄倉庫改造的工作室、街頭藝術家隨處可見。<br><strong>省錢 Tip：</strong>渡輪 24 小時運行且完全免費！</div>
-      </div>
-      <div class="card">
-        <div class="c-hdr"><div class="c-icon">🔬</div><div class="c-tit">Day 3 下午：NEMO 科學博物館屋頂</div></div>
-        <div class="c-txt">回到南岸後，走到綠色船型建築的 <strong>NEMO 科學博物館</strong>。不用買門票，直接走上它的 <strong>屋頂觀景平台 (免費)</strong>，這裡有 360 度的阿姆斯特丹全景，是拍照打卡的絕佳地點！</div>
-      </div>
-      <div class="card">
-        <div class="c-hdr"><div class="c-icon">🛍️</div><div class="c-tit">Day 4 上午：Albert Cuyp 市場</div></div>
-        <div class="c-txt">前往 De Pijp 區的 <strong>Albert Cuyp Market</strong>。這是阿姆斯特丹最大的露天市場，超過 250 個攤位！必買：現做的荷蘭鬆餅 <strong>Stroopwafel</strong> (€2)、新鮮的生醃鯡魚 <strong>Haring</strong> (€4)。</div>
-      </div>
-      <div class="card">
-        <div class="c-hdr"><div class="c-icon">👋</div><div class="c-tit">Day 4 下午：最後巡禮 & 回程</div></div>
-        <div class="c-txt">最後再走一次 <strong>Begijnhof 貝居安會院</strong> — 一個藏在市中心的 14 世紀秘密中庭，寧靜到不可思議。傍晚搭上回程 FlixBus，在車上回味這座瘋狂又浪漫的城市。</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ SLIDE 7: BUDGET ============ -->
-  <section class="slide">
-    <div class="hdr"><div class="eye">Budget Summary</div><div class="h2">4 天 3 夜 極限預算表</div></div>
-    <table>
-      <tr><th>預算項目</th><th>說明</th><th>預估費用 (歐元)</th></tr>
-      <tr><td>🚌 FlixBus 來回</td><td>雷根斯堡 ↔ 阿姆斯特丹 (提前訂票)</td><td>€ 40 ~ 60</td></tr>
-      <tr><td>🛏️ 住宿 3 晚</td><td>ClinkNOORD / Hans Brinker (10月淡季)</td><td>€ 80 ~ 120</td></tr>
-      <tr><td>🍟 飲食 4 天</td><td>超市 + FEBO + 薯條 + 市場小吃</td><td>€ 60 ~ 80</td></tr>
-      <tr><td>🚲 交通與雜支</td><td>自行車 1 天 + 零星開銷</td><td>€ 20 ~ 30</td></tr>
-      <tr><td colspan="2"><strong>🎯 總計花費</strong></td><td><strong>€ 200 ~ 290<br>(約 7,000 ~ 10,000 NTD)</strong></td></tr>
-    </table>
-    <p style="text-align:center;margin-top:20px;font-size:13px;color:var(--tm)">
-      💡 <strong>省錢大招：</strong>如果去程搭 FlixBus 夜車，可以省掉第一晚住宿，總預算可壓到 <strong>€170 起</strong>！
-    </p>
-  </section>
+  <div class="swipe-hint" id="swipeHint">👈 左右滑動翻頁 Swipe to navigate →</div>
 
   <script>
-    const slides=document.querySelectorAll('.slide'),dotsC=document.getElementById('navDots'),counterEl=document.getElementById('slideCounter');let cur=0;
-    slides.forEach((_,i)=>{const b=document.createElement('button');b.className='dot'+(i===0?' active':'');b.addEventListener('click',()=>go(i));dotsC.appendChild(b)});
-    function go(i){if(i<0||i>=slides.length)return;slides[cur].classList.remove('active');cur=i;slides[cur].classList.add('active');document.querySelectorAll('.dot').forEach((d,j)=>d.classList.toggle('active',j===cur));counterEl.textContent=`${cur+1} / ${slides.length}`}
-    document.getElementById('prevBtn').addEventListener('click',()=>go(cur-1));
-    document.getElementById('nextBtn').addEventListener('click',()=>go(cur+1));
+    const deck=document.getElementById('deck'),slides=[...deck.querySelectorAll('.slide')],total=slides.length;
+    const dotsRow=document.getElementById('dotsRow'),pageLabel=document.getElementById('pageLabel');
+    const prevBtn=document.getElementById('prevBtn'),nextBtn=document.getElementById('nextBtn');
+    const hint=document.getElementById('swipeHint');
+    let cur=0,startX=0,startY=0,dragging=false;
+
+    // Build dots
+    slides.forEach((_,i)=>{const d=document.createElement('button');d.className='ndot'+(i===0?' on':'');d.addEventListener('click',()=>go(i));dotsRow.appendChild(d)});
+
+    function go(i){
+      if(i<0||i>=total||i===cur)return;
+      const dir=i>cur?1:-1;
+      slides[cur].classList.remove('active');
+      slides[cur].classList.add(dir>0?'prev':'');
+      slides[cur].style.transform=dir>0?'translateX(-60px)':'translateX(60px)';
+      cur=i;
+      slides[cur].classList.remove('prev');
+      slides[cur].classList.add('active');
+      slides[cur].scrollTop=0;
+      document.querySelectorAll('.ndot').forEach((d,j)=>d.classList.toggle('on',j===cur));
+      pageLabel.textContent=`${cur+1} / ${total}`;
+      prevBtn.disabled=cur===0;
+      nextBtn.disabled=cur===total-1;
+    }
+
+    prevBtn.addEventListener('click',()=>go(cur-1));
+    nextBtn.addEventListener('click',()=>go(cur+1));
+    prevBtn.disabled=true;
+
+    // Touch swipe
+    deck.addEventListener('touchstart',e=>{startX=e.touches[0].clientX;startY=e.touches[0].clientY;dragging=true},{passive:true});
+    deck.addEventListener('touchend',e=>{
+      if(!dragging)return;dragging=false;
+      const dx=e.changedTouches[0].clientX-startX;
+      const dy=e.changedTouches[0].clientY-startY;
+      if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>50){
+        dx<0?go(cur+1):go(cur-1);
+      }
+    },{passive:true});
+
+    // Keyboard
     document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(cur+1);if(e.key==='ArrowLeft')go(cur-1)});
+
+    // Show swipe hint briefly
+    setTimeout(()=>{hint.classList.add('show')},1500);
+    setTimeout(()=>{hint.classList.remove('show')},5000);
   </script>
 </body>
 </html>
