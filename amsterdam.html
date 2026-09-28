@@ -10,13 +10,10 @@
     :root{--p:#E65100;--s:#1565C0;--bg:#FFF8F0;--card:#fff;--t:#1a1a1a;--tm:#6D4C41;--accent:#FF6D00;--border:#FFE0B2;--r:16px;--green:#2E7D32;--red:#C62828;--safe-b:env(safe-area-inset-bottom,20px)}
     html,body{height:100%;overflow:hidden;font-family:'Noto Sans TC','Inter',sans-serif;background:var(--bg);color:var(--t);-webkit-tap-highlight-color:transparent}
     .deck{position:relative;height:100%;width:100%}
-    /* FIXED transition: use visibility + direction-aware classes */
     .slide{position:absolute;inset:0;visibility:hidden;opacity:0;transition:opacity .35s ease,transform .35s ease;pointer-events:none;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:20px 16px 105px}
     .slide.active{visibility:visible;opacity:1;transform:translateX(0)!important;pointer-events:all;z-index:2}
     .slide.exit-left{visibility:visible;opacity:0;transform:translateX(-50px)!important;z-index:1}
     .slide.exit-right{visibility:visible;opacity:0;transform:translateX(50px)!important;z-index:1}
-    .slide.enter-left{transform:translateX(-50px)}
-    .slide.enter-right{transform:translateX(50px)}
     .nav{position:fixed;bottom:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:10px 16px calc(10px + var(--safe-b));background:rgba(255,248,240,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--border);z-index:200}
     .nav-btn{width:46px;height:46px;border-radius:50%;border:2px solid var(--p);background:var(--card);color:var(--p);font-size:18px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s;flex-shrink:0}
     .nav-btn:active{background:var(--p);color:#fff;transform:scale(.9)}
@@ -49,7 +46,6 @@
     .tag{display:inline-block;padding:2px 8px;border-radius:6px;font-size:10px;font-weight:700}
     .tw{background:#C8E6C9;color:var(--green)}
     .tr{background:#FFCDD2;color:var(--red)}
-    .addr{display:block;margin:6px 0 2px;font-size:11px;color:var(--t);font-weight:600}
     .btn-book{display:inline-flex;align-items:center;gap:4px;margin-top:8px;padding:10px 16px;background:var(--accent);border-radius:12px;font-size:12px;color:#fff;text-decoration:none;font-weight:700;transition:.2s}
     .btn-book:active{transform:scale(.95);background:var(--p)}
     .btn-ext{display:inline-flex;align-items:center;gap:4px;margin-top:6px;padding:7px 12px;background:var(--bg);border-radius:10px;font-size:11px;color:var(--t);text-decoration:none;border:1px solid var(--border);font-weight:600}
@@ -68,7 +64,6 @@
     .timeline::before{content:'';position:absolute;left:10px;top:0;bottom:0;width:2px;background:var(--border)}
     .tnode{position:relative;margin-bottom:12px}
     .tnode::before{content:'';position:absolute;left:-22px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--p);border:2px solid var(--card)}
-    .tnode.transfer::before{background:var(--s)}
     .tnode .ttime{font-family:'Inter';font-size:12px;font-weight:700;color:var(--p)}
     .tnode .tplace{font-size:13px;font-weight:700;color:var(--t);margin-top:1px}
     .tnode .tnote{font-size:11px;color:var(--tm);margin-top:1px}
@@ -95,7 +90,7 @@
   <div class="cflag">🇳🇱</div>
   <div class="ch">阿姆斯特丹</div>
   <div class="ch-en">Amsterdam</div>
-  <div class="csub">運河之都 × 梵谷 × 日落巡航<br>Canal City × Van Gogh × Sunset Cruise<br>8 人團從雷根斯堡出發的完全攻略</div>
+  <div class="csub">運河之都 × 風車村 × 日落巡航<br>Canal City × Windmills × Sunset Cruise<br>8 人團從雷根斯堡出發的完全攻略</div>
   <div class="chint">👈 左滑開始 Swipe to start →</div>
 </div>
 
@@ -154,7 +149,7 @@
     <div class="dr"><span class="dl">每人 Per person</span><span class="dv tag tw">€83 ~ €98</span></div>
     <div class="dr"><span class="dl">8 人 Group</span><span class="dv tag tw">€664 ~ €780</span></div>
     <div class="dr"><span class="dl">🚿 衛浴</span><span class="dv">共用 Shared</span></div>
-    <div class="cb" style="margin-top:6px">最便宜！8-10 人大通鋪，共用衛浴。€83 不可退款 / €98 可免費取消。<span class="en">Cheapest! 8-10 bed mixed dorm, shared bathroom. €83 non-refundable / €98 free cancellation.</span></div>
+    <div class="cb" style="margin-top:6px">最便宜！共用衛浴。€83 不可退款 / €98 可免費取消。<span class="en">Cheapest! Shared bathroom. €83 non-refundable / €98 free cancellation.</span></div>
   </div>
 
   <div class="card hl">
@@ -164,195 +159,192 @@
     <div class="dr"><span class="dl">8 人 Group</span><span class="dv">€698 ~ €814</span></div>
     <div class="dr"><span class="dl">🚿 衛浴</span><span class="dv">房內獨立 Ensuite ✅</span></div>
     <div class="dr"><span class="dl">⚠️ 剩餘</span><span class="dv tag tr">Only 1 left!</span></div>
-    <div class="cb" style="margin-top:6px">只比大通鋪多 €4/人，但有獨立衛浴！CP 值最高。<span class="en">Only ~€4 more but with private bathroom! Best value. Almost sold out!</span></div>
+    <div class="cb" style="margin-top:6px">只比大通鋪多 €4/人但有獨立衛浴，CP 值最高！<span class="en">~€4 more but with private bathroom! Best value. Almost sold out!</span></div>
   </div>
 
   <div class="card">
-    <div class="ct"><div class="ce">👩</div><div><div class="cn">10 Bed / 4 Bed Female Dorm</div><div class="cn-en">女性專屬宿舍（含獨立衛浴）</div></div></div>
+    <div class="ct"><div class="ce">👩</div><div><div class="cn">Female Dorm (10 Bed / 4 Bed)</div><div class="cn-en">女性專屬宿舍（含獨立衛浴）</div></div></div>
     <div class="dr"><span class="dl">10 Bed 每人</span><span class="dv">€88 ~ €102</span></div>
     <div class="dr"><span class="dl">4 Bed 每人</span><span class="dv">€92 ~ €106</span></div>
-    <div class="cb" style="margin-top:6px">限女性入住，含獨立衛浴。團內女生可考慮。<span class="en">Female-only with ensuite. Good option for female travelers in the group.</span></div>
+    <div class="cb" style="margin-top:6px">限女性，含獨立衛浴。<span class="en">Female-only with ensuite.</span></div>
   </div>
 
   <div class="card" style="border-color:#FFCDD2">
     <div class="ct"><div class="ce">🏨</div><div><div class="cn">Private Room（參考）</div><div class="cn-en">Private Ensuite — Per Room Price</div></div></div>
-    <div class="dr"><span class="dl">Double 雙人房</span><span class="dv" style="color:var(--red)">€261 ~ €307 / 間</span></div>
-    <div class="dr"><span class="dl">Twin 雙床房</span><span class="dv" style="color:var(--red)">€265 ~ €311 / 間</span></div>
+    <div class="dr"><span class="dl">Double / Twin</span><span class="dv" style="color:var(--red)">€261 ~ €311 / 間</span></div>
     <div class="dr"><span class="dl">8 人需 4 間</span><span class="dv" style="color:var(--red)">€1,044 ~ €1,228</span></div>
-    <div class="cb" style="margin-top:6px">以房計價，8 人需 4 間，是宿舍 1.5 倍價！<span class="en">Per-room pricing. 4 rooms for 8 people = 1.5x dorm cost!</span></div>
+    <div class="cb" style="margin-top:6px">以房計價，8 人需 4 間，是宿舍 1.5 倍！<span class="en">Per-room pricing. 4 rooms = 1.5x dorm cost!</span></div>
   </div>
 </div>
 
-<!-- S3: GUIDED TOUR -->
+<!-- S3: CANAL CRUISE -->
 <div class="slide" data-i="3">
-  <div class="eye">團體導覽</div>
-  <div class="eye-en">WALKING TOUR · SAT OCT 25 · AFTERNOON</div>
-  <div class="sh">🎓 10/25 下午城市導覽</div>
-  <div class="sh-en">Amsterdam Walking Tour · EU Student Price</div>
-
-  <div class="card hl">
-    <div class="badge">🎫 已訂 Booked!</div>
-    <div class="ct"><div class="ce">🚶</div><div><div class="cn">阿姆斯特丹城市導覽</div><div class="cn-en">City Walking Tour</div></div></div>
-    <div class="dr"><span class="dl">📅 日期 Date</span><span class="dv">10/25（六）下午<br>Sat Oct 25 PM</span></div>
-    <div class="dr"><span class="dl">💰 每人 Per person</span><span class="dv">€16 (EU Student)</span></div>
-    <div class="dr"><span class="dl">👥 人數 Group</span><span class="dv">8 人</span></div>
-    <div class="dr"><span class="dl">💵 團體總計 Total</span><span class="dv" style="font-size:15px;color:var(--p)">€128</span></div>
-    <div class="cb" style="margin-top:8px">EU 學生優惠價！跟著專業導遊深入阿姆斯特丹歷史、運河與建築故事。<span class="en">EU Student discount! Professional guided tour through Amsterdam's history, canals & architecture.</span></div>
-  </div>
-
-  <div class="note-box">
-    <strong>📋 導覽提醒 Tour Tips：</strong><br>
-    ✅ 帶 EU 學生證 Bring EU Student ID<br>
-    ✅ 穿舒適走路鞋 Comfortable shoes<br>
-    ✅ 提前 10 分鐘到 Arrive 10 min early
-  </div>
-</div>
-
-<!-- S4: CANAL CRUISE -->
-<div class="slide" data-i="4">
   <div class="eye">日落運河巡航</div>
   <div class="eye-en">SUNSET CANAL CRUISE · MON OCT 26 · 4:00 PM</div>
   <div class="sh">🚤 10/26 日落運河巡航</div>
-  <div class="sh-en">Evening Canal Cruise with Drinks · Eco Boats Amsterdam</div>
+  <div class="sh-en">Eco Boats Amsterdam · ⭐ 4.8 · 5,014 reviews</div>
 
   <div class="card">
-    <div class="ct"><div class="ce">⭐</div><div><div class="cn">活動資訊 Cruise Info</div><div class="cn-en">Eco Boats Amsterdam · ⭐ 4.8 · 5,014 reviews</div></div></div>
-    <div class="dr"><span class="dl">📅 日期 Date</span><span class="dv">10/26（一）Mon Oct 26</span></div>
-    <div class="dr"><span class="dl">🕓 時間 Time</span><span class="dv">下午 4:00 PM</span></div>
-    <div class="dr"><span class="dl">👥 人數 Group</span><span class="dv">8 人 · 8 adults</span></div>
-    <div class="dr"><span class="dl">🗣️ 語言 Language</span><span class="dv">中文 Chinese</span></div>
-    <div class="dr"><span class="dl">🔄 取消政策</span><span class="dv tag tw">24h 前免費取消</span></div>
-    <div class="cb" style="margin-top:8px">在日落時分搭乘環保電動船，穿梭於阿姆斯特丹最美的運河之間。立即預訂，稍後付款。10/25 前可免費取消。<span class="en">Cruise Amsterdam's most beautiful canals at sunset on eco-friendly electric boats. Book now, pay later. Free cancellation before Oct 25.</span></div>
+    <div class="ct"><div class="ce">⭐</div><div><div class="cn">活動資訊 Cruise Info</div><div class="cn-en">Date: Mon Oct 26 · 4:00 PM · 8 adults · 中文</div></div></div>
+    <div class="dr"><span class="dl">📅 日期</span><span class="dv">10/26（一）4:00 PM</span></div>
+    <div class="dr"><span class="dl">👥 人數</span><span class="dv">8 人</span></div>
+    <div class="dr"><span class="dl">🗣️ 語言</span><span class="dv">中文 Chinese</span></div>
+    <div class="dr"><span class="dl">🔄 取消</span><span class="dv tag tw">24h 前免費取消</span></div>
+    <div class="cb" style="margin-top:6px">日落時分搭環保電動船穿梭運河。立即預訂，稍後付款。<span class="en">Eco-friendly electric boat at sunset. Book now, pay later. Free cancel before Oct 25.</span></div>
   </div>
 
   <div class="card hl">
     <div class="badge">💰 較便宜</div>
     <div class="ct"><div class="ce">🍺</div><div><div class="cn">方案 A：含 1 杯飲料</div><div class="cn-en">Option A: 1 Drink Included</div></div></div>
-    <div class="cb" style="margin-bottom:8px">含 1 杯啤酒、葡萄酒或蘇打水（不含雞尾酒）<span class="en">Includes 1 beer, wine, or soda (cocktails excluded)</span></div>
-    <div class="dr"><span class="dl">原價 Original</span><span class="dv"><span class="price-was">€240.00</span><span class="price-off">-25%</span></span></div>
-    <div class="dr"><span class="dl">💰 8 人總價 Group</span><span class="dv" style="color:var(--green);font-size:15px">€180.00</span></div>
-    <div class="dr"><span class="dl">👤 每人 Per person</span><span class="dv tag tw">€22.50</span></div>
-    <div class="cb" style="margin-top:6px">📖 小冊子：中文 · 立即預訂，稍後付款<span class="en">📖 Booklet: Chinese · Book now, pay later</span></div>
+    <div class="cb" style="margin-bottom:6px">含 1 杯啤酒、葡萄酒或蘇打水（不含雞尾酒）<span class="en">1 beer, wine, or soda (cocktails excluded)</span></div>
+    <div class="dr"><span class="dl">原價 Original</span><span class="dv"><span class="price-was">€240</span><span class="price-off">-25%</span></span></div>
+    <div class="dr"><span class="dl">8 人總價 Group</span><span class="dv" style="color:var(--green);font-size:15px">€180</span></div>
+    <div class="dr"><span class="dl">每人 Per person</span><span class="dv tag tw">€22.50</span></div>
   </div>
 
   <div class="vs-or">— OR 或者 —</div>
 
   <div class="card">
     <div class="ct"><div class="ce">🍻</div><div><div class="cn">方案 B：無限暢飲（自助式）</div><div class="cn-en">Option B: Unlimited Drinks (Self-Service)</div></div></div>
-    <div class="cb" style="margin-bottom:8px">無限量供應啤酒、葡萄酒或蘇打水（自助式，不含雞尾酒）<span class="en">Unlimited beer, wine, or soda (self-service, cocktails excluded)</span></div>
+    <div class="cb" style="margin-bottom:6px">無限量啤酒、葡萄酒、蘇打水（不含雞尾酒）<span class="en">Unlimited beer, wine, soda (cocktails excluded)</span></div>
     <div class="dr"><span class="dl">原價 Original</span><span class="dv"><span class="price-was">€287.44</span><span class="price-off">-25%</span></span></div>
-    <div class="dr"><span class="dl">💰 8 人總價 Group</span><span class="dv" style="font-size:15px">€215.60</span></div>
-    <div class="dr"><span class="dl">👤 每人 Per person</span><span class="dv">€26.95</span></div>
-    <div class="dr"><span class="dl">💵 與方案 A 差價</span><span class="dv">每人多 €4.45</span></div>
-    <div class="cb" style="margin-top:6px">每人只多 €4.45 就能無限暢飲，如果愛喝酒超值！<span class="en">Only €4.45 more per person for unlimited drinks — great value if you like to drink!</span></div>
-  </div>
-
-  <div class="conclusion">
-    <div class="big">🍺 方案 A：€22.50/人 · 🍻 方案 B：€26.95/人</div>
-    <div class="sub">兩個方案都享有 25% 折扣 · Both options have 25% off!<br>小冊子提供中文 · Chinese booklet available</div>
+    <div class="dr"><span class="dl">8 人總價 Group</span><span class="dv" style="font-size:15px">€215.60</span></div>
+    <div class="dr"><span class="dl">每人 Per person</span><span class="dv">€26.95</span></div>
+    <div class="dr"><span class="dl">差價 vs A</span><span class="dv">每人多 €4.45</span></div>
+    <div class="cb" style="margin-top:6px">只多 €4.45 就無限暢飲！<span class="en">Only €4.45 more for unlimited drinks!</span></div>
   </div>
 </div>
 
-<!-- S5: DAY 1 -->
-<div class="slide" data-i="5">
+<!-- S4: DAY 1 -->
+<div class="slide" data-i="4">
   <div class="eye">Day 1 · 10/24（六）</div>
   <div class="eye-en">ARRIVAL · SAT OCT 24</div>
   <div class="sh">抵達 & 老城運河</div>
-  <div class="sh-en">Arrival · Dam Square · Jordaan · Canals</div>
+  <div class="sh-en">Arrival · Dam Square · Jordaan · Red Light District</div>
 
   <div class="card">
     <div class="ct"><div class="ce">🌅</div><div><div class="cn">凌晨抵達 → 寄行李</div><div class="cn-en">01:55 AM Arrival → Luggage Storage</div></div></div>
-    <div class="cb">01:55 抵達中央車站。青旅可寄行李，正式 check-in 通常下午。先去 24h 速食店休息。<span class="en">Arrive 01:55 AM. Hostels offer luggage storage. Check-in usually 2-3 PM. Rest at a 24h eatery.</span></div>
+    <div class="cb">01:55 抵達中央車站。青旅可寄行李，check-in 通常下午。先在附近休息。<span class="en">Arrive 01:55 AM. Hostels offer luggage storage. Check-in usually 2-3 PM.</span></div>
   </div>
   <div class="card">
     <div class="ct"><div class="ce">🏛️</div><div><div class="cn">上午：水壩廣場 & 皇宮</div><div class="cn-en">Morning: Dam Square & Royal Palace</div></div></div>
-    <div class="cb">中央車站走 5 分鐘到 <strong>Dam Square</strong>。荷蘭王宮外觀（免費）、二戰紀念碑。<span class="en">5-min walk to Dam Square. Royal Palace exterior (free), WWII monument.</span></div>
+    <div class="cb">走 5 分鐘到 <strong>Dam Square</strong>。荷蘭王宮外觀（免費）、二戰紀念碑。<span class="en">5-min walk to Dam Square. Royal Palace exterior (free), WWII monument.</span></div>
   </div>
   <div class="card">
     <div class="ct"><div class="ce">🌷</div><div><div class="cn">下午：約旦區 & 安妮之家</div><div class="cn-en">Afternoon: Jordaan & Anne Frank House</div></div></div>
-    <div class="cb">最文青街區 <strong>Jordaan</strong>，獨立咖啡館、古董店、窄運河橋。路過安妮之家拍照。<span class="en">Charming Jordaan — indie cafés, antique shops, narrow bridges. Pass by Anne Frank House.</span></div>
+    <div class="cb">最文青街區 <strong>Jordaan</strong>，獨立咖啡館、古董店。路過 <strong>安妮之家</strong> 感受歷史。<span class="en">Charming Jordaan — indie cafés, antique shops. Pass by Anne Frank House.</span></div>
   </div>
   <div class="card">
     <div class="ct"><div class="ce">🧀</div><div><div class="cn">吃土攻略 Budget Eats</div><div class="cn-en">Day 1 Food</div></div></div>
-    <div class="cb">🥪 Albert Heijn 三明治 €3 · 🍡 Bitterballen 炸肉丸 €3 · 🍟 <strong>FEBO 自動販賣牆</strong> Kroket 可樂餅 €2<span class="en">🥪 AH sandwich €3 · 🍡 Bitterballen €3 · 🍟 FEBO vending wall Kroket €2</span></div>
+    <div class="cb">🥪 Albert Heijn 三明治 €3 · 🍡 Bitterballen 炸肉丸 €3<br>🍟 <strong>FEBO 自動販賣牆</strong> — 投幣取出 Kroket 可樂餅 €2<span class="en">🥪 AH sandwich €3 · 🍡 Bitterballen €3 · 🍟 FEBO vending wall Kroket €2</span></div>
+  </div>
+  <div class="card">
+    <div class="ct"><div class="ce">🌃</div><div><div class="cn">晚上：紅燈區 De Wallen</div><div class="cn-en">Evening: Red Light District</div></div></div>
+    <div class="cb">霓虹倒映運河。⚠️ <strong>禁止對櫥窗拍照！</strong><span class="en">Neon on canal water. ⚠️ No photos of windows!</span></div>
   </div>
 </div>
 
-<!-- S6: DAY 2 -->
-<div class="slide" data-i="6">
+<!-- S5: DAY 2 — ZAANSE SCHANS -->
+<div class="slide" data-i="5">
   <div class="eye">Day 2 · 10/25（日）</div>
-  <div class="eye-en">TOUR DAY · SUN OCT 25</div>
-  <div class="sh">🎓 導覽日 + 博物館區</div>
-  <div class="sh-en">Museum Quarter · Guided Tour · War Fries</div>
+  <div class="eye-en">WINDMILL DAY · SUN OCT 25</div>
+  <div class="sh">🌷 風車村一日遊</div>
+  <div class="sh-en">Zaanse Schans Windmill Village Day Trip</div>
+
+  <div class="card hl">
+    <div class="badge">🏆 必去！Must Visit</div>
+    <div class="ct"><div class="ce">🇳🇱</div><div><div class="cn">贊瑟斯漢斯風車村</div><div class="cn-en">Zaanse Schans · FREE Village Entry</div></div></div>
+    <div class="cb">荷蘭最經典的風車景觀！保存了 18-19 世紀的荷蘭傳統風車、木屋、起司工坊與木鞋工廠。整個村莊<strong>免費進入</strong>，只有個別風車內部或博物館需要門票。<span class="en">The Netherlands' most iconic windmill landscape! Preserved 18-19th century Dutch windmills, wooden houses, cheese farms & clog workshops. Village entry is FREE — only individual windmill interiors & museums charge admission.</span></div>
+  </div>
+
+  <div class="card">
+    <div class="ct"><div class="ce">🚆</div><div><div class="cn">交通方式 How to Get There</div><div class="cn-en">Train from Amsterdam Centraal</div></div></div>
+    <div class="dr"><span class="dl">🚆 火車 Train</span><span class="dv">Amsterdam Centraal → Zaandijk Zaanse Schans</span></div>
+    <div class="dr"><span class="dl">⏱️ 車程 Duration</span><span class="dv">約 17 分鐘</span></div>
+    <div class="dr"><span class="dl">🚶 下車後步行</span><span class="dv">10-15 分鐘到村莊</span></div>
+    <div class="dr"><span class="dl">💰 來回票 Round-trip</span><span class="dv">約 €9.40 / 人</span></div>
+    <div class="dr"><span class="dl">👥 8 人火車費</span><span class="dv">約 €75</span></div>
+    <div class="cb" style="margin-top:6px">也可搭 <strong>EBS 391 號公車</strong>從中央車站出發，約 45 分鐘，直接到村莊入口更近。<span class="en">Alternative: EBS bus 391 from Centraal (~45 min), drops you closer to the entrance.</span></div>
+  </div>
+
+  <div class="card">
+    <div class="ct"><div class="ce">🧀</div><div><div class="cn">上午：起司工坊 & 木鞋工廠</div><div class="cn-en">Morning: Cheese Farm & Clog Workshop</div></div></div>
+    <div class="cb">參觀 <strong>Catharina Hoeve 起司農場</strong>（免費參觀+試吃！）看師傅現場示範手工製作荷蘭傳統起司。再到 <strong>木鞋工廠 Kooijman</strong>（免費）看荷蘭人如何用一塊木頭雕出一雙木鞋。<span class="en">Visit Catharina Hoeve cheese farm (free entry + tasting!) Watch cheese made by hand. Then Kooijman Clog Workshop (free) — see how wooden clogs are carved from a single block of wood.</span></div>
+  </div>
+
+  <div class="card">
+    <div class="ct"><div class="ce">💨</div><div><div class="cn">下午：風車巡禮 & 河畔漫步</div><div class="cn-en">Afternoon: Windmill Walk & Riverside</div></div></div>
+    <div class="cb">沿著贊河 (Zaan River) 散步，一排排的風車矗立在綠色草地上，這就是明信片上的荷蘭！每座風車各有功能：磨香料、鋸木頭、榨油。進入風車參觀門票約 <strong>€5/座</strong>，選 1-2 座體驗即可。<span class="en">Walk along the Zaan River with windmills lining the green fields — this IS the Netherlands on postcards! Each mill has a different function: spice grinding, sawing wood, oil pressing. Entry ~€5/mill — visit 1-2 for the experience.</span></div>
+  </div>
+
+  <div class="card">
+    <div class="ct"><div class="ce">🍟</div><div><div class="cn">風車村吃土攻略</div><div class="cn-en">Budget Eats at Zaanse Schans</div></div></div>
+    <div class="cb">🧀 起司工坊免費試吃各種口味的荷蘭起司<br>🧇 村內小攤現做 Stroopwafel 荷蘭焦糖鬆餅 €2-3<br>🥞 荷蘭小鬆餅 Poffertjes 一盤 €5<br>💡 省錢 Tip：自帶超市午餐到河邊野餐更省！<span class="en">🧀 Free cheese samples! 🧇 Fresh Stroopwafel €2-3 · 🥞 Poffertjes €5 · 💡 Tip: Bring supermarket lunch for a riverside picnic!</span></div>
+  </div>
+
+  <div class="conclusion">
+    <div class="big">風車村每人花費：約 €15 ~ €25</div>
+    <div class="sub">火車來回 €9.40 + 1-2 座風車門票 €5-10 + 小吃 €5<br>Train €9.40 + 1-2 mill entries €5-10 + snacks €5</div>
+  </div>
+</div>
+
+<!-- S6: DAY 3 -->
+<div class="slide" data-i="6">
+  <div class="eye">Day 3 · 10/26（一）</div>
+  <div class="eye-en">CRUISE DAY · MON OCT 26</div>
+  <div class="sh">🎨 博物館 + 日落巡航</div>
+  <div class="sh-en">Museum Quarter · NDSM · Sunset Cruise</div>
 
   <div class="card">
     <div class="ct"><div class="ce">🎨</div><div><div class="cn">上午：博物館廣場 (免費)</div><div class="cn-en">Morning: Museumplein (FREE)</div></div></div>
     <div class="cb"><strong>Rijksmuseum 免費花園</strong>有雕塑噴泉。旁邊 <strong>Vondelpark</strong> 躺草地放鬆。<span class="en">Rijksmuseum free gardens. Relax at Vondelpark next door.</span></div>
   </div>
-  <div class="card hl">
-    <div class="badge">🎓 已訂</div>
-    <div class="ct"><div class="ce">🚶</div><div><div class="cn">下午：團體導覽 €16/人</div><div class="cn-en">Afternoon: Walking Tour · €16/person × 8 = €128</div></div></div>
-    <div class="cb">跟著專業導遊深度探索歷史街區。記得帶 EU 學生證！<span class="en">Professional guided tour. Bring EU Student ID!</span></div>
+  <div class="card">
+    <div class="ct"><div class="ce">🚢</div><div><div class="cn">中午：免費渡輪到 NDSM</div><div class="cn-en">Noon: Free Ferry → NDSM Wharf</div></div></div>
+    <div class="cb">中央車站後方搭<strong>免費 GVB 渡輪</strong>到 NDSM — 歐洲最大都市藝術區，巨型塗鴉牆。<span class="en">FREE GVB ferry to NDSM — Europe's largest urban art district.</span></div>
   </div>
   <div class="card">
-    <div class="ct"><div class="ce">🍟</div><div><div class="cn">必吃：荷蘭戰爭薯條</div><div class="cn-en">Must-Eat: "War" Fries</div></div></div>
-    <div class="cb"><strong>Manneken Pis</strong> 點 Oorlog 戰爭醬（花生醬+美乃滋+洋蔥）€4-5<span class="en">Manneken Pis — "Oorlog" = peanut + mayo + onions, €4-5</span></div>
-  </div>
-  <div class="card">
-    <div class="ct"><div class="ce">🌃</div><div><div class="cn">晚上：紅燈區 De Wallen</div><div class="cn-en">Evening: Red Light District</div></div></div>
-    <div class="cb">霓虹倒映運河，感受自由包容。⚠️ <strong>禁止對櫥窗拍照！</strong><span class="en">Neon on canal water. ⚠️ No photos of windows!</span></div>
-  </div>
-</div>
-
-<!-- S7: DAY 3 -->
-<div class="slide" data-i="7">
-  <div class="eye">Day 3 · 10/26（一）</div>
-  <div class="eye-en">CRUISE DAY · MON OCT 26</div>
-  <div class="sh">🚢 北岸藝術 + 日落巡航</div>
-  <div class="sh-en">NDSM · NEMO · Sunset Canal Cruise</div>
-
-  <div class="card">
-    <div class="ct"><div class="ce">🚢</div><div><div class="cn">上午：免費渡輪到 NDSM</div><div class="cn-en">Morning: Free Ferry → NDSM Wharf</div></div></div>
-    <div class="cb">中央車站後方搭<strong>免費 GVB 渡輪</strong>到 NDSM — 歐洲最大都市藝術區，巨型塗鴉牆。<span class="en">FREE GVB ferry to NDSM Wharf — Europe's largest urban art district.</span></div>
-  </div>
-  <div class="card">
-    <div class="ct"><div class="ce">🔬</div><div><div class="cn">下午：NEMO 屋頂 (免費)</div><div class="cn-en">Afternoon: NEMO Rooftop (FREE)</div></div></div>
-    <div class="cb">不用門票直接走上 NEMO <strong>屋頂觀景台</strong>，360° 全景！<span class="en">Walk up to NEMO rooftop for free 360° panoramic view!</span></div>
+    <div class="ct"><div class="ce">🔬</div><div><div class="cn">下午：NEMO 屋頂全景 (免費)</div><div class="cn-en">Afternoon: NEMO Rooftop (FREE)</div></div></div>
+    <div class="cb">不用門票直接走上<strong>屋頂觀景台</strong>，360° 全景！<span class="en">Free rooftop with 360° panoramic view!</span></div>
   </div>
   <div class="card hl">
     <div class="badge">🚤 16:00</div>
     <div class="ct"><div class="ce">🌅</div><div><div class="cn">16:00 日落運河巡航出發！</div><div class="cn-en">4:00 PM — Sunset Canal Cruise!</div></div></div>
-    <div class="cb">搭乘 Eco Boats 環保電動船穿梭運河，邊喝酒邊看日落灑在 17 世紀山形屋上。<br><strong>方案 A：</strong>含 1 杯飲料 · €22.50/人<br><strong>方案 B：</strong>無限暢飲 · €26.95/人<span class="en">Eco-friendly electric boat cruising the canals at sunset. Option A: 1 drink €22.50/person. Option B: unlimited drinks €26.95/person.</span></div>
+    <div class="cb">搭 Eco Boats 電動船穿梭運河看日落 🌇<br><strong>方案 A：</strong>含 1 杯飲料 · €22.50/人<br><strong>方案 B：</strong>無限暢飲 · €26.95/人<span class="en">Eco boat canal cruise at sunset! Option A: 1 drink €22.50. Option B: unlimited €26.95.</span></div>
   </div>
   <div class="card">
-    <div class="ct"><div class="ce">🛍️</div><div><div class="cn">晚上：Albert Cuyp 市場</div><div class="cn-en">Evening: Albert Cuyp Market</div></div></div>
-    <div class="cb">250+ 攤位！🧇 Stroopwafel €2 · 🐟 Haring 生鯡魚 €4<span class="en">250+ stalls! Stroopwafels €2 · Raw herring €4</span></div>
+    <div class="ct"><div class="ce">🍟</div><div><div class="cn">必吃：荷蘭戰爭薯條</div><div class="cn-en">Must-Eat: "War" Fries</div></div></div>
+    <div class="cb"><strong>Manneken Pis</strong> 點 Oorlog 戰爭醬（花生醬+美乃滋+洋蔥）€4-5<span class="en">"Oorlog" = peanut + mayo + onions, €4-5</span></div>
   </div>
 </div>
 
-<!-- S8: DAY 4 -->
-<div class="slide" data-i="8">
+<!-- S7: DAY 4 -->
+<div class="slide" data-i="7">
   <div class="eye">Day 4 · 10/27（二）</div>
   <div class="eye-en">DEPARTURE · TUE OCT 27</div>
-  <div class="sh">👋 最後巡禮 & 回程</div>
-  <div class="sh-en">Begijnhof · Last Walk · FlixBus Home</div>
+  <div class="sh">👋 市場掃貨 & 回程</div>
+  <div class="sh-en">Albert Cuyp Market · Begijnhof · FlixBus Home</div>
 
   <div class="card">
-    <div class="ct"><div class="ce">⛪</div><div><div class="cn">上午：Begijnhof 秘密中庭</div><div class="cn-en">Morning: Begijnhof Courtyard</div></div></div>
-    <div class="cb">14 世紀秘密中庭，藏在市中心卻寧靜到不可思議。免費參觀。<span class="en">14th-century hidden courtyard in the city center. Incredibly serene. Free entry.</span></div>
+    <div class="ct"><div class="ce">🛍️</div><div><div class="cn">上午：Albert Cuyp 市場</div><div class="cn-en">Morning: Albert Cuyp Market</div></div></div>
+    <div class="cb">250+ 攤位的最大露天市場！<br>🧇 Stroopwafel 現做鬆餅 €2 · 🐟 Haring 生鯡魚 €4<span class="en">250+ stalls! Stroopwafels €2 · Raw herring €4</span></div>
+  </div>
+  <div class="card">
+    <div class="ct"><div class="ce">⛪</div><div><div class="cn">下午：Begijnhof 秘密中庭</div><div class="cn-en">Afternoon: Begijnhof Hidden Courtyard</div></div></div>
+    <div class="cb">14 世紀秘密中庭，免費參觀，寧靜到不可思議。<span class="en">14th-century hidden courtyard. Free. Incredibly serene.</span></div>
   </div>
   <div class="card">
     <div class="ct"><div class="ce">🚲</div><div><div class="cn">下午：運河告別散步</div><div class="cn-en">Afternoon: Farewell Canal Walk</div></div></div>
-    <div class="cb">最後沿 <strong>Prinsengracht 王子運河</strong> 走一圈，和這座瘋狂又浪漫的城市告別。<span class="en">Final stroll along Prinsengracht — say goodbye to this beautifully crazy city.</span></div>
+    <div class="cb">最後沿 <strong>Prinsengracht 王子運河</strong> 走一圈，和這座城市告別。<span class="en">Final stroll along Prinsengracht — say goodbye to this beautiful city.</span></div>
   </div>
   <div class="card">
     <div class="ct"><div class="ce">🚌</div><div><div class="cn">傍晚：FlixBus 回程</div><div class="cn-en">Evening: FlixBus Return to Regensburg</div></div></div>
-    <div class="cb">從阿姆斯特丹中央車站 Bus stop H 搭上回程巴士，回到雷根斯堡。<span class="en">Board FlixBus at Amsterdam Centraal Bus stop H. Head back to Regensburg.</span></div>
+    <div class="cb">從中央車站 Bus stop H 搭回程巴士回雷根斯堡。<span class="en">Board FlixBus at Amsterdam Centraal Bus stop H → Regensburg.</span></div>
   </div>
 </div>
 
-<!-- S9: BUDGET -->
-<div class="slide" data-i="9">
+<!-- S8: BUDGET -->
+<div class="slide" data-i="8">
   <div class="eye">8 人預算總結</div>
   <div class="eye-en">TOTAL BUDGET · 8 PEOPLE</div>
   <div class="sh">💰 每人預估花費</div>
@@ -362,29 +354,28 @@
     <tr><th>項目 Item</th><th>每人 /P</th><th>8人 Group</th></tr>
     <tr><td>🚌 FlixBus 來回<br><span style="font-size:10px;color:var(--tm)">Round-trip</span></td><td>€40~60</td><td>€320~480</td></tr>
     <tr><td>🛏️ 住宿 3 晚<br><span style="font-size:10px;color:var(--tm)">4-Bed Ensuite</span></td><td>€87~102</td><td>€696~816</td></tr>
-    <tr><td>🎓 城市導覽<br><span style="font-size:10px;color:var(--tm)">Walking Tour 10/25</span></td><td>€16</td><td>€128</td></tr>
+    <tr><td>🌷 風車村一日遊<br><span style="font-size:10px;color:var(--tm)">Zaanse Schans</span></td><td>€15~25</td><td>€120~200</td></tr>
     <tr><td>🚤 運河巡航<br><span style="font-size:10px;color:var(--tm)">Canal Cruise 10/26</span></td><td>€22.50<br><span style="font-size:9px;color:var(--tm)">or €26.95</span></td><td>€180<br><span style="font-size:9px;color:var(--tm)">or €215.60</span></td></tr>
     <tr><td>🍟 飲食 4 天<br><span style="font-size:10px;color:var(--tm)">Food</span></td><td>€50~70</td><td>€400~560</td></tr>
-    <tr><td>🚲 交通雜支<br><span style="font-size:10px;color:var(--tm)">Bike + misc</span></td><td>€15~25</td><td>€120~200</td></tr>
-    <tr><td colspan="1"><strong>🎯 每人<br>Per Person</strong></td><td colspan="2"><strong style="font-size:16px">€231 ~ €300</strong></td></tr>
+    <tr><td>🚲 交通雜支<br><span style="font-size:10px;color:var(--tm)">City transport + misc</span></td><td>€10~20</td><td>€80~160</td></tr>
+    <tr><td colspan="1"><strong>🎯 每人<br>Per Person</strong></td><td colspan="2"><strong style="font-size:16px">€225 ~ €300</strong></td></tr>
   </table>
 
   <div class="conclusion">
-    <div class="big">每人 €231 ~ €300</div>
-    <div class="sub">約 8,100 ~ 10,500 NTD / 人<br>~8,100–10,500 NTD per person</div>
+    <div class="big">每人 €225 ~ €300</div>
+    <div class="sub">約 7,900 ~ 10,500 NTD / 人<br>~7,900–10,500 NTD per person</div>
     <div class="sub" style="margin-top:8px;border-top:1px solid rgba(255,255,255,.2);padding-top:8px">
       8 人團體總費用 Group Total<br>
-      <span style="font-size:16px;font-weight:900">€1,844 ~ €2,400</span><br>
-      約 64,500 ~ 84,000 NTD
+      <span style="font-size:16px;font-weight:900">€1,796 ~ €2,400</span><br>
+      約 62,800 ~ 84,000 NTD
     </div>
   </div>
 
   <div class="note-box">
     <strong>💡 省錢筆記 Budget Notes：</strong><br>
-    ✅ 選不可退款住宿 €83/人可再省<span class="en">Non-refundable rate saves ~€4-15/person</span><br>
-    ✅ 運河選方案 A 可省 €4.45/人<span class="en">Cruise Option A saves €4.45/person vs B</span><br>
-    ✅ 青旅廚房自煮省更多<span class="en">Cook at hostel kitchen to save on food</span><br>
-    ✅ 免費景點超多：渡輪、NEMO 屋頂、公園<span class="en">Many FREE attractions: ferry, NEMO rooftop, parks</span>
+    ✅ 風車村起司工坊免費試吃 = 免費午餐 😂<span class="en">Free cheese tasting at Zaanse Schans = free lunch!</span><br>
+    ✅ 選不可退住宿 €83/人可再省<span class="en">Non-refundable rate saves ~€4-15/person</span><br>
+    ✅ 免費景點超多：渡輪、NEMO 屋頂、Vondelpark<span class="en">Lots of FREE: ferry, NEMO rooftop, Vondelpark</span>
   </div>
 </div>
 
@@ -394,7 +385,7 @@
   <button class="nav-btn" id="prevBtn" disabled>◀</button>
   <div class="nav-mid">
     <div class="dots-row" id="dotsRow"></div>
-    <div class="plabel" id="pageLabel">1 / 10</div>
+    <div class="plabel" id="pageLabel">1 / 9</div>
   </div>
   <button class="nav-btn" id="nextBtn">▶</button>
 </div>
@@ -415,54 +406,37 @@ function go(i){
   const fwd=i>cur;
   const oldSlide=slides[cur];
   const newSlide=slides[i];
-
-  // 1. Position incoming slide off-screen (no transition)
   newSlide.style.transition='none';
   newSlide.classList.remove('active','exit-left','exit-right');
   newSlide.style.transform=fwd?'translateX(50px)':'translateX(-50px)';
   newSlide.style.visibility='visible';
   newSlide.style.opacity='0';
-
-  // Force reflow
   void newSlide.offsetWidth;
-
-  // 2. Re-enable transition
   newSlide.style.transition='';
-
-  // 3. Animate old slide out, new slide in
   oldSlide.classList.remove('active');
   oldSlide.classList.add(fwd?'exit-left':'exit-right');
-
   newSlide.style.transform='translateX(0)';
   newSlide.style.opacity='1';
   newSlide.classList.add('active');
   newSlide.scrollTop=0;
-
   cur=i;
   document.querySelectorAll('.nd').forEach((d,j)=>d.classList.toggle('on',j===cur));
   pageLabel.textContent=`${cur+1} / ${N}`;
   prevBtn.disabled=cur===0;
   nextBtn.disabled=cur===N-1;
-
-  // 4. Cleanup after animation
   setTimeout(()=>{
     oldSlide.classList.remove('exit-left','exit-right');
-    oldSlide.style.visibility='';
-    oldSlide.style.opacity='';
-    oldSlide.style.transform='';
+    oldSlide.style.visibility='';oldSlide.style.opacity='';oldSlide.style.transform='';
     animating=false;
   },380);
 }
 
 prevBtn.addEventListener('click',()=>go(cur-1));
 nextBtn.addEventListener('click',()=>go(cur+1));
-
 deck.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY;drag=true},{passive:true});
 deck.addEventListener('touchend',e=>{if(!drag)return;drag=false;const dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>50){dx<0?go(cur+1):go(cur-1)}},{passive:true});
 document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(cur+1);if(e.key==='ArrowLeft')go(cur-1)});
-
-setTimeout(()=>hint.classList.add('show'),1500);
-setTimeout(()=>hint.classList.remove('show'),5000);
+setTimeout(()=>hint.classList.add('show'),1500);setTimeout(()=>hint.classList.remove('show'),5000);
 </script>
 </body>
 </html>
