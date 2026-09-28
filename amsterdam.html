@@ -46,8 +46,8 @@
     .tag{display:inline-block;padding:2px 8px;border-radius:6px;font-size:10px;font-weight:700}
     .tw{background:#C8E6C9;color:var(--green)}
     .tr{background:#FFCDD2;color:var(--red)}
-    .btn-book{display:inline-flex;align-items:center;gap:4px;margin-top:8px;padding:10px 16px;background:var(--accent);border-radius:12px;font-size:12px;color:#fff;text-decoration:none;font-weight:700;transition:.2s}
-    .btn-book:active{transform:scale(.95);background:var(--p)}
+    .btn-book{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:12px;padding:12px 16px;background:var(--p);border-radius:12px;font-size:14px;color:#fff;text-decoration:none;font-weight:700;transition:.2s;width:100%;text-align:center;box-shadow:0 4px 12px rgba(230,81,0,.2)}
+    .btn-book:active{transform:scale(.97);background:#BF360C}
     .btn-ext{display:inline-flex;align-items:center;gap:4px;margin-top:6px;padding:7px 12px;background:var(--bg);border-radius:10px;font-size:11px;color:var(--t);text-decoration:none;border:1px solid var(--border);font-weight:600}
     .conclusion{background:linear-gradient(135deg,var(--p),#BF360C);color:#fff;border-radius:var(--r);padding:16px;text-align:center;margin-top:10px;margin-bottom:12px}
     .conclusion .big{font-family:'Inter';font-size:18px;font-weight:900}
@@ -136,44 +136,49 @@
   </div>
 </div>
 
-<!-- S2: ROOMS -->
+<!-- S2: ROOMS & CLINKNOORD -->
 <div class="slide" data-i="2">
-  <div class="eye">住宿房型比較</div>
-  <div class="eye-en">ROOM OPTIONS · 8 PEOPLE · PRICES EXCL. TAX</div>
-  <div class="sh">🛏️ 房型價格一覽</div>
-  <div class="sh-en">Which room type fits your group best?</div>
+  <div class="eye">住宿推薦</div>
+  <div class="eye-en">RECOMMENDED HOSTEL · CLINKNOORD</div>
+  <div class="sh">🛏️ ClinkNOORD 青旅</div>
+  <div class="sh-en">Prices excl. tax · 8 People Total</div>
+
+  <div class="card" style="border:2px solid var(--s)">
+    <div class="ct"><div class="ce">📌</div><div><div class="cn">青旅資訊與政策</div><div class="cn-en">Hostel Info & Policies</div></div></div>
+    <div class="cb" style="margin-bottom:8px">位於阿姆斯特丹北區，從中央車站搭乘<strong>免費渡輪</strong>即可輕鬆抵達！<span class="en">Located in Amsterdam Noord, just a short FREE ferry ride from Central Station!</span></div>
+    <div class="dr"><span class="dl">⏰ Check-in</span><span class="dv">15:00 - 23:00</span></div>
+    <div class="dr"><span class="dl">⏰ Check-out</span><span class="dv">10:00 前</span></div>
+    <div class="dr"><span class="dl">🥐 早餐 Breakfast</span><span class="dv">自助吃到飽 €9.90</span></div>
+    <div class="dr"><span class="dl">🛏️ 床位設備 Bed</span><span class="dv">閱讀燈、USB 孔、置物櫃</span></div>
+    <div class="dr"><span class="dl">🧺 設施 Facilities</span><span class="dv">投幣洗衣 €4.50、免費 Wi-Fi</span></div>
+    <div class="dr"><span class="dl">⚠️ 規定 Rules</span><span class="dv">無門禁、嚴禁吸菸、不含稅</span></div>
+    
+    <a href="https://www.chinese.hostelworld.com/pwa/hosteldetails.php/ClinkNOORD/Amsterdam/93919?from=2026-10-23&to=2026-10-26&guests=8&entrypage=dms" target="_blank" class="btn-book">
+      🔗 前往 Hostelworld 查看與預訂
+    </a>
+  </div>
 
   <div class="card best">
     <div class="badge badge-green">💰 最省 Cheapest</div>
-    <div class="ct"><div class="ce">🛏️</div><div><div class="cn">Basic 10 Bed Mixed Dorm</div><div class="cn-en">10 人混合宿舍（基本・共用衛浴）</div></div></div>
-    <div class="dr"><span class="dl">每人 Per person</span><span class="dv tag tw">€83 ~ €98</span></div>
+    <div class="ct"><div class="ce">🛏️</div><div><div class="cn">Basic 10 Bed Mixed Dorm</div><div class="cn-en">10 人混合宿舍（共用衛浴）</div></div></div>
+    <div class="dr"><span class="dl">每人 Per person</span><span class="dv tag tw">€83.03 ~ €97.52</span></div>
     <div class="dr"><span class="dl">8 人 Group</span><span class="dv tag tw">€664 ~ €780</span></div>
-    <div class="dr"><span class="dl">🚿 衛浴</span><span class="dv">共用 Shared</span></div>
-    <div class="cb" style="margin-top:6px">最便宜！共用衛浴。€83 不可退款 / €98 可免費取消。<span class="en">Cheapest! Shared bathroom. €83 non-refundable / €98 free cancellation.</span></div>
+    <div class="cb" style="margin-top:6px">最便宜選項！€83 不可退款 / €97.52 可於 <strong>10/21 前免費取消</strong>。<span class="en">Cheapest! €83 non-refundable / €97.52 free cancellation before Oct 21.</span></div>
   </div>
 
   <div class="card hl">
     <div class="badge">⭐ 推薦 Best Value</div>
     <div class="ct"><div class="ce">🛏️</div><div><div class="cn">4 Bed Mixed Dorm Ensuite</div><div class="cn-en">4 人混合宿舍（含獨立衛浴）</div></div></div>
-    <div class="dr"><span class="dl">每人 Per person</span><span class="dv">€87 ~ €102</span></div>
+    <div class="dr"><span class="dl">每人 Per person</span><span class="dv">€87.23 ~ €101.73</span></div>
     <div class="dr"><span class="dl">8 人 Group</span><span class="dv">€698 ~ €814</span></div>
-    <div class="dr"><span class="dl">🚿 衛浴</span><span class="dv">房內獨立 Ensuite ✅</span></div>
-    <div class="dr"><span class="dl">⚠️ 剩餘</span><span class="dv tag tr">Only 1 left!</span></div>
-    <div class="cb" style="margin-top:6px">只比大通鋪多 €4/人但有獨立衛浴，CP 值最高！<span class="en">~€4 more but with private bathroom! Best value. Almost sold out!</span></div>
+    <div class="dr"><span class="dl">⚠️ 剩餘</span><span class="dv tag tr">Only 1 bed left!</span></div>
+    <div class="cb" style="margin-top:6px">只比通鋪多 €4/人，但有獨立衛浴，CP 值最高！同樣分不可退款與 <strong>10/21 前免費取消</strong>兩種價位。<span class="en">~€4 more per person but with ensuite! Best value. Free cancellation before Oct 21 available.</span></div>
   </div>
 
   <div class="card">
-    <div class="ct"><div class="ce">👩</div><div><div class="cn">Female Dorm (10 Bed / 4 Bed)</div><div class="cn-en">女性專屬宿舍（含獨立衛浴）</div></div></div>
-    <div class="dr"><span class="dl">10 Bed 每人</span><span class="dv">€88 ~ €102</span></div>
-    <div class="dr"><span class="dl">4 Bed 每人</span><span class="dv">€92 ~ €106</span></div>
-    <div class="cb" style="margin-top:6px">限女性，含獨立衛浴。<span class="en">Female-only with ensuite.</span></div>
-  </div>
-
-  <div class="card" style="border-color:#FFCDD2">
-    <div class="ct"><div class="ce">🏨</div><div><div class="cn">Private Room（參考）</div><div class="cn-en">Private Ensuite — Per Room Price</div></div></div>
-    <div class="dr"><span class="dl">Double / Twin</span><span class="dv" style="color:var(--red)">€261 ~ €311 / 間</span></div>
-    <div class="dr"><span class="dl">8 人需 4 間</span><span class="dv" style="color:var(--red)">€1,044 ~ €1,228</span></div>
-    <div class="cb" style="margin-top:6px">以房計價，8 人需 4 間，是宿舍 1.5 倍！<span class="en">Per-room pricing. 4 rooms = 1.5x dorm cost!</span></div>
+    <div class="ct"><div class="ce">👩</div><div><div class="cn">Female Dorm Ensuite</div><div class="cn-en">女性專屬宿舍（含獨立衛浴）</div></div></div>
+    <div class="dr"><span class="dl">10 Bed 每人</span><span class="dv">€87.54 ~ €102.04</span></div>
+    <div class="dr"><span class="dl">4 Bed 每人</span><span class="dv">€91.87 ~ €106.36</span></div>
   </div>
 </div>
 
@@ -224,11 +229,11 @@
 
   <div class="card">
     <div class="ct"><div class="ce">🌅</div><div><div class="cn">凌晨抵達 → 寄行李</div><div class="cn-en">01:55 AM Arrival → Luggage Storage</div></div></div>
-    <div class="cb">01:55 抵達中央車站。青旅可寄行李，check-in 通常下午。先在附近休息。<span class="en">Arrive 01:55 AM. Hostels offer luggage storage. Check-in usually 2-3 PM.</span></div>
+    <div class="cb">01:55 抵達中央車站。搭免費渡輪前往 ClinkNOORD 寄放行李，正式 check-in 時間為 15:00。<span class="en">Arrive 01:55 AM. Take free ferry to ClinkNOORD to drop luggage. Check-in is at 15:00.</span></div>
   </div>
   <div class="card">
     <div class="ct"><div class="ce">🏛️</div><div><div class="cn">上午：水壩廣場 & 皇宮</div><div class="cn-en">Morning: Dam Square & Royal Palace</div></div></div>
-    <div class="cb">走 5 分鐘到 <strong>Dam Square</strong>。荷蘭王宮外觀（免費）、二戰紀念碑。<span class="en">5-min walk to Dam Square. Royal Palace exterior (free), WWII monument.</span></div>
+    <div class="cb">從中央車站走 5 分鐘到 <strong>Dam Square</strong>。荷蘭王宮外觀（免費）、二戰紀念碑。<span class="en">5-min walk from Centraal to Dam Square. Royal Palace exterior (free), WWII monument.</span></div>
   </div>
   <div class="card">
     <div class="ct"><div class="ce">🌷</div><div><div class="cn">下午：約旦區 & 安妮之家</div><div class="cn-en">Afternoon: Jordaan & Anne Frank House</div></div></div>
@@ -254,7 +259,7 @@
   <div class="card hl">
     <div class="badge">🏆 必去！Must Visit</div>
     <div class="ct"><div class="ce">🇳🇱</div><div><div class="cn">贊瑟斯漢斯風車村</div><div class="cn-en">Zaanse Schans · FREE Village Entry</div></div></div>
-    <div class="cb">荷蘭最經典的風車景觀！保存了 18-19 世紀的荷蘭傳統風車、木屋、起司工坊與木鞋工廠。整個村莊<strong>免費進入</strong>，只有個別風車內部或博物館需要門票。<span class="en">The Netherlands' most iconic windmill landscape! Preserved 18-19th century Dutch windmills, wooden houses, cheese farms & clog workshops. Village entry is FREE — only individual windmill interiors & museums charge admission.</span></div>
+    <div class="cb">荷蘭最經典的風車景觀！保存了 18-19 世紀的傳統風車、起司工坊與木鞋工廠。整個村莊<strong>免費進入</strong>。<span class="en">The Netherlands' most iconic windmill landscape! Village entry is FREE — only individual windmill interiors & museums charge admission.</span></div>
   </div>
 
   <div class="card">
@@ -263,28 +268,22 @@
     <div class="dr"><span class="dl">⏱️ 車程 Duration</span><span class="dv">約 17 分鐘</span></div>
     <div class="dr"><span class="dl">🚶 下車後步行</span><span class="dv">10-15 分鐘到村莊</span></div>
     <div class="dr"><span class="dl">💰 來回票 Round-trip</span><span class="dv">約 €9.40 / 人</span></div>
-    <div class="dr"><span class="dl">👥 8 人火車費</span><span class="dv">約 €75</span></div>
     <div class="cb" style="margin-top:6px">也可搭 <strong>EBS 391 號公車</strong>從中央車站出發，約 45 分鐘，直接到村莊入口更近。<span class="en">Alternative: EBS bus 391 from Centraal (~45 min), drops you closer to the entrance.</span></div>
   </div>
 
   <div class="card">
     <div class="ct"><div class="ce">🧀</div><div><div class="cn">上午：起司工坊 & 木鞋工廠</div><div class="cn-en">Morning: Cheese Farm & Clog Workshop</div></div></div>
-    <div class="cb">參觀 <strong>Catharina Hoeve 起司農場</strong>（免費參觀+試吃！）看師傅現場示範手工製作荷蘭傳統起司。再到 <strong>木鞋工廠 Kooijman</strong>（免費）看荷蘭人如何用一塊木頭雕出一雙木鞋。<span class="en">Visit Catharina Hoeve cheese farm (free entry + tasting!) Watch cheese made by hand. Then Kooijman Clog Workshop (free) — see how wooden clogs are carved from a single block of wood.</span></div>
+    <div class="cb">參觀 <strong>Catharina Hoeve 起司農場</strong>（免費參觀+試吃！）與 <strong>木鞋工廠 Kooijman</strong>（免費）看木鞋雕刻示範。<span class="en">Visit Catharina Hoeve cheese farm (free entry + tasting!) and Kooijman Clog Workshop (free) carving demonstration.</span></div>
   </div>
 
   <div class="card">
     <div class="ct"><div class="ce">💨</div><div><div class="cn">下午：風車巡禮 & 河畔漫步</div><div class="cn-en">Afternoon: Windmill Walk & Riverside</div></div></div>
-    <div class="cb">沿著贊河 (Zaan River) 散步，一排排的風車矗立在綠色草地上，這就是明信片上的荷蘭！每座風車各有功能：磨香料、鋸木頭、榨油。進入風車參觀門票約 <strong>€5/座</strong>，選 1-2 座體驗即可。<span class="en">Walk along the Zaan River with windmills lining the green fields — this IS the Netherlands on postcards! Each mill has a different function: spice grinding, sawing wood, oil pressing. Entry ~€5/mill — visit 1-2 for the experience.</span></div>
+    <div class="cb">沿著贊河散步看風車。進入風車參觀門票約 <strong>€5/座</strong>，選 1-2 座體驗即可。<span class="en">Walk along the Zaan River. Entry ~€5/mill — visit 1-2 for the experience.</span></div>
   </div>
 
   <div class="card">
     <div class="ct"><div class="ce">🍟</div><div><div class="cn">風車村吃土攻略</div><div class="cn-en">Budget Eats at Zaanse Schans</div></div></div>
-    <div class="cb">🧀 起司工坊免費試吃各種口味的荷蘭起司<br>🧇 村內小攤現做 Stroopwafel 荷蘭焦糖鬆餅 €2-3<br>🥞 荷蘭小鬆餅 Poffertjes 一盤 €5<br>💡 省錢 Tip：自帶超市午餐到河邊野餐更省！<span class="en">🧀 Free cheese samples! 🧇 Fresh Stroopwafel €2-3 · 🥞 Poffertjes €5 · 💡 Tip: Bring supermarket lunch for a riverside picnic!</span></div>
-  </div>
-
-  <div class="conclusion">
-    <div class="big">風車村每人花費：約 €15 ~ €25</div>
-    <div class="sub">火車來回 €9.40 + 1-2 座風車門票 €5-10 + 小吃 €5<br>Train €9.40 + 1-2 mill entries €5-10 + snacks €5</div>
+    <div class="cb">🧀 起司免費試吃<br>🧇 現做 Stroopwafel 荷蘭焦糖鬆餅 €2-3<br>🥞 荷蘭小鬆餅 Poffertjes 一盤 €5<br>💡 省錢 Tip：自帶超市午餐去野餐！<span class="en">🧀 Free cheese samples! 🧇 Fresh Stroopwafel €2-3 · 🥞 Poffertjes €5 · 💡 Tip: Bring supermarket lunch for a picnic!</span></div>
   </div>
 </div>
 
@@ -353,7 +352,7 @@
   <table class="budget-table">
     <tr><th>項目 Item</th><th>每人 /P</th><th>8人 Group</th></tr>
     <tr><td>🚌 FlixBus 來回<br><span style="font-size:10px;color:var(--tm)">Round-trip</span></td><td>€40~60</td><td>€320~480</td></tr>
-    <tr><td>🛏️ 住宿 3 晚<br><span style="font-size:10px;color:var(--tm)">4-Bed Ensuite</span></td><td>€87~102</td><td>€696~816</td></tr>
+    <tr><td>🛏️ 住宿 3 晚<br><span style="font-size:10px;color:var(--tm)">ClinkNOORD Dorm</span></td><td>€87~102</td><td>€696~816</td></tr>
     <tr><td>🌷 風車村一日遊<br><span style="font-size:10px;color:var(--tm)">Zaanse Schans</span></td><td>€15~25</td><td>€120~200</td></tr>
     <tr><td>🚤 運河巡航<br><span style="font-size:10px;color:var(--tm)">Canal Cruise 10/26</span></td><td>€22.50<br><span style="font-size:9px;color:var(--tm)">or €26.95</span></td><td>€180<br><span style="font-size:9px;color:var(--tm)">or €215.60</span></td></tr>
     <tr><td>🍟 飲食 4 天<br><span style="font-size:10px;color:var(--tm)">Food</span></td><td>€50~70</td><td>€400~560</td></tr>
@@ -373,9 +372,9 @@
 
   <div class="note-box">
     <strong>💡 省錢筆記 Budget Notes：</strong><br>
-    ✅ 風車村起司工坊免費試吃 = 免費午餐 😂<span class="en">Free cheese tasting at Zaanse Schans = free lunch!</span><br>
-    ✅ 選不可退住宿 €83/人可再省<span class="en">Non-refundable rate saves ~€4-15/person</span><br>
-    ✅ 免費景點超多：渡輪、NEMO 屋頂、Vondelpark<span class="en">Lots of FREE: ferry, NEMO rooftop, Vondelpark</span>
+    ✅ 10/21 前確定人數，可訂不可退款住宿再省一筆<span class="en">Non-refundable rate saves ~€4-15/person</span><br>
+    ✅ 善用青旅 €9.90 吃到飽早餐，午餐晚點吃<span class="en">Maximize the €9.90 all-you-can-eat breakfast</span><br>
+    ✅ 免費景點超多：渡輪、NEMO 屋頂、風車村起司<span class="en">Lots of FREE: ferry, NEMO rooftop, Zaanse Schans</span>
   </div>
 </div>
 
