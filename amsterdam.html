@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-  <title>Amsterdam 阿姆斯特丹 4日攻略</title>
+  <title>Amsterdam 4-Day Guide</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700;900&family=Inter:wght@400;600;700;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Noto+Sans+TC:wght@400;600;700;900&display=swap');
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{--p:#E65100;--s:#1565C0;--bg:#FFF8F0;--card:#fff;--t:#1a1a1a;--tm:#6D4C41;--accent:#FF6D00;--border:#FFE0B2;--r:16px;--green:#2E7D32;--red:#C62828;--safe-b:env(safe-area-inset-bottom,20px)}
-    html,body{height:100%;overflow:hidden;font-family:'Noto Sans TC','Inter',sans-serif;background:var(--bg);color:var(--t);-webkit-tap-highlight-color:transparent}
+    html,body{height:100%;overflow:hidden;font-family:'Inter','Noto Sans TC',sans-serif;background:var(--bg);color:var(--t);-webkit-tap-highlight-color:transparent}
     .deck{position:relative;height:100%;width:100%}
     .slide{position:absolute;inset:0;visibility:hidden;opacity:0;transition:opacity .35s ease,transform .35s ease;pointer-events:none;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:20px 16px 105px}
     .slide.active{visibility:visible;opacity:1;transform:translateX(0)!important;pointer-events:all;z-index:2}
@@ -23,10 +23,10 @@
     .nd{width:7px;height:7px;border-radius:50%;background:var(--border);border:none;cursor:pointer;transition:.3s;padding:0}
     .nd.on{background:var(--p);transform:scale(1.5)}
     .plabel{font-size:10px;color:var(--tm);margin-top:3px}
-    .eye{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--p);text-transform:uppercase;margin-bottom:2px}
-    .eye-en{font-size:10px;color:var(--tm);letter-spacing:1px;margin-bottom:10px}
-    .sh{font-size:24px;font-weight:900;line-height:1.3;margin-bottom:4px}
-    .sh-en{font-size:13px;font-weight:600;color:var(--tm);margin-bottom:18px}
+    .eye{font-size:11px;font-weight:900;letter-spacing:1px;color:var(--p);text-transform:uppercase;margin-bottom:2px}
+    .eye-en{font-size:11px;color:var(--tm);margin-bottom:10px;font-family:'Noto Sans TC'}
+    .sh{font-size:24px;font-weight:900;line-height:1.2;margin-bottom:4px}
+    .sh-en{font-size:14px;font-weight:600;color:var(--tm);margin-bottom:18px;font-family:'Noto Sans TC'}
     .card{background:var(--card);border-radius:var(--r);padding:16px;margin-bottom:12px;box-shadow:0 2px 10px rgba(0,0,0,.04);border:1px solid var(--border);position:relative}
     .card.hl{border:2px solid var(--accent);box-shadow:0 4px 18px rgba(230,81,0,.1)}
     .card.best{border:2px solid var(--green);box-shadow:0 4px 18px rgba(46,125,50,.1)}
@@ -34,14 +34,14 @@
     .badge-green{background:var(--green)}
     .ct{display:flex;align-items:center;gap:9px;margin-bottom:10px}
     .ce{font-size:26px;flex-shrink:0}
-    .cn{font-size:15px;font-weight:700;color:var(--p);line-height:1.3}
-    .cn-en{font-size:10px;font-weight:600;color:var(--tm);margin-top:1px}
-    .cb{font-size:12.5px;color:var(--tm);line-height:1.7}
-    .cb strong{color:var(--t)}
-    .en{display:block;font-size:11px;color:#999;margin-top:3px;line-height:1.5;font-family:'Inter','Noto Sans TC',sans-serif}
+    .cn{font-size:15px;font-weight:800;color:var(--p);line-height:1.2}
+    .cn-en{font-size:12px;font-weight:600;color:var(--tm);margin-top:2px;font-family:'Noto Sans TC'}
+    .cb{font-size:13px;color:var(--t);line-height:1.6}
+    .cb strong{color:var(--p)}
+    .en{display:block;font-size:12px;color:#666;margin-top:4px;line-height:1.5;font-family:'Noto Sans TC'}
     .dr{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px dashed var(--border);font-size:12.5px}
     .dr:last-child{border-bottom:none}
-    .dl{color:var(--tm)}
+    .dl{color:var(--tm);font-weight:600}
     .dv{font-weight:700;color:var(--t);text-align:right;max-width:55%}
     .tag{display:inline-block;padding:2px 8px;border-radius:6px;font-size:10px;font-weight:700}
     .tw{background:#C8E6C9;color:var(--green)}
@@ -51,33 +51,33 @@
     .btn-ext{display:inline-flex;align-items:center;gap:4px;margin-top:6px;padding:7px 12px;background:var(--bg);border-radius:10px;font-size:11px;color:var(--t);text-decoration:none;border:1px solid var(--border);font-weight:600}
     .conclusion{background:linear-gradient(135deg,var(--p),#BF360C);color:#fff;border-radius:var(--r);padding:16px;text-align:center;margin-top:10px;margin-bottom:12px}
     .conclusion .big{font-family:'Inter';font-size:18px;font-weight:900}
-    .conclusion .sub{font-size:11px;opacity:.85;margin-top:5px;line-height:1.5}
+    .conclusion .sub{font-size:12px;opacity:.85;margin-top:5px;line-height:1.5}
     .cover-bg{background:linear-gradient(160deg,#E65100 0%,#BF360C 50%,#880E4F 100%);color:#fff;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;min-height:100vh;padding:40px 20px 120px}
-    .cover-bg .eye{color:rgba(255,255,255,.6)}
+    .cover-bg .eye{color:rgba(255,255,255,.8);font-size:13px;letter-spacing:2px}
     .cflag{font-size:64px;margin-bottom:8px}
-    .ch{font-size:40px;font-weight:900;line-height:1.2}
-    .ch-en{font-size:17px;font-weight:600;opacity:.8;margin-top:5px}
-    .csub{font-size:13px;opacity:.7;margin-top:14px;line-height:1.6;max-width:300px}
-    .chint{margin-top:28px;font-size:11px;opacity:.45;animation:pulse 2s infinite}
-    @keyframes pulse{0%,100%{opacity:.35}50%{opacity:.75}}
-    .timeline{position:relative;padding-left:28px;margin:10px 0}
+    .ch{font-size:40px;font-weight:900;line-height:1.1;letter-spacing:-0.5px}
+    .ch-en{font-size:20px;font-weight:700;opacity:.9;margin-top:5px;font-family:'Noto Sans TC'}
+    .csub{font-size:14px;opacity:.8;margin-top:16px;line-height:1.6;max-width:300px;font-weight:500}
+    .chint{margin-top:32px;font-size:12px;opacity:.6;animation:pulse 2s infinite;font-weight:600}
+    @keyframes pulse{0%,100%{opacity:.4}50%{opacity:.9}}
+    .timeline{position:relative;padding-left:28px;margin:12px 0}
     .timeline::before{content:'';position:absolute;left:10px;top:0;bottom:0;width:2px;background:var(--border)}
-    .tnode{position:relative;margin-bottom:12px}
-    .tnode::before{content:'';position:absolute;left:-22px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--p);border:2px solid var(--card)}
-    .tnode .ttime{font-family:'Inter';font-size:12px;font-weight:700;color:var(--p)}
-    .tnode .tplace{font-size:13px;font-weight:700;color:var(--t);margin-top:1px}
-    .tnode .tnote{font-size:11px;color:var(--tm);margin-top:1px}
-    .transfer-bar{margin:4px 0 8px;padding:6px 10px;background:#E3F2FD;border-radius:8px;font-size:11px;color:var(--s);font-weight:600;text-align:center;margin-left:-28px}
+    .tnode{position:relative;margin-bottom:14px}
+    .tnode::before{content:'';position:absolute;left:-22px;top:4px;width:10px;height:10px;border-radius:50%;background:var(--p);border:2px solid var(--card)}
+    .tnode .ttime{font-family:'Inter';font-size:13px;font-weight:800;color:var(--p)}
+    .tnode .tplace{font-size:14px;font-weight:700;color:var(--t);margin-top:2px}
+    .tnode .tnote{font-size:11px;color:var(--tm);margin-top:2px;font-family:'Noto Sans TC'}
+    .transfer-bar{margin:4px 0 8px;padding:8px 10px;background:#E3F2FD;border-radius:8px;font-size:12px;color:var(--s);font-weight:700;text-align:center;margin-left:-28px}
     .budget-table{width:100%;border-collapse:collapse;background:var(--card);border-radius:var(--r);overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.04);margin-bottom:12px}
-    .budget-table th{background:var(--p);color:#fff;padding:10px 8px;font-size:11px;text-align:left}
-    .budget-table td{padding:10px 8px;border-bottom:1px solid var(--border);font-size:12px}
-    .budget-table tr:last-child td{font-weight:700;color:var(--p);font-size:14px;border-bottom:none;background:#FFF3E0}
-    .note-box{background:#FFFDE7;border:1px solid #FFF9C4;border-radius:var(--r);padding:12px;margin-top:10px;font-size:12px;line-height:1.6}
+    .budget-table th{background:var(--p);color:#fff;padding:12px 8px;font-size:12px;text-align:left}
+    .budget-table td{padding:12px 8px;border-bottom:1px solid var(--border);font-size:13px;font-weight:600}
+    .budget-table tr:last-child td{font-weight:900;color:var(--p);font-size:15px;border-bottom:none;background:#FFF3E0}
+    .note-box{background:#FFFDE7;border:1px solid #FFF9C4;border-radius:var(--r);padding:14px;margin-top:10px;font-size:13px;line-height:1.6}
     .note-box strong{color:var(--p)}
     .vs-or{text-align:center;font-family:'Inter';font-size:20px;font-weight:900;color:var(--accent);padding:8px 0}
     .price-was{text-decoration:line-through;color:#999;font-size:11px;margin-right:4px}
     .price-off{background:var(--green);color:#fff;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;margin-left:4px}
-    .swipe-hint{position:fixed;bottom:75px;left:50%;transform:translateX(-50%);font-size:11px;color:var(--tm);opacity:0;transition:opacity .5s;z-index:100;pointer-events:none;background:var(--card);padding:5px 12px;border-radius:20px;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+    .swipe-hint{position:fixed;bottom:75px;left:50%;transform:translateX(-50%);font-size:12px;font-weight:600;color:var(--tm);opacity:0;transition:opacity .5s;z-index:100;pointer-events:none;background:var(--card);padding:6px 14px;border-radius:20px;box-shadow:0 4px 12px rgba(0,0,0,.1)}
     .swipe-hint.show{opacity:1}
   </style>
 </head>
@@ -86,311 +86,310 @@
 
 <!-- S0: COVER -->
 <div class="slide cover-bg active" data-i="0">
-  <div class="eye">Oct 23–27, 2026 · 8 人</div>
+  <div class="eye">OCT 23–27, 2026 · 8 PEOPLE</div>
   <div class="cflag">🇳🇱</div>
-  <div class="ch">阿姆斯特丹</div>
-  <div class="ch-en">Amsterdam</div>
-  <div class="csub">直達巴士 × 風車村 × 日落巡航<br>Direct Bus × Windmills × Sunset Cruise<br>8 人團從雷根斯堡出發的完全攻略</div>
-  <div class="chint">👈 左滑開始 Swipe to start →</div>
+  <div class="ch">AMSTERDAM</div>
+  <div class="ch-en">阿姆斯特丹 4 日攻略</div>
+  <div class="csub">Direct Bus × Windmills × Sunset Cruise<br><span style="font-family:'Noto Sans TC';font-size:12px;opacity:0.8">直達巴士 × 風車村 × 日落巡航</span></div>
+  <div class="chint">👈 SWIPE TO START 左滑開始 →</div>
 </div>
 
 <!-- S1: OUTBOUND BUS -->
 <div class="slide" data-i="1">
-  <div class="eye">去程交通</div>
-  <div class="eye-en">OUTBOUND BUS & TRANSFER</div>
-  <div class="sh">🚌 去程直達巴士 + 渡輪</div>
-  <div class="sh-en">11.5h Direct Bus + 35m Transfer to Hostel</div>
+  <div class="eye">OUTBOUND BUS & TRANSFER</div>
+  <div class="eye-en">去程巴士與市區轉乘</div>
+  <div class="sh">🚌 11.5h Direct Bus + Transfer</div>
+  <div class="sh-en">直達巴士 + 渡輪前往青旅</div>
 
   <div class="card hl">
-    <div class="badge">🔥 直達 Direct</div>
-    <div class="ct"><div class="ce">🚌</div><div><div class="cn">雷根斯堡 → Sloterdijk</div><div class="cn-en">Regensburg → Amsterdam Sloterdijk</div></div></div>
-    <div class="cb" style="margin-bottom:8px">營運：FlixBus DACH GmbH · 免費 WiFi 與插座<span class="en">11h 30m Direct. Free WiFi & Outlets onboard.</span></div>
+    <div class="badge">🔥 Direct</div>
+    <div class="ct"><div class="ce">🚌</div><div><div class="cn">Regensburg → Sloterdijk</div><div class="cn-en">雷根斯堡 → 阿姆斯特丹</div></div></div>
+    <div class="cb" style="margin-bottom:8px">11h 30m Direct. Free WiFi & Outlets onboard.<span class="en">營運：FlixBus DACH GmbH · 免費 WiFi 與插座</span></div>
     <div class="timeline">
-      <div class="tnode"><div class="ttime">04:20</div><div class="tplace">🇩🇪 Regensburg 雷根斯堡</div><div class="tnote">10/23 (Fri)</div></div>
-      <div class="tnode"><div class="ttime">05:40</div><div class="tplace">Nürnberg 紐倫堡</div><div class="tnote">10 min</div></div>
-      <div class="tnode"><div class="ttime">06:15</div><div class="tplace">Erlangen 埃爾朗根</div><div class="tnote">5 min</div></div>
-      <div class="tnode"><div class="ttime">07:30</div><div class="tplace">Würzburg 維爾茨堡</div><div class="tnote">5 min</div></div>
-      <div class="tnode"><div class="ttime">09:20</div><div class="tplace">Frankfurt Hbf 法蘭克福</div><div class="tnote">15 min</div></div>
-      <div class="tnode"><div class="ttime">11:45</div><div class="tplace">Cologne Airport 科隆機場</div><div class="tnote">10 min</div></div>
-      <div class="tnode"><div class="ttime">12:55</div><div class="tplace">Düsseldorf 杜塞道夫</div><div class="tnote">5 min</div></div>
-      <div class="tnode"><div class="ttime">15:50</div><div class="tplace">✅ Amsterdam Sloterdijk</div></div>
+      <div class="tnode"><div class="ttime">04:20</div><div class="tplace">🇩🇪 Regensburg</div><div class="tnote">10/23 (Fri) Departure</div></div>
+      <div class="tnode"><div class="ttime">05:40</div><div class="tplace">Nuremberg</div><div class="tnote">10 min</div></div>
+      <div class="tnode"><div class="ttime">06:15</div><div class="tplace">Erlangen</div><div class="tnote">5 min</div></div>
+      <div class="tnode"><div class="ttime">07:30</div><div class="tplace">Würzburg</div><div class="tnote">5 min</div></div>
+      <div class="tnode"><div class="ttime">09:20</div><div class="tplace">Frankfurt Hbf</div><div class="tnote">15 min</div></div>
+      <div class="tnode"><div class="ttime">11:45</div><div class="tplace">Cologne Airport</div><div class="tnote">10 min</div></div>
+      <div class="tnode"><div class="ttime">12:55</div><div class="tplace">Düsseldorf</div><div class="tnote">5 min</div></div>
+      <div class="tnode"><div class="ttime">15:50</div><div class="tplace">✅ Amsterdam Sloterdijk</div><div class="tnote">Arrival</div></div>
     </div>
   </div>
 
-  <div class="transfer-bar">🔄 轉乘前往青旅 Transfer to Hostel: 35 min</div>
+  <div class="transfer-bar">🔄 Transfer to Hostel: 35 min</div>
 
   <div class="card">
-    <div class="ct"><div class="ce">⛴️</div><div><div class="cn">Sloterdijk → ClinkNOORD</div><div class="cn-en">Train + Free Ferry</div></div></div>
-    <div class="dr"><span class="dl">🚆 火車 Train</span><span class="dv">Sloterdijk → Centraal<br><span style="font-size:10px">(Sprinter/Intercity 約 5 分鐘)</span></span></div>
-    <div class="dr"><span class="dl">⛴️ 渡輪 Ferry</span><span class="dv">搭乘 F3 航線至 Buiksloterweg<br><span style="font-size:10px">(每 4 分鐘一班，免費 Free)</span></span></div>
-    <div class="dr"><span class="dl">🚶 步行 Walk</span><span class="dv">下船後走 4 分鐘抵達青旅</span></div>
-    <div class="cb" style="margin-top:8px">巴士 15:50 抵達後轉車，約 <strong>16:30</strong> 即可抵達青旅 Check-in！<span class="en">Arrive at 15:50, transfer to hostel, and check-in around 16:30!</span></div>
+    <div class="ct"><div class="ce">⛴️</div><div><div class="cn">Sloterdijk → ClinkNOORD</div><div class="cn-en">Train + Free Ferry (火車+免費渡輪)</div></div></div>
+    <div class="dr"><span class="dl">🚆 Train</span><span class="dv">Sloterdijk → Centraal<br><span style="font-size:10px">(Sprinter/Intercity, ~5 min)</span></span></div>
+    <div class="dr"><span class="dl">⛴️ Ferry</span><span class="dv">F3 Ferry to Buiksloterweg<br><span style="font-size:10px">(Every 4 min, FREE)</span></span></div>
+    <div class="dr"><span class="dl">🚶 Walk</span><span class="dv">4 mins to hostel</span></div>
+    <div class="cb" style="margin-top:8px">Arrive at 15:50, transfer to hostel, and check-in around <strong>16:30</strong>!<span class="en">15:50 抵達後轉車，約 16:30 即可抵達青旅辦理入住。</span></div>
   </div>
 </div>
 
 <!-- S2: RETURN BUS -->
 <div class="slide" data-i="2">
-  <div class="eye">回程交通</div>
-  <div class="eye-en">RETURN BUS · MON OCT 26 → TUE OCT 27</div>
-  <div class="sh">🚌 回程直達夜車</div>
-  <div class="sh-en">11.5h Direct Overnight Bus</div>
+  <div class="eye">RETURN BUS (MON OCT 26)</div>
+  <div class="eye-en">回程直達夜車</div>
+  <div class="sh">🚌 11.5h Overnight Bus</div>
+  <div class="sh-en">睡一覺隔天早上抵達雷根斯堡</div>
 
   <div class="card hl">
-    <div class="badge">🌙 睡一覺就到</div>
-    <div class="ct"><div class="ce">🚌</div><div><div class="cn">Sloterdijk → 雷根斯堡</div><div class="cn-en">Amsterdam Sloterdijk → Regensburg</div></div></div>
-    <div class="cb" style="margin-bottom:8px">營運：FlixBus DACH GmbH · 隔日早上抵達<span class="en">11h 30m Direct. Arrives next morning.</span></div>
+    <div class="badge">🌙 Sleep Onboard</div>
+    <div class="ct"><div class="ce">🚌</div><div><div class="cn">Sloterdijk → Regensburg</div><div class="cn-en">阿姆斯特丹 → 雷根斯堡</div></div></div>
+    <div class="cb" style="margin-bottom:8px">11h 30m Direct. Arrives next morning.<span class="en">營運：FlixBus DACH GmbH · 夜車直達</span></div>
     <div class="timeline">
-      <div class="tnode"><div class="ttime">22:30</div><div class="tplace">🇳🇱 Amsterdam Sloterdijk</div><div class="tnote">10/26 (Mon) 晚上出發</div></div>
-      <div class="tnode"><div class="ttime">01:20</div><div class="tplace">Düsseldorf 杜塞道夫</div><div class="tnote">10 min</div></div>
-      <div class="tnode"><div class="ttime">02:15</div><div class="tplace">Cologne Airport 科隆機場</div><div class="tnote">5 min</div></div>
+      <div class="tnode"><div class="ttime">22:30</div><div class="tplace">🇳🇱 Amsterdam Sloterdijk</div><div class="tnote">10/26 (Mon) Evening Departure</div></div>
+      <div class="tnode"><div class="ttime">01:20</div><div class="tplace">Düsseldorf</div><div class="tnote">10 min</div></div>
+      <div class="tnode"><div class="ttime">02:15</div><div class="tplace">Cologne Airport</div><div class="tnote">5 min</div></div>
       <div class="tnode"><div class="ttime">04:15</div><div class="tplace">Frankfurt Airport</div><div class="tnote">5 min</div></div>
-      <div class="tnode"><div class="ttime">04:35</div><div class="tplace">Frankfurt Hbf 法蘭克福</div><div class="tnote">15 min</div></div>
-      <div class="tnode"><div class="ttime">06:25</div><div class="tplace">Würzburg 維爾茨堡</div><div class="tnote">10 min</div></div>
-      <div class="tnode"><div class="ttime">08:15</div><div class="tplace">Nuremberg 紐倫堡</div><div class="tnote">10 min</div></div>
-      <div class="tnode"><div class="ttime">10:00</div><div class="tplace">✅ Regensburg 雷根斯堡</div><div class="tnote">10/27 (Tue) 早上抵達！</div></div>
+      <div class="tnode"><div class="ttime">04:35</div><div class="tplace">Frankfurt Hbf</div><div class="tnote">15 min</div></div>
+      <div class="tnode"><div class="ttime">06:25</div><div class="tplace">Würzburg</div><div class="tnote">10 min</div></div>
+      <div class="tnode"><div class="ttime">08:15</div><div class="tplace">Nuremberg</div><div class="tnote">10 min</div></div>
+      <div class="tnode"><div class="ttime">10:00</div><div class="tplace">✅ Regensburg</div><div class="tnote">10/27 (Tue) Morning Arrival!</div></div>
     </div>
   </div>
 </div>
 
 <!-- S3: ROOMS & CLINKNOORD -->
 <div class="slide" data-i="3">
-  <div class="eye">住宿推薦</div>
-  <div class="eye-en">RECOMMENDED HOSTEL · CLINKNOORD</div>
-  <div class="sh">🛏️ ClinkNOORD 青旅</div>
-  <div class="sh-en">Prices excl. tax · 8 People Total</div>
+  <div class="eye">ACCOMMODATION</div>
+  <div class="eye-en">住宿推薦</div>
+  <div class="sh">🛏️ ClinkNOORD Hostel</div>
+  <div class="sh-en">Prices excl. tax · 8 People Total (不含稅)</div>
 
   <div class="card" style="border:2px solid var(--s)">
-    <div class="ct"><div class="ce">📌</div><div><div class="cn">青旅資訊與政策</div><div class="cn-en">Hostel Info & Policies</div></div></div>
-    <div class="cb" style="margin-bottom:8px">位於阿姆斯特丹北區，搭 <strong>免費渡輪 F3</strong> 即可輕鬆抵達！<span class="en">Located in Amsterdam Noord, just a short FREE ferry ride!</span></div>
+    <div class="ct"><div class="ce">📌</div><div><div class="cn">Hostel Info & Policies</div><div class="cn-en">青旅資訊與政策</div></div></div>
+    <div class="cb" style="margin-bottom:8px">Located in Amsterdam Noord, just a short <strong>FREE</strong> ferry ride from Central Station!<span class="en">位於阿姆斯特丹北區，搭乘免費渡輪即可輕鬆抵達！</span></div>
     <div class="dr"><span class="dl">⏰ Check-in</span><span class="dv">15:00 - 23:00</span></div>
-    <div class="dr"><span class="dl">⏰ Check-out</span><span class="dv">10:00 前</span></div>
-    <div class="dr"><span class="dl">🥐 早餐 Breakfast</span><span class="dv">自助吃到飽 €9.90</span></div>
-    <div class="dr"><span class="dl">🛏️ 床位設備 Bed</span><span class="dv">閱讀燈、USB 孔、置物櫃</span></div>
-    <div class="dr"><span class="dl">🧺 設施 Facilities</span><span class="dv">投幣洗衣 €4.50、免費 Wi-Fi</span></div>
-    <div class="dr"><span class="dl">⚠️ 規定 Rules</span><span class="dv">無門禁、嚴禁吸菸、不含稅</span></div>
+    <div class="dr"><span class="dl">⏰ Check-out</span><span class="dv">Before 10:00</span></div>
+    <div class="dr"><span class="dl">🥐 Breakfast</span><span class="dv">All-you-can-eat €9.90</span></div>
+    <div class="dr"><span class="dl">🛏️ Bed Setup</span><span class="dv">Reading light, USB, Locker</span></div>
+    <div class="dr"><span class="dl">🧺 Facilities</span><span class="dv">Laundry €4.50, Free Wi-Fi</span></div>
+    <div class="dr"><span class="dl">⚠️ Rules</span><span class="dv">No curfew, Non-smoking</span></div>
     
     <a href="https://www.chinese.hostelworld.com/pwa/hosteldetails.php/ClinkNOORD/Amsterdam/93919?from=2026-10-23&to=2026-10-26&guests=8&entrypage=dms" target="_blank" class="btn-book">
-      🔗 前往 Hostelworld 查看與預訂
+      🔗 View & Book on Hostelworld
     </a>
   </div>
 
   <div class="card best">
-    <div class="badge badge-green">💰 最省 Cheapest</div>
-    <div class="ct"><div class="ce">🛏️</div><div><div class="cn">Basic 10 Bed Mixed Dorm</div><div class="cn-en">10 人混合宿舍（共用衛浴）</div></div></div>
-    <div class="dr"><span class="dl">每人 Per person</span><span class="dv tag tw">€83.03 ~ €97.52</span></div>
-    <div class="dr"><span class="dl">8 人 Group</span><span class="dv tag tw">€664 ~ €780</span></div>
-    <div class="cb" style="margin-top:6px">最便宜選項！€83 不可退款 / €97.52 可於 <strong>10/21 前免費取消</strong>。<span class="en">Cheapest! €83 non-refundable / €97.52 free cancellation before Oct 21.</span></div>
+    <div class="badge badge-green">💰 Cheapest</div>
+    <div class="ct"><div class="ce">🛏️</div><div><div class="cn">10 Bed Mixed Dorm</div><div class="cn-en">10 人混合宿舍（共用衛浴）</div></div></div>
+    <div class="dr"><span class="dl">Per Person (每人)</span><span class="dv tag tw">€83.03 ~ €97.52</span></div>
+    <div class="dr"><span class="dl">8 People (總價)</span><span class="dv tag tw">€664 ~ €780</span></div>
+    <div class="cb" style="margin-top:6px">Cheapest! €83 non-refundable / €97.52 free cancellation before Oct 21.<span class="en">最便宜選項！分不可退款與 10/21 前免費取消兩種價位。</span></div>
   </div>
 
   <div class="card hl">
-    <div class="badge">⭐ 推薦 Best Value</div>
+    <div class="badge">⭐ Best Value</div>
     <div class="ct"><div class="ce">🛏️</div><div><div class="cn">4 Bed Mixed Dorm Ensuite</div><div class="cn-en">4 人混合宿舍（含獨立衛浴）</div></div></div>
-    <div class="dr"><span class="dl">每人 Per person</span><span class="dv">€87.23 ~ €101.73</span></div>
-    <div class="dr"><span class="dl">8 人 Group</span><span class="dv">€698 ~ €814</span></div>
-    <div class="dr"><span class="dl">⚠️ 剩餘</span><span class="dv tag tr">Only 1 bed left!</span></div>
-    <div class="cb" style="margin-top:6px">只比通鋪多 €4/人，但有獨立衛浴，CP 值最高！同樣分不可退款與 <strong>10/21 前免費取消</strong>兩種價位。<span class="en">~€4 more per person but with ensuite! Best value. Free cancellation before Oct 21 available.</span></div>
+    <div class="dr"><span class="dl">Per Person (每人)</span><span class="dv">€87.23 ~ €101.73</span></div>
+    <div class="dr"><span class="dl">8 People (總價)</span><span class="dv">€698 ~ €814</span></div>
+    <div class="dr"><span class="dl">⚠️ Availability</span><span class="dv tag tr">Only 1 bed left!</span></div>
+    <div class="cb" style="margin-top:6px">~€4 more per person but with ensuite! Best value. Free cancellation before Oct 21 available.<span class="en">只多 €4/人但有獨立衛浴，CP 值最高！10/21前免費取消。</span></div>
   </div>
 </div>
 
 <!-- S4: CANAL CRUISE -->
 <div class="slide" data-i="4">
-  <div class="eye">日落運河巡航</div>
-  <div class="eye-en">SUNSET CANAL CRUISE · MON OCT 26 · 4:00 PM</div>
-  <div class="sh">🚤 10/26 日落運河巡航</div>
-  <div class="sh-en">Eco Boats Amsterdam · ⭐ 4.8 · 5,014 reviews</div>
+  <div class="eye">SUNSET CANAL CRUISE</div>
+  <div class="eye-en">日落運河巡航 · 10/26</div>
+  <div class="sh">🚤 Oct 26 Sunset Cruise</div>
+  <div class="sh-en">Eco Boats Amsterdam · ⭐ 4.8</div>
 
   <div class="card">
-    <div class="ct"><div class="ce">⭐</div><div><div class="cn">活動資訊 Cruise Info</div><div class="cn-en">Date: Mon Oct 26 · 4:00 PM · 8 adults · English</div></div></div>
-    <div class="dr"><span class="dl">📅 日期</span><span class="dv">10/26（一）4:00 PM</span></div>
-    <div class="dr"><span class="dl">👥 人數</span><span class="dv">8 人</span></div>
-    <div class="dr"><span class="dl">🗣️ 語言</span><span class="dv">英文 English</span></div>
-    <div class="dr"><span class="dl">🔄 取消</span><span class="dv tag tw">24h 前免費取消</span></div>
-    <div class="cb" style="margin-top:6px">日落時分搭環保電動船穿梭運河。立即預訂，稍後付款。<span class="en">Eco-friendly electric boat at sunset. Book now, pay later. Free cancel before Oct 25.</span></div>
+    <div class="ct"><div class="ce">⭐</div><div><div class="cn">Cruise Info</div><div class="cn-en">活動基本資訊</div></div></div>
+    <div class="dr"><span class="dl">📅 Date</span><span class="dv">Mon Oct 26, 4:00 PM</span></div>
+    <div class="dr"><span class="dl">👥 Guests</span><span class="dv">8 People</span></div>
+    <div class="dr"><span class="dl">🗣️ Language</span><span class="dv">English (英文)</span></div>
+    <div class="dr"><span class="dl">🔄 Cancel</span><span class="dv tag tw">Free up to 24h before</span></div>
+    <div class="cb" style="margin-top:6px">Eco-friendly electric boat at sunset. Book now, pay later.<span class="en">日落時分搭環保電動船穿梭運河。可立即預訂，稍後付款。</span></div>
     <a href="https://www.getyourguide.com/eco-boats-amsterdam-s379479/?campaign_id=23861292842&adgroup_id=&target_id=&loc_physical_ms=9042649&match_type=&ad_id=&keyword=&ad_position=&feed_item_id=&placement=&device=c&assetgroup_id=6714660610&synthetic_keyword=&partner_id=CD951&gad_source=1&gad_campaignid=23886977724&gbraid=0AAAAADmzJCNZ4MCCcV4GmOkXVZA-uxK3x&gclid=CjwKCAjww-3VBhAcEiwAwUUIu4od98wBAjwdLGYuUWoPCAbRTZ01RWRecy2hFBwGM7Rv38GSZxSKoBoC7PAQAvD_BwE" target="_blank" class="btn-book">
-      🔗 前往 GetYourGuide 預訂
+      🔗 Book on GetYourGuide
     </a>
   </div>
 
   <div class="card hl">
-    <div class="badge">💰 較便宜</div>
-    <div class="ct"><div class="ce">🍺</div><div><div class="cn">方案 A：含 1 杯飲料</div><div class="cn-en">Option A: 1 Drink Included</div></div></div>
-    <div class="cb" style="margin-bottom:6px">含 1 杯啤酒、葡萄酒或蘇打水（不含雞尾酒）<span class="en">1 beer, wine, or soda (cocktails excluded)</span></div>
-    <div class="dr"><span class="dl">原價 Original</span><span class="dv"><span class="price-was">€240</span><span class="price-off">-25%</span></span></div>
-    <div class="dr"><span class="dl">8 人總價 Group</span><span class="dv" style="color:var(--green);font-size:15px">€180</span></div>
-    <div class="dr"><span class="dl">每人 Per person</span><span class="dv tag tw">€22.50</span></div>
+    <div class="badge">💰 Budget</div>
+    <div class="ct"><div class="ce">🍺</div><div><div class="cn">Option A: 1 Drink Included</div><div class="cn-en">方案 A：含 1 杯飲料</div></div></div>
+    <div class="cb" style="margin-bottom:6px">1 beer, wine, or soda (cocktails excluded).<span class="en">含 1 杯啤酒、葡萄酒或蘇打水。</span></div>
+    <div class="dr"><span class="dl">Original Price</span><span class="dv"><span class="price-was">€240</span><span class="price-off">-25%</span></span></div>
+    <div class="dr"><span class="dl">Group Total</span><span class="dv" style="color:var(--green);font-size:15px">€180</span></div>
+    <div class="dr"><span class="dl">Per Person</span><span class="dv tag tw">€22.50</span></div>
   </div>
 
-  <div class="vs-or">— OR 或者 —</div>
+  <div class="vs-or">— OR —</div>
 
   <div class="card">
-    <div class="ct"><div class="ce">🍻</div><div><div class="cn">方案 B：無限暢飲（自助式）</div><div class="cn-en">Option B: Unlimited Drinks (Self-Service)</div></div></div>
-    <div class="cb" style="margin-bottom:6px">無限量啤酒、葡萄酒、蘇打水（不含雞尾酒）<span class="en">Unlimited beer, wine, soda (cocktails excluded)</span></div>
-    <div class="dr"><span class="dl">原價 Original</span><span class="dv"><span class="price-was">€287.44</span><span class="price-off">-25%</span></span></div>
-    <div class="dr"><span class="dl">8 人總價 Group</span><span class="dv" style="font-size:15px">€215.60</span></div>
-    <div class="dr"><span class="dl">每人 Per person</span><span class="dv">€26.95</span></div>
-    <div class="dr"><span class="dl">差價 vs A</span><span class="dv">每人多 €4.45</span></div>
-    <div class="cb" style="margin-top:6px">只多 €4.45 就無限暢飲！<span class="en">Only €4.45 more for unlimited drinks!</span></div>
+    <div class="ct"><div class="ce">🍻</div><div><div class="cn">Option B: Unlimited Drinks</div><div class="cn-en">方案 B：無限暢飲（自助式）</div></div></div>
+    <div class="cb" style="margin-bottom:6px">Unlimited beer, wine, soda (self-service).<span class="en">無限量供應啤酒、葡萄酒、蘇打水。</span></div>
+    <div class="dr"><span class="dl">Original Price</span><span class="dv"><span class="price-was">€287.44</span><span class="price-off">-25%</span></span></div>
+    <div class="dr"><span class="dl">Group Total</span><span class="dv" style="font-size:15px">€215.60</span></div>
+    <div class="dr"><span class="dl">Per Person</span><span class="dv">€26.95</span></div>
+    <div class="cb" style="margin-top:6px">Only <strong>€4.45</strong> more for unlimited drinks!<span class="en">每人只多 €4.45 就能無限暢飲！</span></div>
   </div>
 </div>
 
 <!-- S5: DAY 1 -->
 <div class="slide" data-i="5">
-  <div class="eye">Day 1 · 10/23（五）</div>
-  <div class="eye-en">ARRIVAL · FRI OCT 23</div>
-  <div class="sh">抵達 & 運河漫步</div>
-  <div class="sh-en">Arrival · Check-in · Canal Walk</div>
+  <div class="eye">DAY 1 · FRI OCT 23</div>
+  <div class="eye-en">抵達 & 運河漫步</div>
+  <div class="sh">Arrival & Canal Walk</div>
+  <div class="sh-en">Check-in · Historic Center</div>
 
   <div class="card">
-    <div class="ct"><div class="ce">🌅</div><div><div class="cn">下午：抵達與 Check-in</div><div class="cn-en">15:50 Arrival → Check-in</div></div></div>
-    <div class="cb">15:50 巴士抵達 Sloterdijk。轉乘火車與渡輪，約 <strong>16:30</strong> 抵達 ClinkNOORD 辦理入住放行李。<span class="en">Arrive 15:50. Transfer to ClinkNOORD via train and free ferry. Check-in around 16:30.</span></div>
+    <div class="ct"><div class="ce">🌅</div><div><div class="cn">15:50 Arrival → Check-in</div><div class="cn-en">抵達與辦理入住</div></div></div>
+    <div class="cb">Arrive 15:50. Transfer to ClinkNOORD via train and free ferry. Check-in around <strong>16:30</strong>.<span class="en">15:50 巴士抵達。轉乘火車與渡輪，約 16:30 抵達青旅放行李。</span></div>
   </div>
   <div class="card">
-    <div class="ct"><div class="ce">🌉</div><div><div class="cn">晚上：百年運河漫步</div><div class="cn-en">Evening: Canal Walk</div></div></div>
-    <div class="cb">搭免費渡輪回到市區，漫步於迷人的 17 世紀運河畔，欣賞點燈後的可愛「山形牆」街屋。<span class="en">Take the free ferry to the center. Stroll along the charming canals and admire the illuminated gingerbread houses.</span></div>
+    <div class="ct"><div class="ce">🌉</div><div><div class="cn">Evening: Canal Walk</div><div class="cn-en">晚上：百年運河漫步</div></div></div>
+    <div class="cb">Take the free ferry to the center. Stroll along the charming 17th-century canals and admire the illuminated gingerbread houses.<span class="en">搭渡輪回市區，漫步於迷人的運河畔，欣賞點燈後的可愛「山形牆」街屋。</span></div>
   </div>
   <div class="card">
-    <div class="ct"><div class="ce">🧀</div><div><div class="cn">吃土攻略 Budget Eats</div><div class="cn-en">Day 1 Dinner</div></div></div>
-    <div class="cb">🍟 <strong>FEBO 自動販賣牆</strong> — 體驗投幣取出熱騰騰的 Kroket 可樂餅 (€2)。<span class="en">🍟 FEBO vending wall — insert coin to get a hot Kroket (€2).</span></div>
+    <div class="ct"><div class="ce">🧀</div><div><div class="cn">Budget Eats: FEBO</div><div class="cn-en">吃土攻略：FEBO 販賣機</div></div></div>
+    <div class="cb"><strong>FEBO vending wall</strong> — insert coin to get a hot Dutch Kroket (€2).<span class="en">體驗投幣取出熱騰騰的 Kroket 可樂餅 (€2)。</span></div>
   </div>
 </div>
 
 <!-- S6: DAY 2 — ZAANSE SCHANS -->
 <div class="slide" data-i="6">
-  <div class="eye">Day 2 · 10/24（六）</div>
-  <div class="eye-en">WINDMILL DAY · SAT OCT 24</div>
-  <div class="sh">🌷 風車村一日遊</div>
-  <div class="sh-en">Zaanse Schans Windmill Village Day Trip</div>
+  <div class="eye">DAY 2 · SAT OCT 24</div>
+  <div class="eye-en">風車村一日遊</div>
+  <div class="sh">🌷 Zaanse Schans</div>
+  <div class="sh-en">Windmill Village Day Trip</div>
 
   <div class="card hl">
-    <div class="badge">🏆 必去！Must Visit</div>
-    <div class="ct"><div class="ce">🇳🇱</div><div><div class="cn">贊瑟斯漢斯風車村</div><div class="cn-en">Zaanse Schans · FREE Village Entry</div></div></div>
-    <div class="cb">保存了 18-19 世紀的傳統風車與起司工坊。整個村莊<strong>免費進入</strong>。<span class="en">Preserved 18-19th century windmills. Village entry is FREE.</span></div>
+    <div class="badge">🏆 Must Visit</div>
+    <div class="ct"><div class="ce">🇳🇱</div><div><div class="cn">Zaanse Schans Village</div><div class="cn-en">贊瑟斯漢斯風車村</div></div></div>
+    <div class="cb">Preserved 18-19th century windmills. <strong>Village entry is FREE.</strong><span class="en">保存了 18-19 世紀的傳統風車，整個村莊區域免費進入。</span></div>
   </div>
 
   <div class="card">
-    <div class="ct"><div class="ce">🚆</div><div><div class="cn">交通方式 How to Get There</div><div class="cn-en">Train from Amsterdam Centraal</div></div></div>
-    <div class="dr"><span class="dl">🚆 火車 Train</span><span class="dv">Centraal → Zaandijk Zaanse Schans</span></div>
-    <div class="dr"><span class="dl">⏱️ 車程 Duration</span><span class="dv">約 17 分鐘 + 步行 10-15 分鐘</span></div>
-    <div class="dr"><span class="dl">💰 來回票 Round-trip</span><span class="dv">約 €9.40 / 人</span></div>
+    <div class="ct"><div class="ce">🚆</div><div><div class="cn">How to Get There</div><div class="cn-en">交通方式 (搭乘火車)</div></div></div>
+    <div class="dr"><span class="dl">🚆 Train</span><span class="dv">Centraal → Zaandijk Zaanse Schans</span></div>
+    <div class="dr"><span class="dl">⏱️ Duration</span><span class="dv">17 min train + 15 min walk</span></div>
+    <div class="dr"><span class="dl">💰 Round-trip</span><span class="dv">~€9.40 / person</span></div>
   </div>
 
   <div class="card">
-    <div class="ct"><div class="ce">🧀</div><div><div class="cn">上午：起司工坊 & 木鞋工廠</div><div class="cn-en">Morning: Cheese Farm & Clogs</div></div></div>
-    <div class="cb">參觀 <strong>Catharina Hoeve 起司農場</strong>（免費參觀+試吃！）與 <strong>木鞋工廠 Kooijman</strong>（免費）。<span class="en">Visit Catharina Hoeve cheese farm (free entry + tasting!) and Kooijman Clog Workshop (free).</span></div>
+    <div class="ct"><div class="ce">🧀</div><div><div class="cn">Morning: Cheese & Clogs</div><div class="cn-en">上午：起司工坊 & 木鞋工廠</div></div></div>
+    <div class="cb">Visit <strong>Catharina Hoeve cheese farm</strong> (free entry + tasting!) and <strong>Kooijman Clog Workshop</strong> (free).<span class="en">參觀起司農場（免費試吃！）與木鞋工廠看雕刻示範。</span></div>
   </div>
 
   <div class="card">
-    <div class="ct"><div class="ce">💨</div><div><div class="cn">下午：風車巡禮 & 河畔漫步</div><div class="cn-en">Afternoon: Windmill Walk</div></div></div>
-    <div class="cb">沿著贊河散步看風車。進入風車參觀門票約 <strong>€5/座</strong>，選 1-2 座體驗即可。<span class="en">Walk along the Zaan River. Entry ~€5/mill — visit 1-2 for the experience.</span></div>
+    <div class="ct"><div class="ce">💨</div><div><div class="cn">Afternoon: Windmills</div><div class="cn-en">下午：風車巡禮與漫步</div></div></div>
+    <div class="cb">Walk along the Zaan River. Entry ~€5/mill — visit 1-2 for the experience.<span class="en">沿著贊河散步看風車。進入風車內部參觀門票約 €5/座。</span></div>
   </div>
 </div>
 
 <!-- S7: DAY 3 -->
 <div class="slide" data-i="7">
-  <div class="eye">Day 3 · 10/25（日）</div>
-  <div class="eye-en">CITY EXPLORER · SUN OCT 25</div>
-  <div class="sh">🏛️ 老城區 & 博物館廣場</div>
+  <div class="eye">DAY 3 · SUN OCT 25</div>
+  <div class="eye-en">老城區 & 博物館廣場</div>
+  <div class="sh">🏛️ Historic Center</div>
   <div class="sh-en">Dam Square · Jordaan · Museumplein</div>
 
   <div class="card">
-    <div class="ct"><div class="ce">🏛️</div><div><div class="cn">上午：水壩廣場 & 皇宮</div><div class="cn-en">Morning: Dam Square & Royal Palace</div></div></div>
-    <div class="cb">從中央車站走 5 分鐘到 <strong>Dam Square</strong>。欣賞荷蘭王宮外觀（免費）與二戰紀念碑。<span class="en">5-min walk from Centraal to Dam Square. Royal Palace exterior (free).</span></div>
+    <div class="ct"><div class="ce">🏛️</div><div><div class="cn">Morning: Dam Square</div><div class="cn-en">上午：水壩廣場 & 皇宮</div></div></div>
+    <div class="cb">5-min walk from Centraal to <strong>Dam Square</strong>. See the Royal Palace exterior (free).<span class="en">走路 5 分鐘抵達水壩廣場，欣賞荷蘭王宮外觀。</span></div>
   </div>
   
   <div class="card">
-    <div class="ct"><div class="ce">🌷</div><div><div class="cn">中午：約旦區 & 安妮之家</div><div class="cn-en">Noon: Jordaan & Anne Frank House</div></div></div>
-    <div class="cb">漫步阿姆斯特丹最文青的街區 <strong>Jordaan</strong>，獨立咖啡館林立。路過 <strong>安妮之家</strong> 感受歷史。<span class="en">Stroll through charming Jordaan. Pass by Anne Frank House.</span></div>
+    <div class="ct"><div class="ce">🌷</div><div><div class="cn">Noon: Jordaan Area</div><div class="cn-en">中午：約旦區 & 安妮之家</div></div></div>
+    <div class="cb">Stroll through charming <strong>Jordaan</strong>. Pass by the historic <strong>Anne Frank House</strong>.<span class="en">漫步阿姆斯特丹最文青的街區，路過安妮之家感受歷史。</span></div>
   </div>
 
   <div class="card">
-    <div class="ct"><div class="ce">🎨</div><div><div class="cn">下午：博物館廣場</div><div class="cn-en">Afternoon: Museumplein</div></div></div>
+    <div class="ct"><div class="ce">🎨</div><div><div class="cn">Afternoon: Museumplein</div><div class="cn-en">下午：博物館廣場</div></div></div>
     <div class="cb">
-      <strong>🌻 梵谷博物館 Van Gogh Museum</strong><br>
-      全球收藏最多梵谷畫作的殿堂，建議提前預訂門票。<span class="en">World's largest Van Gogh collection. Book in advance!</span>
+      <strong>🌻 Van Gogh Museum</strong><br>
+      World's largest Van Gogh collection. <strong>Book in advance!</strong><span class="en">全球收藏最多梵谷畫作的殿堂，建議提前預訂團體門票。</span>
     </div>
     <a href="https://tickets.vangoghmuseum.nl/group/groupbooking" target="_blank" class="btn-book" style="margin:10px 0;font-size:13px;padding:10px;background:#1565C0;box-shadow:0 4px 12px rgba(21,101,192,.2)">
-      🎟️ 梵谷博物館 8人團體購票連結
+      🎟️ Van Gogh Museum Group Tickets
     </a>
     <div class="cb" style="margin-top:4px">
-      <strong>🌳 附近免費選擇 Free Options:</strong><br>
-      <strong>Rijksmuseum 國家博物館</strong> 的免費花園與噴泉，或到旁邊的 <strong>Vondelpark</strong> 躺草地放鬆。<span class="en">Free Rijksmuseum gardens & Vondelpark nearby.</span>
+      <strong>🌳 Free Options (免費選擇):</strong><br>
+      Free <strong>Rijksmuseum gardens</strong> & relax at <strong>Vondelpark</strong> nearby.<span class="en">國家博物館的免費花園與噴泉，或到旁邊的 Vondelpark 躺草地。</span>
     </div>
   </div>
 
   <div class="card">
-    <div class="ct"><div class="ce">🍟</div><div><div class="cn">必吃：荷蘭戰爭薯條</div><div class="cn-en">Must-Eat: "War" Fries</div></div></div>
-    <div class="cb"><strong>Manneken Pis</strong> 點 Oorlog 戰爭醬（花生醬+美乃滋+洋蔥）€4-5。<span class="en">"Oorlog" = peanut sauce + mayo + onions, €4-5</span></div>
+    <div class="ct"><div class="ce">🍟</div><div><div class="cn">Must-Eat: "War" Fries</div><div class="cn-en">必吃：荷蘭戰爭薯條</div></div></div>
+    <div class="cb"><strong>Manneken Pis</strong> "Oorlog" fries = peanut sauce + mayo + onions (€4-5).<span class="en">點 Oorlog 戰爭醬（花生醬+美乃滋+洋蔥）超好吃！</span></div>
   </div>
 </div>
 
 <!-- S8: DAY 4 (DEPARTURE) -->
 <div class="slide" data-i="8">
-  <div class="eye">Day 4 · 10/26（一）</div>
-  <div class="eye-en">CRUISE & DEPARTURE · MON OCT 26</div>
-  <div class="sh">🚤 巡航 & 準備回程</div>
-  <div class="sh-en">Sunset Cruise & Buffer Time</div>
+  <div class="eye">DAY 4 · MON OCT 26</div>
+  <div class="eye-en">巡航 & 準備回程</div>
+  <div class="sh">🚤 Cruise & Departure</div>
+  <div class="sh-en">NDSM · Sunset Cruise · Buffer Time</div>
 
   <div class="card">
-    <div class="ct"><div class="ce">🚢</div><div><div class="cn">上午：免費渡輪到 NDSM</div><div class="cn-en">Morning: Free Ferry → NDSM</div></div></div>
-    <div class="cb">搭<strong>免費 GVB 渡輪</strong>到 NDSM 欣賞塗鴉牆與藝術區。<span class="en">FREE GVB ferry to NDSM art district.</span></div>
+    <div class="ct"><div class="ce">🚢</div><div><div class="cn">Morning: NDSM Wharf</div><div class="cn-en">上午：免費渡輪到 NDSM</div></div></div>
+    <div class="cb">Take the <strong>FREE GVB ferry</strong> to NDSM, Europe's largest urban art district.<span class="en">搭免費渡輪到 NDSM 欣賞塗鴉牆與前衛藝術區。</span></div>
   </div>
   
   <div class="card">
-    <div class="ct"><div class="ce">🛍️</div><div><div class="cn">中午：Albert Cuyp 市場</div><div class="cn-en">Noon: Albert Cuyp Market</div></div></div>
-    <div class="cb">逛最大露天市場吃 Stroopwafel 與生鯡魚。<span class="en">Stroopwafels & raw herring at the street market.</span></div>
+    <div class="ct"><div class="ce">🛍️</div><div><div class="cn">Noon: Albert Cuyp Market</div><div class="cn-en">中午：Albert Cuyp 露天市場</div></div></div>
+    <div class="cb">Largest street market (250+ stalls). Eat fresh Stroopwafels & raw herring.<span class="en">逛最大露天市場吃現做焦糖鬆餅與荷蘭生鯡魚。</span></div>
   </div>
 
   <div class="card hl">
     <div class="badge">🚤 16:00</div>
-    <div class="ct"><div class="ce">🌅</div><div><div class="cn">16:00 日落運河巡航</div><div class="cn-en">4:00 PM — Sunset Canal Cruise!</div></div></div>
-    <div class="cb">搭 Eco Boats 電動船看日落，約 17:30 結束行程。<span class="en">Cruise ends around 17:30.</span></div>
+    <div class="ct"><div class="ce">🌅</div><div><div class="cn">4:00 PM: Sunset Cruise</div><div class="cn-en">16:00 日落運河巡航</div></div></div>
+    <div class="cb">Eco Boats electric sunset cruise. Ends around <strong>17:30</strong>.<span class="en">搭電動船看日落，約 17:30 結束行程。</span></div>
   </div>
 
   <div class="card" style="border:2px solid var(--p)">
-    <div class="badge">⚠️ 乘車前 3 小時</div>
-    <div class="ct"><div class="ce">🎒</div><div><div class="cn">19:30：不排行程、晚餐拿行李</div><div class="cn-en">19:30: Free Time & Transfer</div></div></div>
-    <div class="cb"><strong>19:30 後不再安排任何行程！</strong>保留充足的 3 小時緩衝時間吃晚餐、回青旅拿行李，並提早前往 Sloterdijk 車站。<span class="en">No activities after 19:30. Full 3-hour buffer for dinner, luggage, and transfer to Sloterdijk.</span></div>
+    <div class="badge">⚠️ 3hr Buffer Time</div>
+    <div class="ct"><div class="ce">🎒</div><div><div class="cn">19:30: Dinner & Transfer</div><div class="cn-en">19:30: 不排行程、晚餐拿行李</div></div></div>
+    <div class="cb"><strong>STRICTLY NO activities after 19:30.</strong> Full 3-hour buffer for dinner, luggage retrieval, and transfer to Sloterdijk Station.<span class="en">19:30 後不再安排行程！保留充足的 3 小時吃晚餐、回青旅拿行李，並提早前往車站。</span></div>
   </div>
 
   <div class="card">
-    <div class="ct"><div class="ce">🚌</div><div><div class="cn">22:30：搭乘 FlixBus 夜車</div><div class="cn-en">22:30: FlixBus Departure</div></div></div>
-    <div class="cb">22:30 從 Sloterdijk 搭夜車，睡一覺隔天早上 10:00 抵達雷根斯堡。<span class="en">Overnight bus leaves at 22:30. Arrive in Regensburg at 10:00 AM next day.</span></div>
+    <div class="ct"><div class="ce">🚌</div><div><div class="cn">22:30: FlixBus Departure</div><div class="cn-en">22:30: 搭乘 FlixBus 夜車</div></div></div>
+    <div class="cb">Overnight bus leaves at 22:30 from Sloterdijk. Arrive in Regensburg at 10:00 AM.<span class="en">從 Sloterdijk 搭夜車，睡一覺隔天早上抵達雷根斯堡。</span></div>
   </div>
 </div>
 
 <!-- S9: BUDGET -->
 <div class="slide" data-i="9">
-  <div class="eye">8 人預算總結</div>
-  <div class="eye-en">TOTAL BUDGET · 8 PEOPLE</div>
-  <div class="sh">💰 每人預估花費</div>
-  <div class="sh-en">Per Person Cost Breakdown</div>
+  <div class="eye">TOTAL BUDGET · 8 PEOPLE</div>
+  <div class="eye-en">8 人預算總結</div>
+  <div class="sh">💰 Cost Breakdown</div>
+  <div class="sh-en">Per Person Estimate (每人預估花費)</div>
 
   <table class="budget-table">
-    <tr><th>項目 Item</th><th>每人 /P</th><th>8人 Group</th></tr>
-    <tr><td>🚌 FlixBus 來回<br><span style="font-size:10px;color:var(--tm)">Round-trip (Inc. Night bus)</span></td><td>€40~60</td><td>€320~480</td></tr>
-    <tr><td>🛏️ 住宿 3 晚<br><span style="font-size:10px;color:var(--tm)">ClinkNOORD 10/23-26</span></td><td>€87~102</td><td>€696~816</td></tr>
-    <tr><td>🌷 風車村一日遊<br><span style="font-size:10px;color:var(--tm)">Zaanse Schans</span></td><td>€15~25</td><td>€120~200</td></tr>
-    <tr><td>🚤 運河巡航<br><span style="font-size:10px;color:var(--tm)">Canal Cruise 10/26</span></td><td>€22.50<br><span style="font-size:9px;color:var(--tm)">or €26.95</span></td><td>€180<br><span style="font-size:9px;color:var(--tm)">or €215.60</span></td></tr>
-    <tr><td>🍟 飲食 4 天<br><span style="font-size:10px;color:var(--tm)">Food</span></td><td>€50~70</td><td>€400~560</td></tr>
-    <tr><td>🚲 交通雜支<br><span style="font-size:10px;color:var(--tm)">City transport + misc</span></td><td>€10~20</td><td>€80~160</td></tr>
-    <tr><td colspan="1"><strong>🎯 每人<br>Per Person</strong></td><td colspan="2"><strong style="font-size:16px">€225 ~ €300</strong></td></tr>
+    <tr><th>Item (項目)</th><th>Per Person</th><th>Group (8)</th></tr>
+    <tr><td>🚌 FlixBus Round-trip<br><span style="font-size:10px;color:var(--tm)">直達巴士來回</span></td><td>€120</td><td>€960</td></tr>
+    <tr><td>🛏️ ClinkNOORD 3 Nights<br><span style="font-size:10px;color:var(--tm)">住宿 3 晚 (10/23-26)</span></td><td>€87~102</td><td>€696~816</td></tr>
+    <tr><td>🌷 Zaanse Schans<br><span style="font-size:10px;color:var(--tm)">風車村一日遊</span></td><td>€15~25</td><td>€120~200</td></tr>
+    <tr><td>🚤 Canal Cruise<br><span style="font-size:10px;color:var(--tm)">日落運河巡航</span></td><td>€22.50<br><span style="font-size:9px;color:var(--tm)">or €26.95</span></td><td>€180<br><span style="font-size:9px;color:var(--tm)">or €215.60</span></td></tr>
+    <tr><td>🍟 Food (4 Days)<br><span style="font-size:10px;color:var(--tm)">飲食花費</span></td><td>€50~70</td><td>€400~560</td></tr>
+    <tr><td>🚲 Transport & Misc<br><span style="font-size:10px;color:var(--tm)">市區交通與雜支</span></td><td>€10~20</td><td>€80~160</td></tr>
+    <tr><td colspan="1"><strong>🎯 Per Person<br>(每人總計)</strong></td><td colspan="2"><strong style="font-size:16px">€305 ~ €365</strong></td></tr>
   </table>
 
   <div class="conclusion">
-    <div class="big">每人 €225 ~ €300</div>
-    <div class="sub">約 7,900 ~ 10,500 NTD / 人<br>~7,900–10,500 NTD per person</div>
+    <div class="big">€305 ~ €365 per person</div>
+    <div class="sub">~10,600 – 12,800 NTD per person<br>約 10,600 ~ 12,800 台幣 / 人</div>
     <div class="sub" style="margin-top:8px;border-top:1px solid rgba(255,255,255,.2);padding-top:8px">
-      8 人團體總費用 Group Total<br>
-      <span style="font-size:16px;font-weight:900">€1,796 ~ €2,400</span><br>
-      約 62,800 ~ 84,000 NTD
+      Group Total (8 人團體總費用)<br>
+      <span style="font-size:16px;font-weight:900">€2,440 ~ €2,920</span><br>
+      ~85,400 – 102,200 NTD
     </div>
   </div>
 
   <div class="note-box">
-    <strong>💡 省錢筆記 Budget Notes：</strong><br>
-    ✅ 回程搭夜車 (Night bus) 省下一晚住宿費！<span class="en">Night bus saves 1 night accommodation!</span><br>
-    ✅ 善用青旅 €9.90 吃到飽早餐，午餐晚點吃<span class="en">Maximize the €9.90 all-you-can-eat breakfast</span><br>
-    ✅ 免費景點超多：渡輪、風車村起司、Vondelpark<span class="en">Lots of FREE: ferry, Zaanse Schans cheese, parks</span>
+    <strong>💡 Budget Notes (省錢筆記)：</strong><br>
+    ✅ Night bus saves 1 night of accommodation!<span class="en">回程搭夜車省下一晚住宿費。</span><br>
+    ✅ Maximize the €9.90 all-you-can-eat breakfast.<span class="en">善用青旅 €9.90 吃到飽早餐，午餐晚點吃。</span><br>
+    ✅ Lots of FREE: ferry, cheese tasting, Vondelpark.<span class="en">免費景點超多：渡輪、風車村起司、公園。</span>
   </div>
 </div>
 
@@ -404,7 +403,7 @@
   </div>
   <button class="nav-btn" id="nextBtn">▶</button>
 </div>
-<div class="swipe-hint" id="swipeHint">👈 左右滑動翻頁 Swipe →</div>
+<div class="swipe-hint" id="swipeHint">👈 SWIPE →</div>
 
 <script>
 const deck=document.getElementById('deck'),slides=[...deck.querySelectorAll('.slide')],N=slides.length;
